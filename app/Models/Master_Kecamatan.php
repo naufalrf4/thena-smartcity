@@ -27,3 +27,4 @@ class Master_Kecamatan extends Model
         return $this->hasMany(Master_Kelurahan::class, 'district_id');
     }
 }
+

@@ -16,13 +16,14 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
-        User::create(['name' => 'Admin','email' => 'admin@themesbrand.com','password' => Hash::make('12345678'),'email_verified_at'=> now(), 'created_at' => now(),]);
+        User::create(['name' => 'Admin','email' => 'admin@themesbrand.com','role_id' => '1', 'password' => Hash::make('12345678'),'email_verified_at'=> now(), 'created_at' => now(),]);
     }
 
     /**

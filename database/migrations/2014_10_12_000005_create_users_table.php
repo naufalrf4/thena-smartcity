@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('rw');
             $table->timestamps();
         });
-        User::create(['name' => 'Admin','username' => 'admin','no_telp' => '087884111234','email' => 'admin@thena.com','role_id' => '1', 'kecamatan_id' => '1101010','kelurahan_id' => '1101010001', 'password' => Hash::make('12345678'),'email_verified_at'=> now(), 'created_at' => now(), 'rt' => '001', 'rw' => '001']);
+        
     }
 
     /**

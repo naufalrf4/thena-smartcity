@@ -1,16 +1,16 @@
 @extends('layouts.master')
 @section('title')
-    Pelaporan
+    Pelaporan > {{ $status }}
 @endsection
 @section('css')
     <!-- datepicker css -->
-    <link rel="stylesheet" href="{{ URL::asset('build/libs/flatpickr/flatpickr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/libs/flatpickr/flatpickr.min.css') }}">
 
     <!-- gridjs css -->
-    <link rel="stylesheet" href="{{ URL::asset('build/libs/gridjs/theme/mermaid.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/libs/gridjs/theme/mermaid.min.css') }}">
 @endsection
 @section('page-title')
-    Pelaporan
+    Pelaporan > {{ $status }}
 @endsection
 @section('body')
 
@@ -126,7 +126,7 @@
                     <div class="modal-body">
                         <div class="text-center">
                             <i class="bx bx-check-circle display-1 text-success"></i>
-                            <h4 class="mt-3">New Customer Created Successfully</h4>
+                            <h4 class="mt-3">Laporan baru berhasil dibuat</h4>
                         </div>
                     </div>
                 </div><!-- /.modal-content -->
@@ -143,36 +143,79 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                    <form class="" method="POST" action="{{ route('pelaporan.store') }}" enctype="multipart/form-data">
+                    @csrf
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label class="form-label" for="NewPelaporan-Username">Judul Laporan</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Judul Laporan"
+                                    <input type="text" class="form-control" placeholder="Masukkan Judul Laporan" name="judul_laporan"
                                         id="NewPelaporan-Username">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label class="form-label" for="NewPelaporan-Email">Deskripsi Laporan</label>
-                                    <textarea class="form-control" id="NewPelaporan-Email" rows="3"
+                                    <textarea class="form-control" id="NewPelaporan-Email" rows="3" name="deskripsi_laporan"
                                         placeholder="Masukkan Deskripsi Laporan"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Tanggal Kejadian</label>
+                                    <input type="date" class="form-control" placeholder="Select Date" name="tanggal_kejadian"
+                                        id="customers-date">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="NewPelaporan-Email">Tambahkan Foto</label>
+                                    <input type="file" class="form-control" placeholder="Tambahkan Foto" name="foto_kejadian"
+                                        id="NewPelaporan-Phone">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="col-sm-3">Kecamatan<span class="text-danger">*</span></label>
+                                    <div class="col-sm-9">
+                                        <select required class="form-select form-control" id="kecamatan_id" name="kecamatan_id">
+                                            <option value="">Pilih Kecamatan</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="col-sm-3">Kelurahan<span class="text-danger">*</span></label>
+                                    <div class="col-sm-9">
+                                        <select required class="form-select form-control" id="kelurahan_id" name="kelurahan_id" disabled>
+                                            <option value="">Pilih Kelurahan</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label" for="NewPelaporan-Email">Tambahkan Foto</label>
-                                    <input type="file" class="form-control" placeholder="Tambahkan Foto"
-                                        id="NewPelaporan-Phone">
+                                    <label class="form-label" for="NewPelaporan-Address">Alamat Lengkap Kejadian (cth: Nomor dan Nama Jalan, RT dan RW)</label>
+                                    <input type="text" class="form-control" name="alamat_kejadian" placeholder="Masukan Alamat Lengkap (cth: Nomor dan Nama Jalan, RT dan RW)"
+                                        id="NewPelaporan-Address">
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Target Laporan Selesai</label>
+                                    <input type="date" class="form-control" placeholder="Select Date" name="estimasi_selesai"
+                                        id="customers-date">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="NewPelaporan-Phone">Phone</label>
+                                    <label class="form-label" for="NewPelaporan-Phone">Dinas Bertanggung Jawab</label>
                                     <input type="text" class="form-control" placeholder="Enter Phone"
                                         id="NewPelaporan-Phone">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="NewPelaporan-Wallet">Wallet</label>
                                     <input type="text" class="form-control" placeholder="0" id="NewPelaporan-Wallet">
@@ -181,7 +224,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Date</label>
-                                    <input type="text" class="form-control" placeholder="Select Date"
+                                    <input type="date" class="form-control" placeholder="Select Date"
                                         id="customers-date">
                                 </div>
                             </div>
@@ -191,24 +234,27 @@
                                     <input type="text" class="form-control" placeholder="Enter Address"
                                         id="NewPelaporan-Address">
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="row mt-2">
                             <div class="col-12 text-end">
                                 <button type="button" class="btn btn-danger me-1" data-bs-dismiss="modal"><i
                                         class="bx bx-x me-1"></i> Cancel</button>
-                                <button type="submit" class="btn btn-success" data-bs-toggle="modal"
+                                <!-- <button type="submit" class="btn btn-success" data-bs-toggle="modal"
                                     data-bs-target="#success-btn" id="btn-save-event"><i class="bx bx-check me-1"></i>
+                                    Confirm</button> -->
+                                <button type="submit" class="btn btn-success" id="btn-save-event"><i class="bx bx-check me-1"></i>
                                     Confirm</button>
                             </div>
                         </div>
-
+                    </form>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
     @endsection
     @section('scripts')
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <!-- datepicker js -->
         <script src="{{ URL::asset('build/libs/flatpickr/flatpickr.min.js') }}"></script>
 
@@ -269,27 +315,100 @@
                 },
                 sort: true,
                 search: true,
-                data: [
-                    ["", ["avatar-1.jpg","Stephen Rash"],  ["22-10-2023", "Kec. Pancoran Mas"], "2470 Grove Street Bethpage, NY 11714",         "Done", "$5,412", "07 Oct, 2021" ],
-                    ["", ["avatar-2.jpg","Juan Mays"],     ["22-10-2023", "Kec. Beji"], "3755 Harron Drive Salisbury, MD 21875",        "Done", "$5,632", "06 Oct, 2021"],
-                    ["", ["avatar-3.jpg","Scott Henry"],   ["22-11-2023", "Kec. Bogor Utara"], "3632 Snyder Avenue Bessemer City, NC 28016",   "Done", "$7,523", "06 Oct, 2021"],
-                    ["", ["avatar-4.jpg","Cody Menendez"], ["23-12-2023", "Kec. Bogor TImur"], "4401 Findley Avenue Minot, ND 58701",          "Done", "$6,325", "05 Oct, 2021"],
-                    ["", ["avatar-5.jpg","Jason Merino"],  ["11-05-2023", "Kec. Singapura"], "3159 Holly Street Cleveland, GA 30528",        "Done", "$4,523", "04 Oct, 2021" ],
-                    ["", ["avatar-6.jpg","Kyle Aquino"],   ["11-08-2023", "Kec. Depok Timur"], "4861 Delaware Avenue San Francisco, CA 94143", "Done", "$5,412", "03 Oct, 2021"],
-                    ["", ["avatar-7.jpg","David Gaul"],    ["21-09-2023", "Kec. Lenteng Agung"], "1207 Cottrill Lane Stlouis, MO 63101",         "Done", "$5,412", "02 Oct, 2021"],
-                    ["", ["avatar-8.jpg","John McCray"],   ["15-07-2023", "JohnMcCray@armyspy.com"], "3309 Horizon Circle Tacoma, WA 98423",         "3.2", "$5,287", "02 Oct, 2021"],
-                    ["", ["avatar-1.jpg","John Fane"],  ["325-250-1106", "Kec. Pancoran Mas"], "2470 Grove Street Bethpage, NY 11714",         "Done", "$5,412", "07 Oct, 2021" ],
-                    ["", ["avatar-2.jpg","Stacie Parker"],     ["22-10-2023", "Kec. Beji"], "3755 Harron Drive Salisbury, MD 21875",        "Done", "$5,632", "06 Oct, 2021"],
-                    ["", ["avatar-3.jpg","Betty Wilson"],   ["22-11-2023", "Kec. Bogor Utara"], "3632 Snyder Avenue Bessemer City, NC 28016",   "Done", "$7,523", "06 Oct, 2021"],
-                    ["", ["avatar-4.jpg","Roman Crabtree"], ["23-12-2023", "Kec. Bogor TImur"], "4401 Findley Avenue Minot, ND 58701",          "Done", "$6,325", "05 Oct, 2021"],
-                    ["", ["avatar-5.jpg","Marisela Butler"],  ["11-05-2023", "Kec. Singapura"], "3159 Holly Street Cleveland, GA 30528",        "Done", "$4,523", "04 Oct, 2021" ],
-                    ["", ["avatar-6.jpg","Roger Slayton"],   ["11-08-2023", "Kec. Depok Timur"], "4861 Delaware Avenue San Francisco, CA 94143", "Done", "$5,412", "03 Oct, 2021"],
-                    ["", ["avatar-7.jpg","Barbara Torres"],    ["21-09-2023", "Kec. Lenteng Agung"], "1207 Cottrill Lane Stlouis, MO 63101",         "Done", "$5,412", "02 Oct, 2021"],
-                    ["", ["avatar-8.jpg","Daniel Rigney"],   ["15-07-2023", "JohnMcCray@armyspy.com"], "3309 Horizon Circle Tacoma, WA 98423",         "Done", "$5,287", "02 Oct, 2021"],
+                server: {
+                    url: `{{ route('pelaporan.api_getpelaporan', '') }}?status=1`,
+                    headers: {
+                        Authorization: `Bearer {{ session('ses_token') }}`,
+                        'Content-Type': 'application/json'
+                    },
+                    then: (data) => data.pelaporan.map(laporan => [
+                            "",
+                            ["", laporan.submitter.name],
+                            [laporan.tgl_dibuat, laporan.kecamatan.nama],
+                            laporan.deskripsi_laporan,
+                            laporan.status_penanganan.status,
+                            "Petugas",
+                            laporan.estimasi_selesai !== null ? laporan.estimasi_selesai : '-'
+                        ])
+                } 
+                // data: [
+                //     ["", ["avatar-1.jpg","Stephen Rash"],  ["22-10-2023", "Kec. Pancoran Mas"], "2470 Grove Street Bethpage, NY 11714",         "Done", "$5,412", "07 Oct, 2021" ],
+                //     ["", ["avatar-2.jpg","Juan Mays"],     ["22-10-2023", "Kec. Beji"], "3755 Harron Drive Salisbury, MD 21875",        "Done", "$5,632", "06 Oct, 2021"],
+                //     ["", ["avatar-3.jpg","Scott Henry"],   ["22-11-2023", "Kec. Bogor Utara"], "3632 Snyder Avenue Bessemer City, NC 28016",   "Done", "$7,523", "06 Oct, 2021"],
+                //     ["", ["avatar-4.jpg","Cody Menendez"], ["23-12-2023", "Kec. Bogor TImur"], "4401 Findley Avenue Minot, ND 58701",          "Done", "$6,325", "05 Oct, 2021"],
+                //     ["", ["avatar-5.jpg","Jason Merino"],  ["11-05-2023", "Kec. Singapura"], "3159 Holly Street Cleveland, GA 30528",        "Done", "$4,523", "04 Oct, 2021" ],
+                //     ["", ["avatar-6.jpg","Kyle Aquino"],   ["11-08-2023", "Kec. Depok Timur"], "4861 Delaware Avenue San Francisco, CA 94143", "Done", "$5,412", "03 Oct, 2021"],
+                //     ["", ["avatar-7.jpg","David Gaul"],    ["21-09-2023", "Kec. Lenteng Agung"], "1207 Cottrill Lane Stlouis, MO 63101",         "Done", "$5,412", "02 Oct, 2021"],
+                //     ["", ["avatar-8.jpg","John McCray"],   ["15-07-2023", "JohnMcCray@armyspy.com"], "3309 Horizon Circle Tacoma, WA 98423",         "3.2", "$5,287", "02 Oct, 2021"],
+                //     ["", ["avatar-1.jpg","John Fane"],  ["325-250-1106", "Kec. Pancoran Mas"], "2470 Grove Street Bethpage, NY 11714",         "Done", "$5,412", "07 Oct, 2021" ],
+                //     ["", ["avatar-2.jpg","Stacie Parker"],     ["22-10-2023", "Kec. Beji"], "3755 Harron Drive Salisbury, MD 21875",        "Done", "$5,632", "06 Oct, 2021"],
+                //     ["", ["avatar-3.jpg","Betty Wilson"],   ["22-11-2023", "Kec. Bogor Utara"], "3632 Snyder Avenue Bessemer City, NC 28016",   "Done", "$7,523", "06 Oct, 2021"],
+                //     ["", ["avatar-4.jpg","Roman Crabtree"], ["23-12-2023", "Kec. Bogor TImur"], "4401 Findley Avenue Minot, ND 58701",          "Done", "$6,325", "05 Oct, 2021"],
+                //     ["", ["avatar-5.jpg","Marisela Butler"],  ["11-05-2023", "Kec. Singapura"], "3159 Holly Street Cleveland, GA 30528",        "Done", "$4,523", "04 Oct, 2021" ],
+                //     ["", ["avatar-6.jpg","Roger Slayton"],   ["11-08-2023", "Kec. Depok Timur"], "4861 Delaware Avenue San Francisco, CA 94143", "Done", "$5,412", "03 Oct, 2021"],
+                //     ["", ["avatar-7.jpg","Barbara Torres"],    ["21-09-2023", "Kec. Lenteng Agung"], "1207 Cottrill Lane Stlouis, MO 63101",         "Done", "$5,412", "02 Oct, 2021"],
+                //     ["", ["avatar-8.jpg","Daniel Rigney"],   ["15-07-2023", "JohnMcCray@armyspy.com"], "3309 Horizon Circle Tacoma, WA 98423",         "Done", "$5,287", "02 Oct, 2021"],
 
-                ]
+                // ]
                 }).render(document.getElementById("table-ecommerce-customers"));
         </script>
         <!-- App js -->
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
+        <script>
+                var selectKecamatan = $('#kecamatan_id');
+                var selectedKotaId = 3374; // kota id semarang
+
+                selectKecamatan.empty().prop('disabled', true);
+                selectKecamatan.append($('<option value="">Pilih Kecamatan</option>'));
+
+                if (selectedKotaId) {
+                    $.ajax({
+                    url: `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${selectedKotaId}.json`,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                            // Populate the Kecamatan select with the retrieved data
+                            $.each(data, function(index, item) {
+                                selectKecamatan.append($('<option>', {
+                                value: item.id,
+                                text: item.name
+                                }));
+                            });
+
+                            // Enable the Kecamatan select
+                            selectKecamatan.prop('disabled', false);
+                    }
+                    });
+                }
+
+                var selectKelurahan = $('#kelurahan_id');
+                selectKecamatan.on('change', function() {
+                    var selectedKecamatanId = $(this).val();
+
+                    // Clear the Kelurahan select and disable it
+                    selectKelurahan.empty().prop('disabled', true);
+                    selectKelurahan.append($('<option value="">Pilih Kelurahan</option>'));
+
+                    if (selectedKecamatanId) {
+                        // Send an AJAX request to fetch Kelurahan data based on the selected Kecamatan
+                        $.ajax({
+                            url: `https://www.emsifa.com/api-wilayah-indonesia/api/villages/${selectedKecamatanId}.json`,
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(data) {
+                                // Populate the Kelurahan select with the retrieved data
+                                $.each(data, function(index, item) {
+                                    selectKelurahan.append($('<option>', {
+                                        value: item.id,
+                                        text: item.name
+                                    }));
+                                });
+
+                                // Enable the Kelurahan select
+                                selectKelurahan.prop('disabled', false);
+                            }
+                        });
+                    }
+                });
+        </script>
     @endsection

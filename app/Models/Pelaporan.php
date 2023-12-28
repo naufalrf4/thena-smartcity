@@ -44,4 +44,14 @@ class Pelaporan extends Model
     {
         return $this->hasMany(Log_Pelaporan::class, 'pelaporan_id');
     }
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Master_Kecamatan::class, 'kecamatan_id');
+    }
+
+    public function kelurahan()
+    {
+        return $this->belongsTo(Master_Kelurahan::class, 'kelurahan_id');
+    }
 }

@@ -13,10 +13,16 @@ class Roles extends Model
 
     protected $fillable = [
         'name',
+        'level_role',
+        'dep_role'
     ];
 
     public function user()
     {
         return $this->hasMany(User::class, 'role_id');
+    }
+
+    public function dependecyRole(){
+        return $this->belongsTo(Roles::class, 'dep_role');
     }
 }

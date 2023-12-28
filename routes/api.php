@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::group([
+    'middleware' => ['auth:sanctum'],
+], function () {
+    Route::get('/pelaporan', [App\Http\Controllers\PelaporanController::class, 'api_getpelaporan'])->name('pelaporan.api_getpelaporan');
+    // Route::get('/{id}', [App\Http\Controllers\PelaporanController::class, 'api_getpelaporan']);
+    // Route::post('/', [App\Http\Controllers\PelaporanController::class, 'api_postpelaporan']);
+    // Route::put('/{id}', [App\Http\Controllers\PelaporanController::class, 'api_putpelaporan']);
+    // Route::delete('/{id}', [App\Http\Controllers\PelaporanController::class, 'api_deletepelaporan']);
+});
+

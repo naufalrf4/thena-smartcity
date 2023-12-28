@@ -55,9 +55,9 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('pelaporan.index') }}" data-key="">Semua Laporan</a></li>
-                        <li><a href="email-read" data-key="">Belum ditangani</a></li>
-                        <li><a href="email-read" data-key="">Sedang dikerjakan</a></li>
-                        <li><a href="email-read" data-key="">Laporan Selesai</a></li>
+                        <li><a href="{{ route('pelaporan.belum_ditangani') }}" data-key="">Belum ditangani</a></li>
+                        <li><a href="{{ route('pelaporan.sedang_ditangani') }}" data-key="">Sedang dikerjakan</a></li>
+                        <li><a href="{{ route('pelaporan.selesai') }}" data-key="">Laporan Selesai</a></li>
                     </ul>
                 </li>
 

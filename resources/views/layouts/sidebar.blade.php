@@ -49,6 +49,13 @@
                 <li class="menu-title" data-key="t-applications">Applications</li>
 
                 <li>
+                    <a href="data-user">
+                        <i class="bx bx-table icon nav-icon"></i>
+                        <span class="menu-item">Data User</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="bx bx-envelope icon nav-icon"></i>
                         <span class="menu-item" data-key="t-email">Email</span>

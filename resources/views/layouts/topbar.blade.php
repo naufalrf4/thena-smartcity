@@ -193,7 +193,7 @@
                     aria-expanded="false">
                     <img class="rounded-circle header-profile-user"
                         src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-2 fw-medium font-size-15">{{ session('user')->name ?? '-' }} {{ session('role')->name?? '-}}</span>
+                    <span class="d-none d-xl-inline-block ms-2 fw-medium font-size-15">{{ session('user')->name ?? '-' }} {{ session('role')->name?? '-'}}</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end pt-0">
                     <div class="p-3 border-bottom">

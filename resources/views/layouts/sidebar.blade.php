@@ -46,6 +46,29 @@
                     </ul>
                 </li>
 
+                <li class="menu-title" data-key="">Manajemen</li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="bx bx-envelope icon nav-icon"></i>
+                        <span class="menu-item" data-key="">Pelaporan</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('pelaporan.index') }}" data-key="">Semua Laporan</a></li>
+                        <li><a href="{{ route('pelaporan.belum_ditangani') }}" data-key="">Belum ditangani</a></li>
+                        <li><a href="{{ route('pelaporan.sedang_ditangani') }}" data-key="">Sedang dikerjakan</a></li>
+                        <li><a href="{{ route('pelaporan.selesai') }}" data-key="">Laporan Selesai</a></li>
+                    </ul>
+                </li>
+
+                <!-- <li>
+                    <a href="{{ route('pelaporan.index') }}">
+                        <i class="bx bx-check-square icon nav-icon"></i>
+                        <span class="menu-item" data-key="">Pelaporan</span>
+                        <span class="badge rounded-pill bg-success" data-key="t-new">New</span>
+                    </a>
+                </li> -->
+
                 <li class="menu-title" data-key="t-applications">Applications</li>
 
                 <li>

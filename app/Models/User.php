@@ -19,9 +19,15 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
+        'no_telp',
         'email',
+        'role_id',
         'password',
-        'role_id'
+        'kecamatan_id',
+        'kelurahan_id',
+        'rt',
+        'rw',
     ];
 
     /**
@@ -46,5 +52,20 @@ class User extends Authenticatable
 
     public function getRole(){
         return $this->belongsTo(Roles::class, 'role_id');
+    }
+
+    public function pelaporans()
+    {
+        return $this->hasMany(Pelaporan::class, 'user_id');
+    }
+
+    public function assignedPetugas()
+    {
+        return $this->belongsToMany(Pelaporan::class, 'petugas_diassign', 'user_id', 'pelaporan_id');
+    }
+
+    public function logPelaporans()
+    {
+        return $this->hasMany(Log_Pelaporan::class, 'user_id');
     }
 }

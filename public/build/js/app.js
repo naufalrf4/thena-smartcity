@@ -359,7 +359,7 @@ File: Main Js File
                 var value = document.querySelector("#" + alreadyVisited);
                 if (value !== null) {
                     value.checked = true;
-                    changeDirection(alreadyVisited);
+                    // changeDirection(alreadyVisited);
                 }
             }
         }

@@ -17,4 +17,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'root']);
+
+Route::resource('pelaporan', App\Http\Controllers\PelaporanController::class);
+
+// untuk buka halaman dari template
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');

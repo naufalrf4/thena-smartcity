@@ -12,12 +12,17 @@ class PelaporanController extends Controller
      * Display a listing of the resource.
      */
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function api_getpelaporan(Request $request){
 
-        $semua_laporan = Pelaporan::with(['submitter', 'kecamatan', 'statusPenanganan'])->get();
-        $belum_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'statusPenanganan'])->where('status_penanganan_id', 1)->count();
-        $sedang_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'statusPenanganan'])->where('status_penanganan_id', 2)->count();
-        $selesai = Pelaporan::with(['submitter', 'kecamatan', 'statusPenanganan'])->where('status_penanganan_id', 3)->count();
+        $semua_laporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->get();
+        $belum_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', 1)->count();
+        $sedang_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', 2)->count();
+        $selesai = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', 3)->count();
 
         $data = (object) [
             'semua_laporan' => $semua_laporan,
@@ -27,9 +32,9 @@ class PelaporanController extends Controller
         ];
         
         if($request->has('status')){
-            $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'statusPenanganan'])->where('status_penanganan_id', $request->status)->get();
+            $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', $request->status)->get();
         }else{
-            $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'statusPenanganan'])->get();
+            $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->get();
         }
 
         return response()->json($data);

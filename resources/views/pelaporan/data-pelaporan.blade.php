@@ -23,7 +23,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h4 class="mb-0">9,454 <span class="fw-medium text-success font-size-18">
+                                <h4 class="mb-0" id="total_laporan">
+                                    <div class="col-4 skeleton skeleton-text py-3"></div>
+                                    <!-- <span class="fw-medium text-success font-size-18"> -->
                                     <!-- <i class="bx bx-up-arrow-alt font-size-16 align-middle"></i> 16%</span> -->
                                 </h4>
                                 <p class="text-muted text-truncate mb-0 mt-2">Total Laporan</p>
@@ -43,7 +45,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h4 class="mb-0">563 <span class="fw-medium text-success font-size-18">
+                                <h4 class="mb-0" id="laporan_selesai">
+                                    <div class="col-4 skeleton skeleton-text py-3"></div>
+                                    <!-- <span class="fw-medium text-success font-size-18"> -->
                                     <!-- <i class="bx bx-up-arrow-alt font-size-16 align-middle"></i> 24%</span> -->
                                 </h4>
                                 <p class="text-muted text-truncate mb-0 mt-2">Laporan Selesai</p>
@@ -63,7 +67,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h4 class="mb-0">454 <span class="fw-medium text-danger font-size-18">
+                                <h4 class="mb-0" id="sedang_ditangani">
+                                    <div class="col-4 skeleton skeleton-text py-3"></div>
+                                     <!-- <span class="fw-medium text-danger font-size-18"> -->
                                     <!-- <i class="bx bx-down-arrow-alt font-size-16 align-middle"></i> 07%</span> -->
                                 </h4>
                                 <p class="text-muted text-truncate mb-0 mt-2">Laporan Sedang Ditangani</p>
@@ -83,7 +89,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h4 class="mb-0">1,526k <span class="fw-medium text-success font-size-18">
+                                <h4 class="mb-0" id="belum_ditangani">
+                                    <div class="col-4 skeleton skeleton-text py-3"></div>
+                                     <!-- <span class="fw-medium text-success font-size-18"> -->
                                     <!-- <i class="bx bx-up-arrow-alt font-size-16 align-middle"></i> 16%</span> -->
                                 </h4>
                                 <p class="text-muted text-truncate mb-0 mt-2">Laporan Belum Ditangani</p>
@@ -106,8 +114,9 @@
                         <div class="position-relative">
                             <div class="modal-button mt-2">
                                 <button type="button"
-                                    class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"
-                                    data-bs-toggle="modal" data-bs-target=".new-customer"><i class="mdi mdi-plus me-1"></i>
+                                    class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
+                                    data-bs-toggle="modal" data-bs-target=".new-customer">
+                                    <!-- <i class="mdi mdi-plus me-1"></i> -->
                                     Tambah Laporan</button>
                             </div>
                         </div>
@@ -278,35 +287,33 @@
                     },
 
                     {
-                        name: 'Pelapor',
-                        formatter: (function (cell) {
-                        return gridjs.html('<img src="build/images/users/'+ cell[0]+'" alt="" class="avatar-sm rounded-circle me-2" /><a href="#" class="text-body">' + cell[1] + "</a>");
-                        })
-                    },
-                    {
                         name: 'Tanggal / Tempat Kejadian',
                         formatter: (function (cell) {
-                        return gridjs.html('<p class="mb-1">'+ cell[0] +'</p><p class="mb-0">'+ cell[1] +'</p>');
+                        return gridjs.html('<span class="font-size-12">#LPR' + cell[0] +'</span><br>' + cell[1] + '<br> <a href="#" class="text-body"> Kec. ' + cell[2] + "</a>" + '<br> <a href="#" class="text-body"> Kel. ' + cell[3] + "</a>");
                         })
                     },
-                    
-                    , "Masalah",
-
                     {
                         name: "Status Pengerjaan",
                         formatter: (function (cell) {
-                        return gridjs.html('<span class="badge bg-success font-size-12"><i class="mdi mdi-star me-1"></i>' + cell +'</span>');
+                        return gridjs.html('<span class="badge bg-success font-size-12">' + cell +'</span>');
                         })
-                    },
-                    
-                    "Petugas Penanganan", "Estimasi Selesai",
+                    }, 
+                    // "Estimasi Selesai", 
+                    "Masalah", 
+                    // {
+                    //     name: 'Pelapor',
+                    //     formatter: (function (cell) {
+                    //     return gridjs.html('<p class="mb-1">'+ cell[0] +'</p><p class="mb-0">'+ cell[1] +'</p>');
+                    //     })
+                    // },
+                    "Deskripsi Masalah", 
                     {
                         name: "Action",
                         sort: {
                         enabled: false
                     },
                         formatter: (function (cell) {
-                        return gridjs.html('<div class="dropdown"><a href="#" class="dropdown-toggle card-drop" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal font-size-18"></i></a><ul class="dropdown-menu dropdown-menu-end"><li><a href="#" class="dropdown-item"><i class="mdi mdi-pencil font-size-16 text-success me-1"></i> Edit</a></li><li><a href="#" class="dropdown-item"><i class="mdi mdi-trash-can font-size-16 text-danger me-1"></i> Delete</a></li></ul></div>');
+                        return gridjs.html(`<a href="{{ route('pelaporan.edit', ':lprid') }}" class="btn btn-primary btn-sm">Detail</a>`.replace(':lprid', cell));
                         })
                     }
                     ],
@@ -321,15 +328,24 @@
                         Authorization: `Bearer {{ session('ses_token') }}`,
                         'Content-Type': 'application/json'
                     },
-                    then: (data) => data.pelaporan.map(laporan => [
+                    then: data => {
+                        $('#total_laporan').html(data.semua_laporan.length)
+                        $('#laporan_selesai').html(data.selesai)
+                        $('#sedang_ditangani').html(data.sedang_ditangani)
+                        $('#belum_ditangani').html(data.belum_ditangani)
+
+                        return data.pelaporan.map(laporan => [
                             "",
-                            ["", laporan.submitter.name],
-                            [laporan.tgl_dibuat, laporan.kecamatan.nama],
-                            laporan.deskripsi_laporan,
+                            [laporan.id, laporan.tgl_dibuat, laporan.kecamatan.nama, laporan.kelurahan.nama],
                             laporan.status_penanganan.status,
-                            "Petugas",
-                            laporan.estimasi_selesai !== null ? laporan.estimasi_selesai : '-'
+                            // laporan.estimasi_selesai !== null ? laporan.estimasi_selesai : '-',
+                            laporan.nama_laporan,
+                            laporan.deskripsi_laporan,
+                            laporan.id,
+                            // [laporan.submitter.name, ""],
+                            // "Petugas",
                         ])
+                    }
                 } 
                 // data: [
                 //     ["", ["avatar-1.jpg","Stephen Rash"],  ["22-10-2023", "Kec. Pancoran Mas"], "2470 Grove Street Bethpage, NY 11714",         "Done", "$5,412", "07 Oct, 2021" ],

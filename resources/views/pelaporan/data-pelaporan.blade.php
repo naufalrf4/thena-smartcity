@@ -205,8 +205,8 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label" for="NewPelaporan-Address">Alamat Lengkap Kejadian (cth: Nomor dan Nama Jalan, RT dan RW)</label>
-                                    <input type="text" class="form-control" name="alamat_kejadian" placeholder="Masukan Alamat Lengkap (cth: Nomor dan Nama Jalan, RT dan RW)"
+                                    <label class="form-label" for="NewPelaporan-Address">Alamat Lengkap Kejadian (cth: Nama Gedung, Nomor dan Nama Jalan, RT dan RW)</label>
+                                    <input type="text" class="form-control" name="alamat_kejadian" placeholder="Masukan Alamat Lengkap (cth: Nama Gedung, Nomor dan Nama Jalan, RT dan RW)"
                                         id="NewPelaporan-Address">
                                 </div>
                             </div>

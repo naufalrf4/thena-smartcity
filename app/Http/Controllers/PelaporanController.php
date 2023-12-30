@@ -124,7 +124,17 @@ class PelaporanController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try{
+            $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan', 'rolePenanganan'])->find($id);
+
+            if(!$pelaporan){
+                return redirect()->route('pelaporan.index')->with('error', 'Laporan tidak ditemukan');
+            }
+
+            return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan]);
+        } catch (\Exception $e) {
+            return redirect()->route('pelaporan.index')->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -132,7 +142,70 @@ class PelaporanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if(session('role')->level_role == 4){
+            $request->validate([
+                'nama_laporan' => 'required',
+                'deskripsi_laporan' => 'required',
+                'alamat_kejadian' => 'required',
+                'kecamatan_id' => 'required',
+                'kelurahan_id' => 'required',  
+                'foto' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+        }
+
+        if(session('role')->level_role == 2){
+            $request->validate([
+                'status_laporan' => 'required',
+                'role_penanganan_id' => 'required',
+            ]);
+        }
+
+        if(session('role')->level_role == 5){
+            $request->validate([
+                'status_laporan' => 'required',
+                'estimasi_selesai' => 'required',
+            ]);
+        }
+        
+        try{
+            $pelaporan = Pelaporan::find($id);
+
+            if(!$pelaporan){
+                return redirect()->route('pelaporan.index')->with('error', 'Laporan tidak ditemukan');
+            }
+
+            if(session('role')->level_role == 4){
+                if ($request->hasFile('foto')) {
+                    $file = $request->file('foto');
+                    $filename = time() . '.' . $file->getClientOriginalExtension();
+                    $file->storeAs('public/foto_kejadian', $filename);
+                    $pelaporan->foto = $filename;
+                }
+    
+                $pelaporan->nama_laporan = $request->nama_laporan;
+                $pelaporan->deskripsi_laporan = $request->deskripsi_laporan;
+                $pelaporan->alamat_kejadian = $request->alamat_kejadian;
+                $pelaporan->kecamatan_id = $request->kecamatan_id;
+                $pelaporan->kelurahan_id = $request->kelurahan_id;
+                $pelaporan->save();
+            }
+
+            if(session('role')->level_role == 2){
+                $pelaporan->status_penanganan_id = $request->status_laporan;
+                $pelaporan->role_penanganan_id = $request->role_penanganan_id;
+                $pelaporan->save();
+            }
+
+            if(session('role')->level_role == 5){
+                $pelaporan->status_penanganan_id = $request->status_laporan;
+                $pelaporan->estimasi_selesai = $request->estimasi_selesai;
+                $pelaporan->save();
+            }
+
+            return redirect()->route('pelaporan.index')->with('success', 'Laporan berhasil diupdate');
+        } catch (\Exception $e) {
+            return redirect()->route('pelaporan.index')->with('error', $e->getMessage());
+        }
     }
 
     /**

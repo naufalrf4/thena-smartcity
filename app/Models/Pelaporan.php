@@ -54,4 +54,9 @@ class Pelaporan extends Model
     {
         return $this->belongsTo(Master_Kelurahan::class, 'kelurahan_id');
     }
+
+    public function rolePenanganan()
+    {
+        return $this->belongsTo(Roles::class, 'role_penanganan_id');
+    }
 }

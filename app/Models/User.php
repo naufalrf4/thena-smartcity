@@ -28,6 +28,7 @@ class User extends Authenticatable
         'kelurahan_id',
         'rt',
         'rw',
+        'foto_profil'
     ];
 
     /**
@@ -54,6 +55,14 @@ class User extends Authenticatable
         return $this->belongsTo(Roles::class, 'role_id');
     }
 
+    public function getKecamatan(){
+        return $this->belongsTo(Master_Kecamatan::class, 'kecamatan_id');
+    }
+
+    public function getKelurahan(){
+        return $this->belongsTo(Master_Kelurahan::class, 'kelurahan_id');
+    }
+
     public function pelaporans()
     {
         return $this->hasMany(Pelaporan::class, 'user_id');
@@ -68,4 +77,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(Log_Pelaporan::class, 'user_id');
     }
+
 }

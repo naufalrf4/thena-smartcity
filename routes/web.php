@@ -18,10 +18,16 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'root']);
 
+// ===== PELAPORAN ===== 
 Route::get('pelaporan/status/belum-ditangani', [App\Http\Controllers\PelaporanController::class, 'index'])->name('pelaporan.belum_ditangani');
 Route::get('pelaporan/status/sedang-ditangani', [App\Http\Controllers\PelaporanController::class, 'index'])->name('pelaporan.sedang_ditangani');
 Route::get('pelaporan/status/selesai', [App\Http\Controllers\PelaporanController::class, 'index'])->name('pelaporan.selesai');
 Route::resource('pelaporan', App\Http\Controllers\PelaporanController::class);
+
+// ===== USER ===== 
+Route::get('data-user', [App\Http\Controllers\UserController::class, 'index']);
+Route::get('user/api-getuser', [App\Http\Controllers\UserController::class, 'api_getuser'])->name('user.api_getuser');
+Route::resource('user', App\Http\Controllers\UserController::class);
 
 // untuk buka halaman dari template
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');

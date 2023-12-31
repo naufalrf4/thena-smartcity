@@ -23,7 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group([
     'middleware' => ['auth:sanctum'],
 ], function () {
-    Route::get('/pelaporan', [App\Http\Controllers\PelaporanController::class, 'api_getpelaporan'])->name('pelaporan.api_getpelaporan');
+    Route::post('/pelaporan', [App\Http\Controllers\PelaporanController::class, 'api_getpelaporan'])->name('pelaporan.api_getpelaporan');
+    Route::get('/status-pelaporan', [App\Http\Controllers\PelaporanController::class, 'api_getstatuspelaporan'])->name('pelaporan.api_getstatuspelaporan');
     // Route::get('/{id}', [App\Http\Controllers\PelaporanController::class, 'api_getpelaporan']);
     // Route::post('/', [App\Http\Controllers\PelaporanController::class, 'api_postpelaporan']);
     // Route::put('/{id}', [App\Http\Controllers\PelaporanController::class, 'api_putpelaporan']);

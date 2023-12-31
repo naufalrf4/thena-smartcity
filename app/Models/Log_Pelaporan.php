@@ -13,16 +13,10 @@ class Log_Pelaporan extends Model
 
     protected $fillable = [
         'user_id',
-        'status_penanganan_id',
+        'status_log_pelaporan',
+        'pelaporan_id',
+        'keterangan_log',
         'foto',
-        'nama_laporan',
-        'role_penanganan_id',
-        'deskripsi_laporan',
-        'alamat_kejadian',
-        'kecamatan_id',
-        'kelurahan_id',
-        'tgl_dibuat',
-        'estimasi_selesai',
     ];
 
     public function user()
@@ -33,6 +27,11 @@ class Log_Pelaporan extends Model
     public function pelaporan()
     {
         return $this->belongsTo(Pelaporan::class, 'pelaporan_id');
+    }
+
+    public function statusLog()
+    {
+        return $this->belongsTo(StatusLogPelaporan::class, 'status_log_pelaporan');
     }
 
 }

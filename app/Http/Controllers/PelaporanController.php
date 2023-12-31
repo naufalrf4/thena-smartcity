@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log_Pelaporan;
 use App\Models\Pelaporan;
+use App\Models\Petugas_Diassign;
+use App\Models\Roles;
+use App\Models\StatusLogPelaporan;
+use App\Models\StatusPenanganan;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class PelaporanController extends Controller
@@ -19,25 +26,105 @@ class PelaporanController extends Controller
 
     public function api_getpelaporan(Request $request){
 
-        $semua_laporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->get();
-        $belum_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', 1)->count();
-        $sedang_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', 2)->count();
-        $selesai = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', 3)->count();
+        if($request->has('rid')){
+            try{
+                $role = Roles::find($request->rid);
 
-        $data = (object) [
-            'semua_laporan' => $semua_laporan,
-            'belum_ditangani' => $belum_ditangani,
-            'sedang_ditangani' => $sedang_ditangani,
-            'selesai' => $selesai,
-        ];
+                if(!$role){
+                    return response()->json(['message' => 'Role tidak ditemukan'], 404);
+                }
+
+                $semua_laporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan']);
+                $belum_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('role_penanganan_id', NULL);
+                $sedang_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])
+                                        ->whereIn('status_penanganan_id', [2, 3]);
+                $selesai = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', 3);
+                
+                if ($role->level_role == 1 || $role->level_role == 2 || $role->level_role == 3) {
+                    $semua_laporan_count = $semua_laporan->count();
+                    $belum_ditangani_count = $belum_ditangani->count();
+                    $sedang_ditangani_count = $sedang_ditangani->count();
+                    $selesai_count = $selesai->count();
+                } else if ($role->level_role == 5) {
+                    $semua_laporan_count = $semua_laporan->where('role_penanganan_id', $role->id)->count();
+                    $belum_ditangani_count = $belum_ditangani->where('role_penanganan_id', $role->id)->where('status_penanganan_id', 1)->count();
+                    $sedang_ditangani_count = $sedang_ditangani->where('role_penanganan_id', $role->id)->count();
+                    $selesai_count = $selesai->where('role_penanganan_id', $role->id)->count();
+                } else if ($role->level_role == 6) {
+                    $petugas_diassign = Petugas_Diassign::where('user_id', $request->uid)->with('pelaporan')->get();
+                    $semua_laporan_count = $petugas_diassign->pluck('pelaporan')->count();
+                    $belum_ditangani_count = $petugas_diassign->pluck('pelaporan')->where('status_penanganan_id', 1)->count();
+                    $sedang_ditangani_count = $petugas_diassign->pluck('pelaporan')->whereIn('status_penanganan_id', [2, 3])->count();
+                    $selesai_count = $petugas_diassign->pluck('pelaporan')->where('status_penanganan_id', 3)->count();
+                }
+
+                if($request->has('status')){
+                    if($request->status == 'semua-laporan'){
+                        $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan']);
+                    }else if($request->status == 'belum-ditangani'){
+                        $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('role_penanganan_id', NULL);
+                    }else if($request->status == 'sedang-ditangani'){
+                        $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', [2, 3]);
+                    }else if($request->status == 'selesai'){
+                        $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', 4);
+                    }
+                    // $pelaporan = $pelaporan->where('status_penanganan_id', $request->status);
+                }
+
+                if($role->level_role == 2){
+                    $pelaporan = $pelaporan->where('role_penanganan_id', NULL);
+                } else if($role->level_role == 5){
+                    $pelaporan = $pelaporan->where('role_penanganan_id', $role->id);
+                } else if($role->level_role == 6){
+                    $petugas_diassign = Petugas_Diassign::where('user_id', $request->uid)->with('pelaporan')->get();
+                    $pelaporan2 = $petugas_diassign->pluck('pelaporan');
+                    $pelaporan = $pelaporan->whereIn('id', $pelaporan2->pluck('id'));
+                } else{ //role 1, 3 (admin dan walikota)
+                    $pelaporan = $pelaporan;
+                }
+
+               
+
+                $data = (object) [
+                    'semua_laporan' => $semua_laporan_count,
+                    'belum_ditangani' => $belum_ditangani_count,
+                    'sedang_ditangani' => $sedang_ditangani_count,
+                    'selesai' => $selesai_count,
+                    'pelaporan' => $pelaporan->get(),
+                ];
         
-        if($request->has('status')){
-            $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', $request->status)->get();
-        }else{
-            $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->get();
+                return response()->json($data);
+            }catch(\Exception $e){
+                dd($e);
+                return response()->json(['message' => 'Role tidak ditemukan'], 404);
+            }
+        }else if ($request->has('uid')) {
+
+            $uid = $request->uid;
+            $semua_laporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->get();
+            $belum_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('status_penanganan_id', 1)->count();
+            $sedang_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])
+                                ->whereIn('status_penanganan_id', [2, 3])
+                                ->count();
+            $selesai = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('status_penanganan_id', 4)->count();
+    
+            $data = (object) [
+                'semua_laporan' => $semua_laporan,
+                'belum_ditangani' => $belum_ditangani,
+                'sedang_ditangani' => $sedang_ditangani,
+                'selesai' => $selesai,
+            ];
+            
+            if($request->has('status')){
+                $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('status_penanganan_id', $request->status)->get();
+            }else{
+                $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->get();
+            }
+    
+            return response()->json($data);
         }
 
-        return response()->json($data);
+        return response()->json(['message' => 'Tidak ada parameter yang diberikan'], 404);
     }
 
     public function index(Request $request)
@@ -126,12 +213,44 @@ class PelaporanController extends Controller
     {
         try{
             $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan', 'rolePenanganan'])->find($id);
+            $petugas_diassign = Petugas_Diassign::where('pelaporan_id', $id)->with('user')->get();
+            $log_pelaporan = Log_Pelaporan::where('pelaporan_id', $id)->with('statusLog', 'user')->get();
 
             if(!$pelaporan){
                 return redirect()->route('pelaporan.index')->with('error', 'Laporan tidak ditemukan');
             }
 
-            return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan]);
+            if(session('role')->level_role == 2){
+                $status_penanganan = StatusPenanganan::all();
+                $dinas = Roles::where('level_role', 5)->get();
+                return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign,  'log_pelaporan' => $log_pelaporan, 'status_penanganan' => $status_penanganan, 'dinas' => $dinas]);
+            }
+
+            if(session('role')->level_role == 5){
+                $status_penanganan = StatusPenanganan::where('id', '>=', 2)->get();
+                $petugas_role = Roles::where('dep_role', session('role')->id)->first();
+                $petugas = User::where('role_id', $petugas_role->id)
+                    ->whereNotExists(function ($query) use ($id) {
+                        $query->select(DB::raw(1))
+                            ->from('petugas_diassign')
+                            ->whereRaw('petugas_diassign.user_id = users.id')
+                            ->where('pelaporan_id', $id);
+                    })
+                    ->select('id', 'name', 'username', 'no_telp', 'email', 'role_id', 'kecamatan_id', 'kelurahan_id', 'rt', 'rw', 'foto_profil')
+                    ->get();
+
+                $status_log = StatusLogPelaporan::all();
+
+                return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign, 'log_pelaporan' => $log_pelaporan, 'status_penanganan' => $status_penanganan, 'petugas' => $petugas, 'status_log' => $status_log]);
+            }
+
+            if(session('role')->level_role == 6){
+                $status_log = StatusLogPelaporan::all();
+                return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign, 'log_pelaporan' => $log_pelaporan, 'status_log' => $status_log]);
+                
+            }
+
+            return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign, 'log_pelaporan' => $log_pelaporan]);
         } catch (\Exception $e) {
             return redirect()->route('pelaporan.index')->with('error', $e->getMessage());
         }
@@ -155,15 +274,16 @@ class PelaporanController extends Controller
 
         if(session('role')->level_role == 2){
             $request->validate([
-                'status_laporan' => 'required',
+                'status_penanganan_id' => 'required',
                 'role_penanganan_id' => 'required',
             ]);
         }
 
         if(session('role')->level_role == 5){
             $request->validate([
-                'status_laporan' => 'required',
+                'status_penanganan_id' => 'required',
                 'estimasi_selesai' => 'required',
+                'role_penanganan_id' => 'required',
             ]);
         }
         
@@ -191,20 +311,20 @@ class PelaporanController extends Controller
             }
 
             if(session('role')->level_role == 2){
-                $pelaporan->status_penanganan_id = $request->status_laporan;
+                $pelaporan->status_penanganan_id = $request->status_penanganan_id;
                 $pelaporan->role_penanganan_id = $request->role_penanganan_id;
                 $pelaporan->save();
             }
 
             if(session('role')->level_role == 5){
-                $pelaporan->status_penanganan_id = $request->status_laporan;
+                $pelaporan->status_penanganan_id = $request->status_penanganan_id;
                 $pelaporan->estimasi_selesai = $request->estimasi_selesai;
                 $pelaporan->save();
             }
 
-            return redirect()->route('pelaporan.index')->with('success', 'Laporan berhasil diupdate');
+            return redirect()->back()->with('success', 'Laporan berhasil diupdate');
         } catch (\Exception $e) {
-            return redirect()->route('pelaporan.index')->with('error', $e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 

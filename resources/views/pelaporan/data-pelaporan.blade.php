@@ -323,13 +323,20 @@
                 sort: true,
                 search: true,
                 server: {
-                    url: `{{ route('pelaporan.api_getpelaporan', '') }}?status=1`,
+                    url: `{{ route('pelaporan.api_getpelaporan', '') }}?status={{ strtolower(str_replace(' ', '-', $status) ?? '') }}`,
+                    method: 'POST',
                     headers: {
                         Authorization: `Bearer {{ session('ses_token') }}`,
                         'Content-Type': 'application/json'
                     },
+                    body: JSON.stringify({
+                        @if(session('role')->id != 4)
+                        'rid': `{{ session('role')->id }}`,
+                        @endif
+                        'uid': `{{ session('user')->id }}`
+                    }),
                     then: data => {
-                        $('#total_laporan').html(data.semua_laporan.length)
+                        $('#total_laporan').html(data.semua_laporan)
                         $('#laporan_selesai').html(data.selesai)
                         $('#sedang_ditangani').html(data.sedang_ditangani)
                         $('#belum_ditangani').html(data.belum_ditangani)
@@ -347,25 +354,6 @@
                         ])
                     }
                 } 
-                // data: [
-                //     ["", ["avatar-1.jpg","Stephen Rash"],  ["22-10-2023", "Kec. Pancoran Mas"], "2470 Grove Street Bethpage, NY 11714",         "Done", "$5,412", "07 Oct, 2021" ],
-                //     ["", ["avatar-2.jpg","Juan Mays"],     ["22-10-2023", "Kec. Beji"], "3755 Harron Drive Salisbury, MD 21875",        "Done", "$5,632", "06 Oct, 2021"],
-                //     ["", ["avatar-3.jpg","Scott Henry"],   ["22-11-2023", "Kec. Bogor Utara"], "3632 Snyder Avenue Bessemer City, NC 28016",   "Done", "$7,523", "06 Oct, 2021"],
-                //     ["", ["avatar-4.jpg","Cody Menendez"], ["23-12-2023", "Kec. Bogor TImur"], "4401 Findley Avenue Minot, ND 58701",          "Done", "$6,325", "05 Oct, 2021"],
-                //     ["", ["avatar-5.jpg","Jason Merino"],  ["11-05-2023", "Kec. Singapura"], "3159 Holly Street Cleveland, GA 30528",        "Done", "$4,523", "04 Oct, 2021" ],
-                //     ["", ["avatar-6.jpg","Kyle Aquino"],   ["11-08-2023", "Kec. Depok Timur"], "4861 Delaware Avenue San Francisco, CA 94143", "Done", "$5,412", "03 Oct, 2021"],
-                //     ["", ["avatar-7.jpg","David Gaul"],    ["21-09-2023", "Kec. Lenteng Agung"], "1207 Cottrill Lane Stlouis, MO 63101",         "Done", "$5,412", "02 Oct, 2021"],
-                //     ["", ["avatar-8.jpg","John McCray"],   ["15-07-2023", "JohnMcCray@armyspy.com"], "3309 Horizon Circle Tacoma, WA 98423",         "3.2", "$5,287", "02 Oct, 2021"],
-                //     ["", ["avatar-1.jpg","John Fane"],  ["325-250-1106", "Kec. Pancoran Mas"], "2470 Grove Street Bethpage, NY 11714",         "Done", "$5,412", "07 Oct, 2021" ],
-                //     ["", ["avatar-2.jpg","Stacie Parker"],     ["22-10-2023", "Kec. Beji"], "3755 Harron Drive Salisbury, MD 21875",        "Done", "$5,632", "06 Oct, 2021"],
-                //     ["", ["avatar-3.jpg","Betty Wilson"],   ["22-11-2023", "Kec. Bogor Utara"], "3632 Snyder Avenue Bessemer City, NC 28016",   "Done", "$7,523", "06 Oct, 2021"],
-                //     ["", ["avatar-4.jpg","Roman Crabtree"], ["23-12-2023", "Kec. Bogor TImur"], "4401 Findley Avenue Minot, ND 58701",          "Done", "$6,325", "05 Oct, 2021"],
-                //     ["", ["avatar-5.jpg","Marisela Butler"],  ["11-05-2023", "Kec. Singapura"], "3159 Holly Street Cleveland, GA 30528",        "Done", "$4,523", "04 Oct, 2021" ],
-                //     ["", ["avatar-6.jpg","Roger Slayton"],   ["11-08-2023", "Kec. Depok Timur"], "4861 Delaware Avenue San Francisco, CA 94143", "Done", "$5,412", "03 Oct, 2021"],
-                //     ["", ["avatar-7.jpg","Barbara Torres"],    ["21-09-2023", "Kec. Lenteng Agung"], "1207 Cottrill Lane Stlouis, MO 63101",         "Done", "$5,412", "02 Oct, 2021"],
-                //     ["", ["avatar-8.jpg","Daniel Rigney"],   ["15-07-2023", "JohnMcCray@armyspy.com"], "3309 Horizon Circle Tacoma, WA 98423",         "Done", "$5,287", "02 Oct, 2021"],
-
-                // ]
                 }).render(document.getElementById("table-ecommerce-customers"));
         </script>
         <!-- App js -->

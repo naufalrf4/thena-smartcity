@@ -101,8 +101,8 @@ class PelaporanController extends Controller
         }else if ($request->has('uid')) {
 
             $uid = $request->uid;
-            $semua_laporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->get();
-            $belum_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('status_penanganan_id', 1)->count();
+            $semua_laporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->count();
+            $belum_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('role_penanganan_id', NULL)->count();
             $sedang_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])
                                 ->whereIn('status_penanganan_id', [2, 3])
                                 ->count();
@@ -116,11 +116,18 @@ class PelaporanController extends Controller
             ];
             
             if($request->has('status')){
-                $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('status_penanganan_id', $request->status)->get();
-            }else{
-                $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->get();
+                if($request->status == 'semua-laporan'){
+                    $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->get();
+                }else if($request->status == 'belum-ditangani'){
+                    $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('role_penanganan_id', NULL)->get();
+                }else if($request->status == 'sedang-ditangani'){
+                    $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('status_penanganan_id', [2, 3])->get();
+                }else if($request->status == 'selesai'){
+                    $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('status_penanganan_id', 4)->get();
+                }
+                // $pelaporan = $pelaporan->where('status_penanganan_id', $request->status);
             }
-    
+
             return response()->json($data);
         }
 

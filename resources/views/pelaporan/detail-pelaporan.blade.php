@@ -33,7 +33,7 @@
                             <div class="my-2">
                                 <div class="flex flex-col">
                                     <span for="" class="fw-bold">Status Laporan</span><br>
-                                    <span class="badge bg-primary font-size-12" id="status-laporan" data-status-laporan="{{ $pelaporan->status_penanganan_id }}">{{ $pelaporan->statusPenanganan->status }}</span>
+                                    <span class="badge bg-{{$pelaporan->statusPenanganan->color}} font-size-12" id="status-laporan" data-status-laporan="{{ $pelaporan->status_penanganan_id }}">{{ $pelaporan->statusPenanganan->status }}</span>
                                 </div>
                             </div>
                             @if (session('role')->level_role == 1 || session('role')->level_role == 2 || session('role')->level_role == 4 || session('role')->level_role == 5 )

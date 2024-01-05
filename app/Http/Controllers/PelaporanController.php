@@ -227,6 +227,30 @@ class PelaporanController extends Controller
                 return redirect()->route('pelaporan.index')->with('error', 'Laporan tidak ditemukan');
             }
 
+            if(session('role')->level_role == 1){
+                $status_penanganan = StatusPenanganan::all();
+                $dinas = Roles::where('level_role', 5)->get();
+                
+                if(!$pelaporan->role_penanganan_id){
+                    $petugas_role = Roles::where('dep_role', $pelaporan->role_penanganan_id)->first();
+                    $petugas = User::where('role_id', $petugas_role->id)
+                        ->whereNotExists(function ($query) use ($id) {
+                            $query->select(DB::raw(1))
+                                ->from('petugas_diassign')
+                                ->whereRaw('petugas_diassign.user_id = users.id')
+                                ->where('pelaporan_id', $id);
+                        })
+                        ->select('id', 'name', 'username', 'no_telp', 'email', 'role_id', 'kecamatan_id', 'kelurahan_id', 'rt', 'rw', 'foto_profil')
+                        ->get();
+                }else{
+                    $petugas = [];
+                }
+
+                $status_log = StatusLogPelaporan::all();
+                
+                return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign,  'log_pelaporan' => $log_pelaporan, 'status_penanganan' => $status_penanganan, 'dinas' => $dinas, 'petugas' => $petugas, 'status_log' => $status_log]);
+            }
+
             if(session('role')->level_role == 2){
                 $status_penanganan = StatusPenanganan::all();
                 $dinas = Roles::where('level_role', 5)->get();

@@ -295,7 +295,7 @@
                     {
                         name: "Status Pengerjaan",
                         formatter: (function (cell) {
-                        return gridjs.html('<span class="badge bg-success font-size-12">' + cell +'</span>');
+                        return gridjs.html('<span class="badge bg-'+ cell[1] +' font-size-12">' + cell[0] +'</span>');
                         })
                     }, 
                     // "Estimasi Selesai", 
@@ -344,7 +344,7 @@
                         return data.pelaporan.map(laporan => [
                             "",
                             [laporan.id, laporan.tgl_dibuat, laporan.kecamatan.nama, laporan.kelurahan.nama],
-                            laporan.status_penanganan.status,
+                            [laporan.status_penanganan.status, laporan.status_penanganan.color],
                             // laporan.estimasi_selesai !== null ? laporan.estimasi_selesai : '-',
                             laporan.nama_laporan,
                             laporan.deskripsi_laporan,

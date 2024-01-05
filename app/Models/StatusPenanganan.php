@@ -13,6 +13,7 @@ class StatusPenanganan extends Model
 
     protected $fillable = [
         'status',
+        'color'
     ];
 
     public function pelaporans()

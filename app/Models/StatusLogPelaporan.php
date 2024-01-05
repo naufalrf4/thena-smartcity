@@ -13,5 +13,6 @@ class StatusLogPelaporan extends Model
 
     protected $fillable = [
         'status',
+        'color'
     ];
 }

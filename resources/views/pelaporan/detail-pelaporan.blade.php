@@ -255,7 +255,7 @@
                                             </td>
                                             @if(session('role')->level_role == 1 || session('role')->level_role == 5 || session('role')->level_role == 1 || session('role')->level_role == 6)
                                             <td class="">
-                                                <form class="delete-form" data-id="{{ $pelaporan->id }}" action="{{ route('log-pelaporan.destroy', $pelaporan->id) }}" method="post">
+                                                <form class="delete-form" data-id="{{ $l->id }}" action="{{ route('log-pelaporan.destroy', $l->id) }}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="btn btn-link delete-button">

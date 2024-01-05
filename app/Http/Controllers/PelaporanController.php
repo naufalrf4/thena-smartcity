@@ -231,7 +231,7 @@ class PelaporanController extends Controller
                 $status_penanganan = StatusPenanganan::all();
                 $dinas = Roles::where('level_role', 5)->get();
                 
-                if(!$pelaporan->role_penanganan_id){
+                if($pelaporan->role_penanganan_id){
                     $petugas_role = Roles::where('dep_role', $pelaporan->role_penanganan_id)->first();
                     $petugas = User::where('role_id', $petugas_role->id)
                         ->whereNotExists(function ($query) use ($id) {
@@ -292,6 +292,19 @@ class PelaporanController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if(session('role')->level_role == 1){
+            $request->validate([
+                'nama_laporan' => 'nullable',
+                'deskripsi_laporan' => 'nullable',
+                'alamat_kejadian' => 'nullable',
+                'kecamatan_id' => 'nullable',
+                'kelurahan_id' => 'nullable',  
+                'foto' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'status_penanganan_id' => 'nullable',
+                'estimasi_selesai' => 'nullable',
+                'role_penanganan_id' => 'nullable',
+            ]);
+        }
         if(session('role')->level_role == 4){
             $request->validate([
                 'nama_laporan' => 'required',
@@ -323,6 +336,37 @@ class PelaporanController extends Controller
 
             if(!$pelaporan){
                 return redirect()->route('pelaporan.index')->with('error', 'Laporan tidak ditemukan');
+            }
+
+            if(session('role')->level_role == 1){
+                if ($request->hasFile('foto')) {
+                    $file = $request->file('foto');
+                    $filename = time() . '.' . $file->getClientOriginalExtension();
+                    $file->storeAs('public/foto_kejadian', $filename);
+                    $pelaporan->foto = $filename;
+                }
+    
+                $pelaporan->nama_laporan = $request->nama_laporan ?? $pelaporan->nama_laporan;
+                $pelaporan->deskripsi_laporan = $request->deskripsi_laporan ?? $pelaporan->deskripsi_laporan;
+                $pelaporan->alamat_kejadian = $request->alamat_kejadian ?? $pelaporan->alamat_kejadian;
+                $pelaporan->kecamatan_id = $request->kecamatan_id ?? $pelaporan->kecamatan_id;
+                $pelaporan->kelurahan_id = $request->kelurahan_id ?? $pelaporan->kelurahan_id;
+                $pelaporan->save();
+
+                if($request->has('status_penanganan_id')){
+                    $pelaporan->status_penanganan_id = $request->status_penanganan_id;
+                    $pelaporan->save();
+                }
+
+                if($request->has('estimasi_selesai')){
+                    $pelaporan->estimasi_selesai = $request->estimasi_selesai;
+                    $pelaporan->save();
+                }
+
+                if($request->has('role_penanganan_id')){
+                    $pelaporan->role_penanganan_id = $request->role_penanganan_id;
+                    $pelaporan->save();
+                }
             }
 
             if(session('role')->level_role == 4){

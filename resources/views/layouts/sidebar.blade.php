@@ -61,12 +61,14 @@
                     </ul>
                 </li>
 
+                @if(session('role')->level_role == 1 || session('role')->level_role == 5 )
                 <li>
-                    <a href="data-user">
+                    <a href="{{ route('user.index') }}">
                         <i class="bx bx-table icon nav-icon"></i>
                         <span class="menu-item" data-key="">Data User</span>
                     </a>
                 </li>
+                @endif
 
                 <!-- <li>
                     <a href="{{ route('pelaporan.index') }}">

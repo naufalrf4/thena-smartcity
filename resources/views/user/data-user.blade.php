@@ -151,47 +151,6 @@
                                 data-bs-toggle="modal" data-bs-target=".create-task">
                                 <i class="mdi mdi-plus"></i> Tambah </button>
 
-                            {{-- <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Email</th>
-                                        <th>Password</th>
-                                        <th>Name</th>
-                                        <th>Username</th>
-                                        <th>No Telp</th>
-                                        <th>Role ID</th>
-                                        <th>Kecamatan</th>
-                                        <th>Kelurahan</th>
-                                        <th>RT</th>
-                                        <th>RW</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>test1@gmail.com</td>
-                                        <td>test1</td>
-                                        <td>testing</td>
-                                        <td>test</td>
-                                        <td>123123</td>
-                                        <td>2</td>
-                                        <td>Bojong Gede</td>
-                                        <td>Bojong Baru</td>
-                                        <td>10</td>
-                                        <td>12</td>
-                                        <td>
-                                            <a href=""
-                                            class="btn btn-warning waves-effect waves-light mb-2"
-                                            data-bs-toggle="modal" data-bs-target=".create-task">Update</a>
-                                            <a href="#"
-                                            class="btn btn-danger waves-effect waves-light mb-2">Hapus</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table> --}}
-
                             <div id="table-ecommerce-customers"></div>
                         </div>
 
@@ -263,11 +222,9 @@
                                         <div class="col-sm-9">
                                             <select required class="form-select form-control" id="role_id" name="role_id">
                                                 <option value="">Pilih Role</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
+                                                @foreach ($role as $r)
+                                                    <option value="{{ $r -> id }}">{{ $r -> name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -353,12 +310,9 @@
                 columns:
                     [
                     {
-                        name: '#',
-                        sort: {
-                        enabled: false
-                    },
+                        name: 'UID',
                         formatter: (function (cell) {
-                        return gridjs.html('<div class="form-check font-size-16"><input class="form-check-input" type="checkbox" id="orderidcheck01"><label class="form-check-label" for="orderidcheck01"></label></div>');
+                        return gridjs.html('#UID' + cell);
                         })
                     },
                     "Name",
@@ -383,7 +337,7 @@
                         enabled: false
                     },
                         formatter: (function (cell) {
-                        return gridjs.html(`<a href="{{ route('user.edit', ':lprid') }}" class="btn btn-primary btn-sm">Detail</a>`.replace(':lprid', cell));
+                        return gridjs.html(`<a href="{{ route('user.edit', ':userid') }}" class="btn btn-primary btn-sm">Detail</a>`.replace(':userid', cell));
                         })
                     }
                     ],
@@ -394,20 +348,21 @@
                 search: true,
                 server: {
                     url: `{{ route('user.api_getuser') }}`,
+                    method: 'POST',
                     headers: {
                         Authorization: `Bearer {{ session('ses_token') }}`,
                         'Content-Type': 'application/json'
                     },
+                    body: JSON.stringify({
+                        @if(session('role')->id != 4)
+                        'rid': `{{ session('role')->id }}`,
+                        @endif
+                        'uid': `{{ session('user')->id }}`
+                    }),
                     then: data => {
-                        // $('#total_dispatcher').html(data.total_dispatcher)
-                        // $('#total_walikota').html(data.walikota)
-                        // $('#total_warga').html(data.warga)
-                        // $('#total_dinas').html(data.dinas)
-                        // $('#total_petugas_dinas').html(data.petugas_dinas)
-                        // $('#total_user').html(data.user)
-
+                        console.log(data);
                         return data.users.map(user => [
-                            "",
+                            user.id,
                             user.name,
                             user.username,
                             user.no_telp,
@@ -417,7 +372,8 @@
                             user.get_kelurahan.nama,
                             user.rt,
                             user.rw,
-                            user.foto_profil
+                            user.foto_profil,
+                            user.id
                         ]);
                     }
                 }}).render(document.getElementById("table-ecommerce-customers"));

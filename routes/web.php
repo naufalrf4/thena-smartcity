@@ -27,10 +27,11 @@ Route::resource('pelaporan', App\Http\Controllers\PelaporanController::class);
 Route::resource('petugas-diassign', App\Http\Controllers\PetugasDiassignController::class);
 Route::resource('log-pelaporan', App\Http\Controllers\LogPelaporanController::class);
 
-
 // ===== USER ===== 
 Route::resource('user', App\Http\Controllers\UserController::class);
 
+// ===== DINAS ===== 
+Route::resource('dinas', App\Http\Controllers\DinasController::class);
 
 // untuk buka halaman dari template
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');

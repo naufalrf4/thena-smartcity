@@ -20,7 +20,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h4 class="mb-0" id="total_dispatcher">9,454 <span class="fw-medium text-success font-size-18">
+                                <h4 class="mb-0" id="total_dispatcher">
+                                
+                                    <div class="col-4 skeleton skeleton-text py-3"></div>
                                     <!-- <i class="bx bx-up-arrow-alt font-size-16 align-middle"></i> 16%</span> -->
                                 </h4>
                                 <p class="text-muted text-truncate mb-0 mt-2">Total Dispatcher</p>
@@ -40,7 +42,8 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h4 class="mb-0" id="total_walikota">563 <span class="fw-medium text-success font-size-18">
+                                <h4 class="mb-0" id="total_walikota">
+                                    <div class="col-4 skeleton skeleton-text py-3"></div>
                                     <!-- <i class="bx bx-up-arrow-alt font-size-16 align-middle"></i> 24%</span> -->
                                 </h4>
                                 <p class="text-muted text-truncate mb-0 mt-2">Total Walikota</p>
@@ -60,7 +63,8 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h4 class="mb-0" id="total_warga">454 <span class="fw-medium text-danger font-size-18">
+                                <h4 class="mb-0" id="total_warga">
+                                    <div class="col-4 skeleton skeleton-text py-3"></div>
                                     <!-- <i class="bx bx-down-arrow-alt font-size-16 align-middle"></i> 07%</span> -->
                                 </h4>
                                 <p class="text-muted text-truncate mb-0 mt-2">Total Warga</p>
@@ -80,7 +84,8 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h4 class="mb-0" id="total_dinas">1,526k <span class="fw-medium text-success font-size-18">
+                                <h4 class="mb-0" id="total_dinas">
+                                    <div class="col-4 skeleton skeleton-text py-3"></div>
                                     <!-- <i class="bx bx-up-arrow-alt font-size-16 align-middle"></i> 16%</span> -->
                                 </h4>
                                 <p class="text-muted text-truncate mb-0 mt-2">Total Dinas</p>
@@ -100,7 +105,8 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h4 class="mb-0" id="total_petugas_dinas">1,526k <span class="fw-medium text-success font-size-18">
+                                <h4 class="mb-0" id="total_petugas_dinas">
+                                    <div class="col-4 skeleton skeleton-text py-3"></div>
                                     <!-- <i class="bx bx-up-arrow-alt font-size-16 align-middle"></i> 16%</span> -->
                                 </h4>
                                 <p class="text-muted text-truncate mb-0 mt-2">Total Petugas Dinas</p>
@@ -120,7 +126,8 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h4 class="mb-0" id="total_user">1,526k <span class="fw-medium text-success font-size-18">
+                                <h4 class="mb-0" id="total_user">
+                                    <div class="col-4 skeleton skeleton-text py-3"></div>
                                     <!-- <i class="bx bx-up-arrow-alt font-size-16 align-middle"></i> 16%</span> -->
                                 </h4>
                                 <p class="text-muted text-truncate mb-0 mt-2">Total User</p>
@@ -337,7 +344,17 @@
                         enabled: false
                     },
                         formatter: (function (cell) {
-                        return gridjs.html(`<a href="{{ route('user.edit', ':userid') }}" class="btn btn-primary btn-sm">Detail</a>`.replace(':userid', cell));
+                        return gridjs.html(`<a href="{{ route('user.edit', ':userid') }}" class="btn btn-primary btn-sm">Detail</a>
+                        
+                        <form class="" action="{{ route('user.destroy', ':userid') }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="mt-2 btn btn-danger delete-button btn-sm">
+                                Hapus
+                            </button>
+                        </form>
+                        
+                        `.replaceAll(':userid', cell));
                         })
                     }
                     ],
@@ -361,6 +378,12 @@
                     }),
                     then: data => {
                         console.log(data);
+                        $('#total_dispatcher').text(data.total_dispatcher);
+                        $('#total_walikota').text(data.total_walikota);
+                        $('#total_warga').text(data.total_warga);
+                        $('#total_dinas').text(data.total_dinas);
+                        $('#total_petugas_dinas').text(data.total_petugas_dinas);
+                        $('#total_user').text(data.total_user);
                         return data.users.map(user => [
                             user.id,
                             user.name,
@@ -378,6 +401,7 @@
                     }
                 }}).render(document.getElementById("table-ecommerce-customers"));
         </script>
+        
 
 <script>
         var selectKecamatan = $('#kecamatan_id');
@@ -436,6 +460,36 @@
             }
         });
 </script>
+
+@if(session('success'))
+<script>
+    // SweetAlert2 pop-up for success
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: "{{ session('success') }}",
+    });
+</script>
+@elseif(session('error'))
+<script>
+    // SweetAlert2 pop-up for error
+    Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: "{{ session('error') }}",
+    });
+</script>
+@elseif($errors->any())
+<script>
+    // SweetAlert2 pop-up for validation errors
+    Swal.fire({
+        icon: 'error',
+        title: 'Validation Error!',
+        html: "@foreach ($errors->all() as $error)<p>{{ $error }}</p>@endforeach",
+    });
+</script>
+@endif
+
 @endsection
 
 

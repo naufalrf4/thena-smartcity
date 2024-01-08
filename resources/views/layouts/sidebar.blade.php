@@ -70,6 +70,15 @@
                 </li>
                 @endif
 
+                @if(session('role')->level_role == 1 || session('role')->level_role == 3 )
+                <li>
+                    <a href="{{ route('dinas.index') }}">
+                        <i class="bx bx-table icon nav-icon"></i>
+                        <span class="menu-item" data-key="">Data Dinas</span>
+                    </a>
+                </li>
+                @endif
+
                 <!-- <li>
                     <a href="{{ route('pelaporan.index') }}">
                         <i class="bx bx-check-square icon nav-icon"></i>

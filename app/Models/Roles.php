@@ -25,4 +25,20 @@ class Roles extends Model
     public function dependecyRole(){
         return $this->belongsTo(Roles::class, 'dep_role');
     }
+
+    public function petugas()
+    {
+        return $this->hasMany(Roles::class, 'dep_role');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($roles) {
+            // Delete related Petugas
+            $roles->petugas()->delete();
+        });
+    }
+    
 }

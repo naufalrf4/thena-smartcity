@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Roles;
+use App\Models\Pelaporan;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -37,6 +38,23 @@ class UserController extends Controller
 
         $data = (object) [
             'users' => $users,
+            'total_dispatcher' => User::whereHas('getRole', function ($query) use ($role) {
+                $query->where('level_role', 2);
+            })->count(),
+            'total_walikota' => User::whereHas('getRole', function ($query) use ($role) {
+                $query->where('level_role', 3);
+            })->count(),
+            'total_warga' => User::whereHas('getRole', function ($query) use ($role) {
+                $query->where('level_role', 4);
+            })->count(),
+            'total_dinas' => User::whereHas('getRole', function ($query) use ($role) {
+                $query->where('level_role', 5);
+            })->count(),
+            'total_petugas_dinas' => User::whereHas('getRole', function ($query) use ($role) {
+                $query->where('level_role', 6);
+            })->count(),
+            'total_user' => $users->count(),
+            
         ];
 
         return response()->json($data);
@@ -220,6 +238,26 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $user = User::find($id);
+
+            if (!$user) {
+                return redirect()->route('user.index')->with('error', 'User not found');
+            }
+
+            // Check if there is no associated record in the Pelaporan model
+            $pelaporanCount = Pelaporan::where('user_id', $user->id)->count();
+
+            if ($pelaporanCount > 0) {
+                return redirect()->route('user.index')->with('error', 'Gagal menghapus data. User masih memiliki data pelaporan!');
+            }
+
+            // If no associated records in Pelaporan, proceed with deletion
+            $user->delete();
+
+            return redirect()->route('user.index')->with('success', 'User berhasil dihapus!');
+        } catch (\Exception $e) {
+            return redirect()->route('user.index')->with('error', $e->getMessage());
+        }
     }
 }

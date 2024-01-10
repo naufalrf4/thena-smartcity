@@ -14,6 +14,8 @@ class Pelaporan extends Model
     protected $fillable = [
         'user_id',
         'status_penanganan_id',
+        'lat_coor',
+        'lng_coor',
         'foto',
         'nama_laporan',
         'role_penanganan_id',

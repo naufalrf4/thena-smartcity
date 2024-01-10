@@ -5,6 +5,8 @@
 @section('css')
     <!-- jsvectormap css -->
     <link href="{{ URL::asset('build/libs/jsvectormap/css/jsvectormap.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
 @section('page-title')
     Dashboard
@@ -20,28 +22,32 @@
                     <div class="card-body pb-0">
                         <div class="d-flex align-items-start">
                             <div class="flex-grow-1">
-                                <h5 class="card-title mb-4">Overview</h5>
+                                <h5 class="card-title mb-4">Overview Pelaporan</h5>
                             </div>
                             <div class="flex-shrink-0">
                                 <div class="dropdown">
                                     <a class="dropdown-toggle text-reset" href="#" data-bs-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
                                         <span class="fw-semibold">Sort By:</span>
-                                        <span class="text-muted">Yearly<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                        <span class="text-muted">Yearly
+                                            <!-- <i class="mdi mdi-chevron-down ms-1"></i> -->
+                                        </span>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
+                                    <!-- <div class="dropdown-menu dropdown-menu-end">
                                         <a class="dropdown-item" href="#">Yearly</a>
                                         <a class="dropdown-item" href="#">Monthly</a>
                                         <a class="dropdown-item" href="#">Weekly</a>
                                         <a class="dropdown-item" href="#">Today</a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
 
                         <div>
                             <div id="overview"
-                                data-colors='["#e6ecf9", "#e6ecf9", "#e6ecf9","#e6ecf9", "#e6ecf9", "#e6ecf9","#e6ecf9","#e6ecf9","#e6ecf9","#1f58c7","#1f58c7", "#1f58c7"]'
+                                data-item="{{ json_encode($grp1) }}"
+                                data-label="Pelaporan"
+                                data-colors='["#1f58c7", "#1f58c7", "#1f58c7","#1f58c7", "#1f58c7", "#1f58c7","#1f58c7","#1f58c7","#1f58c7","#1f58c7","#1f58c7", "#1f58c7"]'
                                 class="apex-chart"></div>
                         </div>
                     </div>
@@ -62,10 +68,10 @@
                                         </div>
 
                                         <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-0 font-size-15">Total Sales</h6>
+                                            <h6 class="mb-0 font-size-15">Total Pelaporan</h6>
                                         </div>
 
-                                        <div class="flex-shrink-0">
+                                        <!-- <div class="flex-shrink-0">
                                             <div class="dropdown">
                                                 <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false">
@@ -78,20 +84,21 @@
                                                     <a class="dropdown-item" href="#">Today</a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <div>
-                                        <h4 class="mt-4 pt-1 mb-0 font-size-22">$34,123.20 <span
-                                                class="text-success fw-medium font-size-13 align-middle"> <i
-                                                    class="mdi mdi-arrow-up"></i> 8.34% </span> </h4>
+                                        <h4 class="mt-4 pt-1 mb-0 font-size-22">{{ $grp2 }}
+                                             <!-- <span class="text-success fw-medium font-size-13 align-middle"> <i
+                                                    class="mdi mdi-arrow-up"></i> 8.34% </span>  -->
+                                        </h4>
                                         <div class="d-flex mt-1 align-items-end overflow-hidden">
                                             <div class="flex-grow-1">
-                                                <p class="text-muted mb-0 text-truncate">Total Sales World Wide</p>
+                                                <p class="text-muted mb-0 text-truncate">Total Seluruh Pelaporan</p>
                                             </div>
-                                            <div class="flex-shrink-0">
+                                            <!-- <div class="flex-shrink-0">
                                                 <div id="mini-1" data-colors='["#1f58c7"]' class="apex-charts"></div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -111,10 +118,10 @@
                                         </div>
 
                                         <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-0 font-size-15">Total Orders</h6>
+                                            <h6 class="mb-0 font-size-15">Total Warga</h6>
                                         </div>
 
-                                        <div class="flex-shrink-0">
+                                        <!-- <div class="flex-shrink-0">
                                             <div class="dropdown">
                                                 <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false">
@@ -127,20 +134,21 @@
                                                     <a class="dropdown-item" href="#">Today</a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <div>
-                                        <h4 class="mt-4 pt-1 mb-0 font-size-22">63,234.20 <span
-                                                class="text-danger fw-medium font-size-13 align-middle"> <i
-                                                    class="mdi mdi-arrow-down"></i> 3.68% </span> </h4>
+                                        <h4 class="mt-4 pt-1 mb-0 font-size-22">{{ $grp3 }}
+                                             <!-- <span class="text-danger fw-medium font-size-13 align-middle"> <i
+                                                    class="mdi mdi-arrow-down"></i> 3.68% </span> -->
+                                        </h4>
                                         <div class="d-flex mt-1 align-items-end overflow-hidden">
                                             <div class="flex-grow-1">
-                                                <p class="text-muted mb-0 text-truncate">Total Orders World Wide</p>
+                                                <p class="text-muted mb-0 text-truncate">Total Akun Warga</p>
                                             </div>
-                                            <div class="flex-shrink-0">
+                                            <!-- <div class="flex-shrink-0">
                                                 <div id="mini-2" data-colors='["#1f58c7"]' class="apex-charts"></div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -161,10 +169,10 @@
                                         </div>
 
                                         <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-0 font-size-15">Today Visitor</h6>
+                                            <h6 class="mb-0 font-size-15">Today Dinas</h6>
                                         </div>
 
-                                        <div class="flex-shrink-0">
+                                        <!-- <div class="flex-shrink-0">
                                             <div class="dropdown">
                                                 <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false">
@@ -177,20 +185,21 @@
                                                     <a class="dropdown-item" href="#">Today</a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <div>
-                                        <h4 class="mt-4 pt-1 mb-0 font-size-22">425,34.45 <span
-                                                class="text-danger fw-medium font-size-13 align-middle"> <i
-                                                    class="mdi mdi-arrow-down"></i> 2.64% </span> </h4>
+                                        <h4 class="mt-4 pt-1 mb-0 font-size-22">{{ $grp4 }}
+                                            <!-- <span class="text-danger fw-medium font-size-13 align-middle"> <i
+                                                    class="mdi mdi-arrow-down"></i> 2.64% </span>  -->
+                                        </h4>
                                         <div class="d-flex mt-1 align-items-end overflow-hidden">
                                             <div class="flex-grow-1">
-                                                <p class="text-muted mb-0 text-truncate">Total Visitor World Wide</p>
+                                                <p class="text-muted mb-0 text-truncate">Total Akun Dinas</p>
                                             </div>
-                                            <div class="flex-shrink-0">
+                                            <!-- <div class="flex-shrink-0">
                                                 <div id="mini-3" data-colors='["#1f58c7"]' class="apex-charts"></div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -210,10 +219,10 @@
                                         </div>
 
                                         <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-0 font-size-15">Total Expense</h6>
+                                            <h6 class="mb-0 font-size-15">Total Petugas</h6>
                                         </div>
 
-                                        <div class="flex-shrink-0">
+                                        <!-- <div class="flex-shrink-0">
                                             <div class="dropdown">
                                                 <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false">
@@ -226,21 +235,22 @@
                                                     <a class="dropdown-item" href="#">Today</a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                     </div>
 
                                     <div>
-                                        <h4 class="mt-4 pt-1 mb-0 font-size-22">6,482.46 <span
-                                                class="text-success fw-medium font-size-13 align-middle"> <i
-                                                    class="mdi mdi-arrow-down"></i> 5.79% </span> </h4>
+                                        <h4 class="mt-4 pt-1 mb-0 font-size-22">{{ $grp5 }}
+                                            <!-- <span class="text-success fw-medium font-size-13 align-middle"> <i
+                                                    class="mdi mdi-arrow-down"></i> 5.79% </span>  -->
+                                            </h4>
                                         <div class="d-flex mt-1 align-items-end overflow-hidden">
                                             <div class="flex-grow-1">
-                                                <p class="text-muted mb-0 text-truncate">Total Expense World Wide</p>
+                                                <p class="text-muted mb-0 text-truncate">Total Akun Petugas</p>
                                             </div>
-                                            <div class="flex-shrink-0">
+                                            <!-- <div class="flex-shrink-0">
                                                 <div id="mini-4" data-colors='["#1f58c7"]' class="apex-charts"></div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -251,6 +261,109 @@
             </div>
         </div>
         <!-- end row -->
+
+        <!-- Harusnya buat walikota dan dinas dan dispatcher bisa juga  -->
+        @if(session('role')->level_role == 1)
+        <div class="row">
+            <div class="col-xxl-8">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start">
+                                    <div class="flex-grow-1 overflow-hidden">
+                                        <h5 class="card-title mb-3 text-truncate">Peta Persebaran Laporan</h5>
+                                    </div>
+                                </div>
+                                <div id="map" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- <div class="col-xxl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-grow-1 overflow-hidden">
+                                <h5 class="card-title mb-4 text-truncate">Top Selling Categories</h5>
+                            </div>
+                            <div class="flex-shrink-0 ms-2">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle text-reset" href="#" data-bs-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <span class="fw-semibold">Sort By:</span> <span class="text-muted">Weekly<i
+                                                class="mdi mdi-chevron-down ms-1"></i></span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a class="dropdown-item" href="#">Yearly</a>
+                                        <a class="dropdown-item" href="#">Monthly</a>
+                                        <a class="dropdown-item" href="#">Weekly</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="saleing-categories" data-colors='["#1f58c7", "#4976cf","#6a92e1", "#e6ecf9"]'
+                            class="apex-charts" dir="ltr"></div>
+
+                        <div class="row mt-3 pt-1">
+                            <div class="col-md-6">
+                                <div class="px-2 mt-2">
+                                    <div class="d-flex align-items-center mt-sm-0 mt-2">
+                                        <i class="mdi mdi-circle font-size-10 text-primary"></i>
+                                        <div class="flex-grow-1 ms-2 overflow-hidden">
+                                            <p class="font-size-15 mb-1 text-truncate">Men Fashion</p>
+                                        </div>
+                                        <div class="flex-shrink-0 ms-2">
+                                            <span class="fw-bold">34.3%</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-center mt-2">
+                                        <i class="mdi mdi-circle font-size-10 text-success"></i>
+                                        <div class="flex-grow-1 ms-2 overflow-hidden">
+                                            <p class="font-size-15 mb-0 text-truncate">Women Clothing</p>
+                                        </div>
+                                        <div class="flex-shrink-0 ms-2">
+                                            <span class="fw-bold">25.7%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="px-2 mt-2">
+                                    <div class="d-flex align-items-center mt-sm-0 mt-2">
+                                        <i class="mdi mdi-circle font-size-10 text-info"></i>
+                                        <div class="flex-grow-1 ms-2 overflow-hidden">
+                                            <p class="font-size-15 mb-1 text-truncate">Beauty Products</p>
+                                        </div>
+                                        <div class="flex-shrink-0 ms-2">
+                                            <span class="fw-bold">18.6%</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-center mt-2">
+                                        <i class="mdi mdi-circle font-size-10 text-secondary"></i>
+                                        <div class="flex-grow-1 ms-2 overflow-hidden">
+                                            <p class="font-size-15 mb-0 text-truncate">Others Products</p>
+                                        </div>
+                                        <div class="flex-shrink-0 ms-2">
+                                            <span class="fw-bold">21.4%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <!-- end row -->
+        @endif
 
         <div class="row">
             <div class="col-xxl-8">
@@ -1049,6 +1162,30 @@
         <!-- end row -->
     @endsection
     @section('scripts')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        @if(session('role')->level_role == 1)
+        <script>
+            var map = L.map('map').setView([-6.410436, 106.845174], 13);
+
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            let mapcoor = {!! json_encode($map1) !!};
+
+            mapcoor.forEach(coordinate => {
+                let lat = coordinate.lat_coor; // Replace with the correct key for latitude in your $map1 array
+                let lng = coordinate.lng_coor; // Replace with the correct key for longitude in your $map1 array
+                
+                L.marker([lat, lng])
+                    .addTo(map)
+                    .bindPopup('Lokasi Pelaporan')
+                    .openPopup();
+            });
+
+        </script>
+        @endif
         <!-- apexcharts -->
         <script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>
 

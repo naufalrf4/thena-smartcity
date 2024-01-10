@@ -169,6 +169,8 @@ class PelaporanController extends Controller
             'judul_laporan' => 'required',
             'deskripsi_laporan' => 'required',
             'alamat_kejadian' => 'required',
+            'lat_coor' => 'nullable',
+            'lng_coor' => 'nullable',
             'kecamatan_id' => 'required',
             'kelurahan_id' => 'required',
             'tanggal_kejadian' => 'required',
@@ -185,6 +187,8 @@ class PelaporanController extends Controller
         $Pelaporan = Pelaporan::create([
             'user_id' => auth()->user()->id,
             'status_penanganan_id' => 1,
+            'lat_coor' => $validatedData['lat_coor'],
+            'lng_coor' => $validatedData['lng_coor'],
             'nama_laporan' => $validatedData['judul_laporan'],
             'deskripsi_laporan' => $validatedData['deskripsi_laporan'],
             'alamat_kejadian' => $validatedData['alamat_kejadian'],

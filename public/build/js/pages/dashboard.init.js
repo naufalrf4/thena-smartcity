@@ -237,9 +237,13 @@ var sparklineoptions1 = {
   
 //  Sales Statistics
 var barchartColors = getChartColorsArray("overview");
+var dlabel = document.getElementById('overview').getAttribute('data-label');
+var data = document.getElementById('overview').getAttribute('data-item');
+data = JSON.parse(data);
 var options = {
     series: [{
-        data: [4, 6, 10, 17, 15, 19, 23, 27, 29, 25, 32, 35]
+        name: dlabel,
+        data: data
     }],
     chart: {
         toolbar: {

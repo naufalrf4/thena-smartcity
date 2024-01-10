@@ -8,6 +8,8 @@
 
     <!-- gridjs css -->
     <link rel="stylesheet" href="{{ asset('build/libs/gridjs/theme/mermaid.min.css') }}">
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
 @endsection
 @section('page-title')
     Pelaporan > {{ $status }}
@@ -115,7 +117,7 @@
                             <div class="modal-button mt-2">
                                 <button type="button"
                                     class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
-                                    data-bs-toggle="modal" data-bs-target=".new-customer">
+                                    data-bs-toggle="modal" data-bs-target=".new-customer" onclick="getcoor()">
                                     <!-- <i class="mdi mdi-plus me-1"></i> -->
                                     Tambah Laporan</button>
                             </div>
@@ -183,6 +185,14 @@
                                         id="NewPelaporan-Phone">
                                 </div>
                             </div>
+                            <!-- <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label class="form-label">Lokasi Peta</label>
+                                    <div id="map"></div>
+                                </div>
+                            </div> -->
+                            <input type="hidden" name="lat_coor" id="lat_coor">
+                            <input type="hidden" name="lng_coor" id="lng_coor">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="col-sm-3">Kecamatan<span class="text-danger">*</span></label>
@@ -271,6 +281,51 @@
         <script src="{{ URL::asset('build/libs/gridjs/gridjs.umd.js') }}"></script>
 
         <!-- <script src="{{ URL::asset('build/js/pages/ecommerce-customers.init.js') }}"></script> -->
+
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+        <script>
+            function getcoor(){
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        $('#lat_coor').val(latitude)
+                        $('#lng_coor').val(longitude)
+                        $('#NewPelaporan-Address').attr("placeholder", "Mendapatkan lokasi dari gps...");
+
+                        getLocationName(latitude, longitude);
+                    },
+                    function (error) {
+                        console.error("Error getting location:", error);
+                    }
+                );
+            }
+            
+            function getLocationName(latitude, longitude) {
+                const apiKey = "c780bbdac1d64f1cab2832c6f971a5da";
+                const apiUrl = `https://api.opencagedata.com/geocode/v1/json?key=${apiKey}&q=${latitude}+${longitude}&pretty=1`;
+
+                console.log('asd')
+                fetch(apiUrl)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data)
+                    if (data.results.length > 0) {
+                        const locationName = data.results[0].formatted;
+                        $('#NewPelaporan-Address').val(`${locationName}`);
+                    } else {
+                        $('#NewPelaporan-Address').attr("placeholder", "Masukan Alamat Lengkap (cth: Nama Gedung, Nomor dan Nama Jalan, RT dan RW)");
+                    }
+                   
+
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    $('#NewPelaporan-Address').attr("placeholder", "Masukan Alamat Lengkap (cth: Nama Gedung, Nomor dan Nama Jalan, RT dan RW)");
+                });
+            }
+        </script>
 
         <script>
             new gridjs.Grid({

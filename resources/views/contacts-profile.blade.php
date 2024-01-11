@@ -11,27 +11,28 @@
     @endsection
     @section('content')
         <div class="row">
-            <div class="col-xxl-3">
+            <div class="col-xxl-12">
                 <div class="card">
-                    <div class="card-body p-0">
+                    <div class="card-body">
                         <div class="user-profile-img">
-                            <img src="{{ URL::asset('build/images/pattern-bg.jpg') }}" class="profile-img profile-foreground-img rounded-top"
+                            <img class="profile-img profile-foreground-img rounded-top"
                                 style="height: 120px;" alt="">
                             <div class="overlay-content rounded-top">
                                 <div>
                                     <div class="user-nav p-3">
                                         <div class="d-flex justify-content-end">
-                                            <div class="dropdown">
+                                            {{-- <div class="dropdown">
                                                 <a class="text-muted dropdown-toggle font-size-16" href="#"
                                                     role="button" data-bs-toggle="dropdown" aria-haspopup="true">
                                                     <i class="bx bx-dots-vertical text-white font-size-20"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".create-task">Edit</a>
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Remove</a>
+                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target=".create-task">
+                                                        <i class="mdi mdi-trash-can me-1 text-danger"></i>
+                                                        Hapus Akun
+                                                    </a>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -39,224 +40,175 @@
                         </div>
                         <!-- end user-profile-img -->
 
+                        <div class="p-4 pb-0 pt-0">
+                            <div class="mt-n5 position-relative text-center pb-3">
+                                {{-- <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt=""
+                                    class="avatar-xl rounded-circle img-thumbnail"> --}}
 
-                        <div class="p-4 pt-0">
-
-                            <div class="mt-n5 position-relative text-center border-bottom pb-3">
-                                <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt=""
-                                    class="avatar-xl rounded-circle img-thumbnail">
+                                    <img src="{{ asset('storage/foto_profil/' . $user->foto_profil ) }}" alt="" class="avatar-xl rounded-circle img-thumbnail">
 
                                 <div class="mt-3">
-                                    <h5 class="mb-1">Martin Gurley</h5>
+                                    <h5 class="mb-1">{{ $user->name }}</h5>
                                 </div>
 
                             </div>
+                        </div>
 
-                            <div class="table-responsive mt-3 border-bottom pb-3">
-                                <table
-                                    class="table align-middle table-sm table-nowrap table-borderless table-centered mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <th class="fw-bold">
-                                                Email</th>
-                                            <td class="text-muted">testing@gmail.com</td>
-                                        </tr>
-                                        <!-- end tr -->
-                                        <tr>
-                                            <th class="fw-bold">
-                                                Name</th>
-                                            <td class="text-muted">testing</td>
-                                        </tr>
-                                        <!-- end tr -->
-                                        <tr>
-                                            <th class="fw-bold">
-                                                Username</th>
-                                            <td class="text-muted">test</td>
-                                        </tr>
-                                        <!-- end tr -->
-                                        <tr>
-                                            <th class="fw-bold">No Telp</th>
-                                            <td class="text-muted">0005485</td>
-                                        </tr>
-                                        <!-- end tr -->
+                        <div class="row">
+                            <div class="col-xl-7">
+                                <div class="card">
+                                    <div class="card-body">
+                                        @if(isset($user))
+                                            <form class="form-bookmark needs-validation" id="bookmark-formnovalidate="" 
+                                                action="{{ route('profile.update', $user->id) }}"
+                                                enctype="multipart/form-data"
+                                                method="POST">
+                                                @csrf
+                                                @method('PUT')
 
-                                        <tr>
-                                            <th class="fw-bold">Role ID</th>
-                                            <td class="text-muted">(2) Warga</td>
-                                        </tr>
-                                        <!-- end tr -->
+                                            <div class="my-2 d-flex align-items-center justify-content-between">
 
-                                        <tr>
-                                            <th class="fw-bold">Kecamatan</th>
-                                            <td class="text-muted">Bojong Gede</td>
-                                        </tr>
+                                                <div class="my-2">
+                                                    <div class="flex flex-col">
+                                                        <img id="data-foto-profil" data-foto-profil="{{ $user->foto_profil }}" src="" alt="">
+                                                    </div>
+                                                </div>
 
-                                        <tr>
-                                            <th class="fw-bold">Kelurahan</th>
-                                            <td class="text-muted">Bojong Baru</td>
-                                        </tr>
-                                        <!-- end tr -->
-                                    </tbody><!-- end tbody -->
-                                </table>
-                            </div>
+                                                <div class="col-xl-3 col-lg-4 col-sm-6 d-flex justify-content-end" id="btn-area">
+                                                    <button type="button" class="btn btn-primary btn-sm waves-effect text-white waves-light mt-2 me-2" onclick="turnEdit()"> 
+                                                        <i class="mdi mdi-pencil-box-multiple-outline me-1"></i> Edit Data
+                                                    </button>
+                                                </div>
 
+                                            </div>
 
+                                            <div class="my-2 mt-4">
+                                                <div class="flex flex-col">
+                                                    <span for="" class="fw-bold">Email</span><br>
+                                                    <span id="data-email" data-email="{{ $user->email }}">{{ $user->email }}</span>
+                                                </div>
+                                            </div>
 
-                            <div class="p-3 mt-3">
-                                <div class="row text-center">
-                                    <div class="col-6 border-end">
-                                        <div class="p-1">
-                                            <h5 class="mb-1">1,269</h5>
-                                            <p class="text-muted mb-0">Products</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="p-1">
-                                            <h5 class="mb-1">5.2k</h5>
-                                            <p class="text-muted mb-0">Followers</p>
-                                        </div>
+                                            <div class="my-2 mt-4">
+                                                <div class="flex flex-col">
+                                                    <span for="" class="fw-bold">Name</span><br>
+                                                    <span id="data-nama" data-nama="{{ $user->name }}">{{ $user->name }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="my-2 mt-4">
+                                                <div class="flex flex-col">
+                                                    <span for="" class="fw-bold">Username</span><br>
+                                                    <span id="data-username" data-username="{{ $user->username }}">{{ $user->username }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="my-2 mt-4">
+                                                <div class="flex flex-col">
+                                                    <span for="" class="fw-bold">Password</span><br>
+                                                    <span id="data-password"></span>
+                                                </div>
+                                            </div>
+                    
+                                            <div class="my-2 mt-4">
+                                                <div class="flex flex-col">
+                                                    <span for="" class="fw-bold">No Telp</span><br>
+                                                    <span id="data-no-telp" data-no-telp="{{ $user->no_telp }}">{{ $user->no_telp }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="my-2 mt-4">
+                                                <div class="flex flex-col">
+                                                    <span for="" class="fw-bold">Kecamatan</span><br>
+                                                    <span id="kecamatan" data-kecamatan-id="{{ $user->kecamatan_id }}"  data-kecamatan-nama="{{ $user->getKecamatan->nama }}">{{ $user->getKecamatan->nama }}</span>
+                                                </div>
+                                            </div>
+                    
+                                            <div class="my-2 mt-4">
+                                                <div class="flex flex-col">
+                                                    <span for="" class="fw-bold">Kelurahan</span><br>
+                                                    <span id="kelurahan" data-kelurahan-id="{{ $user->kelurahan_id }}"  data-kelurahan-nama="{{ $user->getKelurahan->nama }}">{{ $user->getKelurahan->nama }}</span>
+                                                </div>
+                                            </div>
+                    
+                                            <div class="my-2 mt-4">
+                                                <div class="flex flex-col">
+                                                    <span for="" class="fw-bold">RT</span><br>
+                                                    <span id="data-rt" data-rt="{{ $user->rt }}">{{ $user->rt }}</span>
+                                                </div>
+                                            </div>
+                    
+                                            <div class="my-2 mt-4">
+                                                <div class="flex flex-col">
+                                                    <span for="" class="fw-bold">RW</span><br>
+                                                    <span id="data-rw" data-rw="{{ $user->rw }}">{{ $user->rw }}</span>
+                                                </div>
+                                            </div>
+        
+                                            </form>
+                                        @else
+                                            <p>Data tidak ditemukan.</p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="pt-2 text-center border-bottom pb-4">
-                                <a href="" class="btn btn-primary waves-effect waves-light btn-sm">Send Message <i
-                                        class="bx bx-send ms-1 align-middle"></i></a>
-                            </div>
+                            <div class="col-xl-5">
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title mb-0">Grafik Laporan Harian</h5>
+                                        <!-- <button type="button"
+                                            class="btn btn-primary btn-sm waves-effect waves-light me-1"
+                                            data-bs-toggle="modal" data-bs-target=".create-task">
+                                            Tambah Petugas</button> -->
+                                    </div>
+                                    <div class="card-body pt-2">
 
-                            <div class="mt-3 pt-1 text-center">
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item">
-                                        <a href="javascript:void()"
-                                            class="social-list-item bg-primary text-white border-primary">
-                                            <i class="bx bxl-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="javascript:void()" class="social-list-item bg-info text-white border-info">
-                                            <i class="bx bxl-linkedin"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="javascript:void()"
-                                            class="social-list-item bg-danger text-white border-danger">
-                                            <i class="bx bxl-google"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                                        <div class="card">
+                                            <div class="card-body pb-0">
+                                                <div>
+                                                    <div id="grafik_laporan_harian"
+                                                        data-label="Pelaporan"
+                                                        data-colors='["#1f58c7", "#1f58c7", "#1f58c7","#1f58c7", "#1f58c7", "#1f58c7","#1f58c7","#1f58c7","#1f58c7","#1f58c7","#1f58c7", "#1f58c7"]'
+                                                        class="apex-chart"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{-- <div class="d-flex justify-content-center my-3">Belum ada laporan yang dibuat.</div> --}}
+                                    
+                                        <div class="row">
+                                            <div class="col-xl-12 col-md-12 flex justify-content-end">
+                                                <div class="text-sm-end">
+                                                    <a href="{{ route('pelaporan.index') }}" class="btn btn-primary btn-sm waves-effect waves-light">
+                                                    Tambah Laporan</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
+            
         </div>
         <!-- end row -->
 
-        <!-- Edit Data User  -->
+        <!-- Hapus Data User  -->
         <div class="modal fade create-task" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
         aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-dialog modal-md modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="myExtraLargeModalLabel">Edit Data User</h5>
+                        <h5 class="modal-title" id="myExtraLargeModalLabel">Hapus Akun</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="CreateTask-Task-Name">Email</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Email"
-                                        id="CreateTask-Task-Name">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="CreateTask-Task-Name">Password</label>
-                                    <input type="password" class="form-control" placeholder="Masukkan Password"
-                                        id="CreateTask-Task-Name">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="CreateTask-Task-Name">Nama</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama"
-                                        id="CreateTask-Task-Name">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="CreateTask-Task-Name">Username</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Username"
-                                        id="CreateTask-Task-Name">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="CreateTask-Task-Name">Nomor Telephone</label>
-                                    <input type="number" class="form-control" placeholder="Masukkan Nomor Telephone"
-                                        id="CreateTask-Task-Name">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="CreateTask-Category">Role ID</label>
-                                    <select class="form-select">
-                                        <option selected> Pilih Role ID </option>
-                                        <option>1 (Warga)</option>
-                                        <option>2 (Apa)</option>
-                                        <option>3 (Apa)</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="CreateTask-Category">Kecamatan</label>
-                                    <select class="form-select">
-                                        <option selected> Pilih Kecamatan </option>
-                                        <option>Kecamatan 1</option>
-                                        <option>Kecamatan 2</option>
-                                        <option>Kecamatan 3</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="CreateTask-Category">Kelurahan</label>
-                                    <select class="form-select">
-                                        <option selected> Pilih Kelurahan </option>
-                                        <option>Kelurahan 1</option>
-                                        <option>Kelurahan 2</option>
-                                        <option>Kelurahan 3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="CreateTask-Task-Name">RT</label>
-                                    <input type="number" class="form-control" placeholder="Masukkan RT"
-                                        id="CreateTask-Task-Name">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="CreateTask-Task-Name">RW</label>
-                                    <input type="number" class="form-control" placeholder="Masukkan RW"
-                                        id="CreateTask-Task-Name">
-                                </div>
-                            </div>
-                            
-
+                            <p>Yakin ingin hapus akun?</p>
                         </div>
                         <div class="row mt-2">
                             <div class="col-12 text-end">
@@ -272,12 +224,247 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
+
     @endsection
-    @section('scripts')
+@section('scripts')
         <!-- apexcharts -->
         <script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <script src="{{ URL::asset('build/js/pages/profile.init.js') }}"></script>
+        
+        <!-- apexcharts -->
+        <script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>
+
+        <!-- Vector map-->
+        <script src="{{ URL::asset('build/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
+        <script src="{{ URL::asset('build/libs/jsvectormap/maps/world-merc.js') }}"></script>
+
+        <script src="{{ URL::asset('build/js/pages/dashboard.init.js') }}"></script>
         <!-- App js -->
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
-    @endsection
+
+        <script>
+            let kelurahan_id = $('#kelurahan').data('kelurahan-id');
+
+            function changeKelurahan(){
+                var selectKecamatan = $('#kecamatan');
+                var selectKelurahan = $('#kelurahan');
+
+                var selectedKecamatanId = $('#kecamatan').val();
+
+                // Clear the Kelurahan select and disable it
+                selectKelurahan.empty().prop('disabled', true);
+                selectKelurahan.append($('<option value="">Pilih Kelurahan</option>'));
+                
+                if (selectedKecamatanId) {
+                    // Send an AJAX request to fetch Kelurahan data based on the selected Kecamatan
+                    $.ajax({
+                        url: `https://www.emsifa.com/api-wilayah-indonesia/api/villages/${selectedKecamatanId}.json`,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            // Populate the Kelurahan select with the retrieved data
+                            $.each(data, function(index, item) {
+                                var option = $('<option>', {
+                                    value: item.id,
+                                    text: item.name
+                                });
+
+                                if (kelurahan_id == item.id) {
+                                    option.attr('selected', 'selected');
+                                }
+                                
+                                selectKelurahan.append(option);
+                            });
+
+                            // Enable the Kelurahan select
+                            selectKelurahan.prop('disabled', false);
+                        }
+                    });
+                }
+            }
+    </script>
+
+    <script>
+            function turnEdit(){
+                //get data
+                let data_foto_profil = $('#data-foto-profil').data('foto-profil');
+                let data_email = $('#data-email').data('email');
+                let data_nama = $('#data-nama').data('nama');
+                let data_username = $('#data-username').data('username');
+                let data_no_telp = $('#data-no-telp').data('no-telp');
+                let kecamatan_id = $('#kecamatan').data('kecamatan-id');
+                let kelurahan_id = $('#kelurahan').data('kelurahan-id');
+                let data_rt = $('#data-rt').data('rt');
+                let data_rw = $('#data-rw').data('rw');
+
+                //replace to input
+                $('#data-foto-profil').replaceWith(`<span class="fw-bold">Foto Profil</span><br><input type="file" class="form-control"  id="data-foto-profil" name="data_foto_profil">`);
+
+                $('#data-email').replaceWith(`<input type="text" class="form-control" id="data-email" name="data_email" value="${data_email}">`);
+
+                $('#data-nama').replaceWith(`<input type="text" class="form-control" id="data-nama" name="data_nama" value="${data_nama}">`);
+                
+                $('#data-username').replaceWith(`<input type="text" class="form-control" id="data-username" name="data_username" value="${data_username}">`);
+
+                $('#data-password').replaceWith(`<input type="text" class="form-control" id="data-password" name="data_password" value="" placeholder="Masukkan password baru">`);
+
+                $('#data-no-telp').replaceWith(`<input type="text" class="form-control" id="data-no-telp" name="data_no_telp" value="${data_no_telp}">`);
+
+                $('#kecamatan').replaceWith(`<span>Pilih Kecamatan</span><select class="form-select form-control" id="kecamatan" name="kecamatan_id" onclick="changeKelurahan()"><options>Pilih Kecamatan</options></select>`);
+
+                $('#kelurahan').replaceWith(`- <span>Pilih Kelurahan</span><select class="form-select form-control" id="kelurahan" name="kelurahan_id" ><options>Pilih Kelurahan</options></select><br>`);
+
+                $('#data-rt').replaceWith(`<input type="text" class="form-control" id="data-rt" name="data_rt" value="${data_rt}">`);
+
+                $('#data-rw').replaceWith(`<input type="text" class="form-control" id="data-rw" name="data_rw" value="${data_rw}">`);
+
+                var selectKecamatan = $('#kecamatan');
+                var selectedKotaId = 3374; // kota id semarang
+
+                selectKecamatan.empty().prop('disabled', true);
+                selectKecamatan.append($('<option value="">Pilih Kecamatan</option>'));
+
+                if (selectedKotaId) {
+                    $.ajax({
+                    url: `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${selectedKotaId}.json`,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                            // Populate the Kecamatan select with the retrieved data
+                            $.each(data, function(index, item) {
+                                var option = $('<option>', {
+                                    value: item.id,
+                                    text: item.name
+                                });
+
+                                if (kecamatan_id == item.id) {
+                                    option.attr('selected', 'selected');
+                                }
+
+                                selectKecamatan.append(option);
+                            });
+
+                            changeKelurahan()
+                            // Enable the Kecamatan select
+                            selectKecamatan.prop('disabled', false);
+                    }
+                    });
+                }
+
+                $('#btn-area').empty();
+
+                var submitBtn = $('<button type="submit" class="btn btn-success btn-sm waves-effect text-white waves-light mt-2 me-2">Submit</button>');
+                var cancelBtn = $('<button type="button" class="btn btn-secondary btn-sm waves-effect text-white waves-light mt-2 me-2" onclick="cancelEdit()">Cancel</button>');
+
+                // Append the buttons to the button area or form
+                $('#btn-area').append(submitBtn, cancelBtn);
+
+            }
+
+            function cancelEdit() {
+                // Reload the page
+                location.reload();
+            }
+    </script>
+
+    <script>
+        // Basic Column Chart
+        var barchartColors = getChartColorsArray("grafik_laporan_harian");
+        var options = {
+        chart: {
+            height: 350,
+            type: 'bar',
+            toolbar: {
+            show: false,
+            }
+        },
+        plotOptions: {
+            bar: {
+            horizontal: false,
+            columnWidth: '75%',
+            endingShape: 'rounded'
+            },
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                endingShape: 'rounded',
+                borderRadius: 5, // Menambahkan radius untuk melengkungkan pojok kanan atas dan pojok kiri atas
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent']
+        },
+        series: [{
+            name: 'Total Laporan',
+            data: {{ json_encode($grp1) }}
+        }],
+        colors: barchartColors,
+        xaxis: {
+            categories: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
+            labels: {
+                rotate: -45,
+                style: {
+                    fontSize: '30px' // Ubah ukuran teks sesuai keinginan Anda
+                }
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Laporan'
+            },
+        },
+        grid: {
+            borderColor: '#f1f1f1',
+        },
+        fill: {
+            opacity: 1
+
+        },
+        }
+
+        var chart = new ApexCharts(
+        document.querySelector("#grafik_laporan_harian"),
+        options
+        );
+
+        chart.render();
+    </script>
+
+@if(session('success'))
+<script>
+    // SweetAlert2 pop-up for success
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: "{{ session('success') }}",
+    });
+</script>
+@elseif(session('error'))
+<script>
+    // SweetAlert2 pop-up for error
+    Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: "{{ session('error') }}",
+    });
+</script>
+@elseif($errors->any())
+<script>
+    // SweetAlert2 pop-up for validation errors
+    Swal.fire({
+        icon: 'error',
+        title: 'Validation Error!',
+        html: "@foreach ($errors->all() as $error)<p>{{ $error }}</p>@endforeach",
+    });
+</script>
+@endif
+@endsection

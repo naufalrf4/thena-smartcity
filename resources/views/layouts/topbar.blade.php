@@ -192,15 +192,18 @@
                     id="page-header-user-dropdown-v" data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <img class="rounded-circle header-profile-user"
-                        src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-2 fw-medium font-size-15">{{ session('user')->name ?? '-' }} {{ session('role')->name?? '-'}}</span>
+                        src="{{ asset('storage/foto_profil/' . session('user')->foto_profil ) }}" alt="Header Avatar">
+                    <span class="d-none d-xl-inline-block ms-2 fw-medium font-size-15">
+                        {{ session('user')->name ?? '-' }} 
+                        ({{ session('role')->name?? '-'}})
+                    </span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end pt-0">
                     <div class="p-3 border-bottom">
                         <h6 class="mb-0">Martin Gurley</h6>
                         <p class="mb-0 font-size-11 text-muted">martin.gurley@email.com</p>
                     </div>
-                    <a class="dropdown-item" href="contacts-profile"><i
+                    <a class="dropdown-item" href="{{ route('profile.index') }}"><i
                             class="mdi mdi-account-circle text-muted font-size-16 align-middle me-2"></i> <span
                             class="align-middle">Profile</span></a>
                     <a class="dropdown-item" href="apps-chat"><i

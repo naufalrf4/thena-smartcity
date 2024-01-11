@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'root']);
@@ -33,5 +32,8 @@ Route::resource('user', App\Http\Controllers\UserController::class);
 // ===== DINAS ===== 
 Route::resource('dinas', App\Http\Controllers\DinasController::class);
 
+// ===== PROFILE ===== 
+Route::resource('profile', App\Http\Controllers\ProfileController::class);
+
 // untuk buka halaman dari template
-Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+// Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');

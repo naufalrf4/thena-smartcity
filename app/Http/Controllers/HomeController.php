@@ -41,20 +41,22 @@ class HomeController extends Controller
             
             // If you want to ensure there are 12 items even if some months have 0 counts:
             $grp1 = array_pad($grp1, 12, 0);
+        } else {
+            $grp1 = [];
         }
 
         //grp2
         if(auth()->user()->role_id == '1'){
             $grp2 = Pelaporan::count();
         }else{
-            $grp = '';
+            $grp2 = '';
         }
 
         //grp3
         if(auth()->user()->role_id == '1'){
             $grp3 = User::where('role_id', 4)->count();
         }else{
-            $grp = '';
+            $grp3 = '';
         }
 
         //grp4
@@ -63,7 +65,7 @@ class HomeController extends Controller
                 $query->where('level_role', 5);
             })->count();
         }else{
-            $grp = '';
+            $grp4 = '';
         }
 
 
@@ -73,7 +75,7 @@ class HomeController extends Controller
                 $query->where('level_role', 6);
             })->count();
         }else{
-            $grp = '';
+            $grp5 = '';
         }
 
         //map1

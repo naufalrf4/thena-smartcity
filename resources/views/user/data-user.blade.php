@@ -154,9 +154,9 @@
                         <div class="table-responsive">
 
                             <button type="button"
-                                class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"
+                                class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
                                 data-bs-toggle="modal" data-bs-target=".create-task">
-                                <i class="mdi mdi-plus"></i> Tambah </button>
+                                <i class="mdi mdi-plus"></i> Tambah User </button>
 
                             <div id="table-ecommerce-customers"></div>
                         </div>
@@ -288,7 +288,7 @@
                                 <div class="col-12 text-end">
                                     <button type="button" class="btn btn-danger me-1" data-bs-dismiss="modal"><i
                                             class="bx bx-x me-1 align-middle"></i> Cancel</button>
-                                    <button type="submit" class="btn btn-success" data-bs-toggle="modal"
+                                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#success-btn" id="btn-save-event"><i
                                             class="bx bx-check me-1 align-middle"></i> Confirm</button>
                                 </div>

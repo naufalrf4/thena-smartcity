@@ -49,9 +49,9 @@
                         <div class="table-responsive">
 
                             <button type="button"
-                                class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"
+                                class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
                                 data-bs-toggle="modal" data-bs-target=".create-task" onclick="tambahDinas()">
-                                <i class="mdi mdi-plus"></i> Tambah </button>
+                                <i class="mdi mdi-plus"></i> Tambah Dinas </button>
 
                             <div id="table-ecommerce-customers"></div>
                         </div>
@@ -71,7 +71,7 @@
             <div class="modal-dialog modal-md modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="myExtraLargeModalLabel">Form Data Dinas</h5>
+                        <h5 class="modal-title" id="myExtraLargeModalLabel">Form Tambah Data Dinas</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -96,7 +96,7 @@
                                 <div class="col-12 text-end">
                                     <button type="button" class="btn btn-danger me-1" data-bs-dismiss="modal"><i
                                             class="bx bx-x me-1 align-middle"></i> Cancel</button>
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#success-btn"
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#success-btn"
                                         id="btn-save-event"><i class="bx bx-check me-1 align-middle"></i> Confirm</button>
                                 </div>
                             </div>
@@ -259,7 +259,7 @@
                 $('#CreateTask-Task-Name').val(data.name);
 
                 // Change the modal title to "Form Edit Dinas"
-                $('#myExtraLargeModalLabel').text('Form Edit Dinas');
+                $('#myExtraLargeModalLabel').text('Form Edit Data Dinas');
 
                 // Show the modal
                 $('.create-task').modal('show');
@@ -278,7 +278,7 @@
         $('#CreateTask-Task-Name').val('');
 
         // Change the modal title to "Form Data Dinas"
-        $('.modal-title').text('Form Data Dinas');
+        $('.modal-title').text('Form Tambah Data Dinas');
 
         // Show the modal
         $('.create-task').modal('show');

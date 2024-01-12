@@ -5,10 +5,14 @@
     <div class="navbar-brand-box">
         <a href="index" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ URL::asset('build/images/logo-dark-sm.png') }}" alt="" height="26">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="15.000000pt" height="15.000000pt" viewBox="0 0 75.000000 85.000000" preserveAspectRatio="xMidYMid meet">
+                    <g transform="translate(0.000000,85.000000) scale(0.100000,-0.100000)" fill="#1F58C7" stroke="none">
+                    <path d="M200 725 l-175 -103 -3 -89 -3 -88 236 -135 235 -134 -57 -33 c-50 -28 -60 -31 -78 -19 -41 27 -322 186 -329 186 -3 0 -6 -24 -6 -52 l0 -53 180 -103 179 -103 178 104 178 105 0 87 0 87 -225 130 c-124 71 -228 133 -232 137 -4 3 17 19 46 35 l54 29 177 -102 c97 -55 179 -101 181 -101 2 0 4 24 4 54 l0 54 -177 102 c-98 57 -180 104 -183 105 -3 1 -84 -44 -180 -100z m212 -267 l229 -133 -3 -33 c-2 -23 -11 -38 -28 -48 -24 -15 -32 -11 -235 107 -116 67 -220 128 -232 135 -42 26 -23 103 26 104 8 0 117 -60 243 -132z"/>
+                    </g>
+                </svg>
             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('build/images/logo-dark.png') }}" alt="" height="28">
+                <img src="{{ URL::asset('build/images/Semarang_SC__1_-removebg-preview.png') }}" alt="" height="50">
             </span>
         </a>
 
@@ -34,23 +38,23 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title" data-key="t-menu">Dashboard</li>
 
-               <li>
-                    <a href="javascript: void(0);">
+                <li>
+                    <a href="/">
                         <i class="bx bx-home-alt icon nav-icon"></i>
                         <span class="menu-item" data-key="t-dashboard">Dashboard</span>
-                        <span class="badge rounded-pill bg-primary">2</span>
+                        {{-- <span class="badge rounded-pill bg-primary">2</span> --}}
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
+                    {{-- <ul class="sub-menu" aria-expanded="false">
                         <li><a href="index" data-key="t-ecommerce">Ecommerce</a></li>
                         <li><a href="dashboard-sales" data-key="t-sales">Sales</a></li>
-                    </ul>
+                    </ul> --}}
                 </li>
 
                 <li class="menu-title" data-key="">Manajemen</li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
-                        <i class="bx bx-envelope icon nav-icon"></i>
+                        <i class="bx bx-file icon nav-icon"></i>
                         <span class="menu-item" data-key="">Pelaporan</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -87,7 +91,7 @@
                     </a>
                 </li> -->
 
-                <li class="menu-title" data-key="t-applications">Applications</li>
+                {{-- <li class="menu-title" data-key="t-applications">Applications</li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
@@ -145,9 +149,7 @@
                         <li><a href="ecommerce-shops" data-key="t-shops">Shops</a></li>
                         <li><a href="ecommerce-add-product" data-key="t-add-product">Add Product</a></li>
                     </ul>
-                </li>
-
-               
+                </li>`
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
@@ -329,7 +331,7 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
             </ul>
         </div>

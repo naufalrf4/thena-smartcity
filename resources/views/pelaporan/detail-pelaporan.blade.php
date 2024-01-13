@@ -420,7 +420,7 @@
                             <div class="col-12 text-end">
                                 <button type="button" class="btn btn-danger me-1" data-bs-dismiss="modal"><i
                                         class="bx bx-x me-1 align-middle"></i> Cancel</button>
-                                <button type="submit" class="btn btn-success"w id="btn-save-event"><i
+                                <button type="submit" class="btn btn-primary"w id="btn-save-event"><i
                                         class="bx bx-check me-1 align-middle"></i> Confirm</button>
                             </div>
                         </div>
@@ -453,7 +453,7 @@
                                 </select>
 
                                 <button type="button" class="btn btn-primary btn-sm waves-effect waves-light me-1" onclick="addtopetugas()">
-                                    Tambah Petugas
+                                    Tambah
                                 </button>
                             </div>
                             <div class="my-3">
@@ -489,7 +489,7 @@
                             <div class="col-12 text-end">
                                 <button type="button" class="btn btn-danger me-1" data-bs-dismiss="modal"><i
                                         class="bx bx-x me-1 align-middle"></i> Cancel</button>
-                                <button type="submit" class="btn btn-success" id="btn-save-event"><i
+                                <button type="submit" class="btn btn-primary" id="btn-save-event"><i
                                         class="bx bx-check me-1 align-middle"></i> Confirm</button>
                             </div>
                         </div>
@@ -822,7 +822,7 @@
 
                 $('#btn-area').empty();
 
-                var submitBtn = $('<button type="submit" class="btn btn-success btn-sm waves-effect text-white waves-light mt-2 me-2">Submit</button>');
+                var submitBtn = $('<button type="submit" class="btn btn-primary btn-sm waves-effect text-white waves-light mt-2 me-2">Submit</button>');
                 var cancelBtn = $('<button type="button" class="btn btn-secondary btn-sm waves-effect text-white waves-light mt-2 me-2" onclick="cancelEdit()">Cancel</button>');
 
                 // Append the buttons to the button area or form
@@ -850,7 +850,7 @@
                 
                 $('#btn-area').empty();
 
-                var submitBtn = $('<button type="submit" class="btn btn-success btn-sm waves-effect text-white waves-light mt-2 me-2">Submit</button>');
+                var submitBtn = $('<button type="submit" class="btn btn-primary btn-sm waves-effect text-white waves-light mt-2 me-2">Submit</button>');
                 var cancelBtn = $('<button type="button" class="btn btn-secondary btn-sm waves-effect text-white waves-light mt-2 me-2" onclick="cancelEdit()">Cancel</button>');
 
                 // Append the buttons to the button area or form
@@ -879,7 +879,7 @@
                 $('#estimasi-selesai').replaceWith(`<input type="date" class="form-control" id="estimasi-selesai" name="estimasi_selesai" value="${estimasi_selesai}">`);
                 $('#btn-area').empty();
 
-                var submitBtn = $('<button type="submit" class="btn btn-success btn-sm waves-effect text-white waves-light mt-2 me-2">Submit</button>');
+                var submitBtn = $('<button type="submit" class="btn btn-primary btn-sm waves-effect text-white waves-light mt-2 me-2">Submit</button>');
                 var cancelBtn = $('<button type="button" class="btn btn-secondary btn-sm waves-effect text-white waves-light mt-2 me-2" onclick="cancelEdit()">Cancel</button>');
 
                 // Append the buttons to the button area or form

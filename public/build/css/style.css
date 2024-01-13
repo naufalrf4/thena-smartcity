@@ -15481,6 +15481,10 @@ textarea.form-control-lg {
   color: rgba(var(--gen-primary-rgb), var(--gen-text-opacity)) !important;
 }
 
+.text-primary-2{
+  color: #1F59C7;
+}
+
 .text-secondary {
   --gen-text-opacity: 1;
   color: rgba(var(--gen-secondary-rgb), var(--gen-text-opacity)) !important;

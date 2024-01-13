@@ -1,13 +1,13 @@
 @extends('layouts.master')
 @section('title')
-    Detail Pelaporan
+    Detail User
 @endsection
 @section('css')
     <!-- datepicker css -->
     <link rel="stylesheet" href="{{ URL::asset('build/libs/flatpickr/flatpickr.min.css') }}">
 @endsection
 @section('page-title')
-    Detail Pelaporan
+    Detail User
 @endsection
 @section('body')
 

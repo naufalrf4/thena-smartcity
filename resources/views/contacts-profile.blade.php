@@ -156,28 +156,75 @@
                             <div class="col-xl-5">
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title mb-0">Grafik Laporan Harian</h5>
+                                        <h5 class="card-title mb-0 text-primary">Data Laporan Harian</h5>
                                         <!-- <button type="button"
                                             class="btn btn-primary btn-sm waves-effect waves-light me-1"
                                             data-bs-toggle="modal" data-bs-target=".create-task">
                                             Tambah Petugas</button> -->
                                     </div>
                                     <div class="card-body pt-2">
-
-                                        <div class="card">
-                                            <div class="card-body pb-0">
-                                                <div>
-                                                    <div id="grafik_laporan_harian"
-                                                        data-label="Pelaporan"
-                                                        data-colors='["#1f58c7", "#1f58c7", "#1f58c7","#1f58c7", "#1f58c7", "#1f58c7","#1f58c7","#1f58c7","#1f58c7","#1f58c7","#1f58c7", "#1f58c7"]'
-                                                        class="apex-chart"></div>
-                                                </div>
+                                        <div>
+                                            <h5 class="">Grafik Laporan Harian</h5>
+                                        
+                                                <div id="grafik_laporan_harian" data-label="Pelaporan" data-colors='["#1f58c7", "#1f58c7", "#1f58c7","#1f58c7", "#1f58c7", "#1f58c7","#1f58c7","#1f58c7","#1f58c7","#1f58c7","#1f58c7", "#1f58c7"]' class="apex-chart"></div>
+                                        </div>
+                                        
+                                        <div style="margin-top: -50px">
+                                            <h5 class="">Tabel Laporan Harian</h5>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered border-primary mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">No</th>
+                                                            <th scope="col">Hari</th>
+                                                            <th scope="col">Total Laporan</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>Minggu</td>
+                                                            <td>{{ json_encode($grp1[0]) }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">2</th>
+                                                            <td>Senin</td>
+                                                            <td>{{ json_encode($grp1[1]) }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">3</th>
+                                                            <td>Selasa</td>
+                                                            <td>{{ json_encode($grp1[2]) }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">4</th>
+                                                            <td>Rabu</td>
+                                                            <td>{{ json_encode($grp1[3]) }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">5</th>
+                                                            <td>Kamis</td>
+                                                            <td>{{ json_encode($grp1[4]) }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">6</th>
+                                                            <td>Jumat</td>
+                                                            <td>{{ json_encode($grp1[5]) }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">7</th>
+                                                            <td>Sabtu</td>
+                                                            <td>{{ json_encode($grp1[6]) }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
+                                                        
 
                                         {{-- <div class="d-flex justify-content-center my-3">Belum ada laporan yang dibuat.</div> --}}
                                     
-                                        <div class="row">
+                                        <div class="row mt-3">
                                             <div class="col-xl-12 col-md-12 flex justify-content-end">
                                                 <div class="text-sm-end">
                                                     <a href="{{ route('pelaporan.index') }}" class="btn btn-primary btn-sm waves-effect waves-light">

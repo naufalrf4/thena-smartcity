@@ -1297,7 +1297,7 @@
                     <div class="col-lg-3 order-lg-1 me-auto">
                         <div class="footer-widget text-center text-lg-start">
                             <a href="">
-                                <img src="{{ URL::asset('build/images/images-landing/smarport-logo-text.png') }}" alt="" width="165" />
+                                <img src="{{ URL::asset('build/images/images-landing/semapor-logo-text.png') }}" alt="" width="165" />
                                 
                             </a>
                             <p class="fs-sm mb-0 mt-4">

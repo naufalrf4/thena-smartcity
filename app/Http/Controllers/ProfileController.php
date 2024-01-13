@@ -178,9 +178,11 @@ class ProfileController extends Controller
             $user->kelurahan_id = $validatedData['kelurahan_id'];
             $user->rt = $validatedData['data_rt'];
             $user->rw = $validatedData['data_rw'];
-            // $user->foto_profil = $validatedData['data_foto_profil'];
     
             $user->save();
+
+            $request->session()->put('user', $user);
+
     
             return redirect()->back()->with('success', 'Data berhasil diupdate');
         } catch (\Exception $e) {

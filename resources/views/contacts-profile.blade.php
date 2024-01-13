@@ -409,7 +409,7 @@
 
                 $('#btn-area').empty();
 
-                var submitBtn = $('<button type="submit" class="btn btn-success btn-sm waves-effect text-white waves-light mt-2 me-2">Submit</button>');
+                var submitBtn = $('<button type="submit" class="btn btn-primary btn-sm waves-effect text-white waves-light mt-2 me-2">Submit</button>');
                 var cancelBtn = $('<button type="button" class="btn btn-secondary btn-sm waves-effect text-white waves-light mt-2 me-2" onclick="cancelEdit()">Cancel</button>');
 
                 // Append the buttons to the button area or form

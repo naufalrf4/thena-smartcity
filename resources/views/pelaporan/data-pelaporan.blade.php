@@ -34,7 +34,7 @@
                             </div>
                             <div class="avatar-md">
                                 <div class="avatar-title rounded bg-soft-primary">
-                                    <i class="bx bx-check-shield h2 mb-0 text-primary"></i>
+                                    <i class="bx bx-file h2 mb-0 text-primary"></i>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                             </div>
                             <div class="avatar-md">
                                 <div class="avatar-title rounded bg-soft-primary">
-                                    <i class="bx bx-user h2 mb-0 text-primary"></i>
+                                    <i class="bx bx-list-check h2 mb-0 text-primary"></i>
                                 </div>
                             </div>
                         </div>
@@ -74,11 +74,11 @@
                                      <!-- <span class="fw-medium text-danger font-size-18"> -->
                                     <!-- <i class="bx bx-down-arrow-alt font-size-16 align-middle"></i> 07%</span> -->
                                 </h4>
-                                <p class="text-muted text-truncate mb-0 mt-2">Laporan Sedang Ditangani</p>
+                                <p class="text-muted text-truncate mb-0 mt-2">Sedang Ditangani</p>
                             </div>
                             <div class="avatar-md">
                                 <div class="avatar-title rounded bg-soft-primary">
-                                    <i class="bx bx-like h2 mb-0 text-primary"></i>
+                                    <i class="bx bx-file-find h2 mb-0 text-primary"></i>
                                 </div>
                             </div>
                         </div>
@@ -96,11 +96,11 @@
                                      <!-- <span class="fw-medium text-success font-size-18"> -->
                                     <!-- <i class="bx bx-up-arrow-alt font-size-16 align-middle"></i> 16%</span> -->
                                 </h4>
-                                <p class="text-muted text-truncate mb-0 mt-2">Laporan Belum Ditangani</p>
+                                <p class="text-muted text-truncate mb-0 mt-2">Belum Ditangani</p>
                             </div>
                             <div class="avatar-md">
                                 <div class="avatar-title rounded bg-soft-primary">
-                                    <i class="bx bx-user-plus h2 mb-0 text-primary"></i>
+                                    <i class="bx bx-screenshot h2 mb-0 text-primary"></i>
                                 </div>
                             </div>
                         </div>
@@ -118,8 +118,7 @@
                                 <button type="button"
                                     class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
                                     data-bs-toggle="modal" data-bs-target=".new-customer" onclick="getcoor()">
-                                    <!-- <i class="mdi mdi-plus me-1"></i> -->
-                                    Tambah Laporan</button>
+                                    <i class="mdi mdi-plus"></i> Tambah User </button>
                             </div>
                         </div>
                         <div id="table-ecommerce-customers"></div>
@@ -262,7 +261,7 @@
                                 <!-- <button type="submit" class="btn btn-success" data-bs-toggle="modal"
                                     data-bs-target="#success-btn" id="btn-save-event"><i class="bx bx-check me-1"></i>
                                     Confirm</button> -->
-                                <button type="submit" class="btn btn-success" id="btn-save-event"><i class="bx bx-check me-1"></i>
+                                <button type="submit" class="btn btn-primary" id="btn-save-event"><i class="bx bx-check me-1"></i>
                                     Confirm</button>
                             </div>
                         </div>

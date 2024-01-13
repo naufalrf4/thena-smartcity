@@ -29,7 +29,7 @@
                             </div>
                             <div class="avatar-md">
                                 <div class="avatar-title rounded bg-soft-primary">
-                                    <i class="bx bx-user h2 mb-0 text-primary"></i>
+                                    <i class="bx bx-shield-quarter h2 mb-0 text-primary"></i>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                             </div>
                             <div class="avatar-md">
                                 <div class="avatar-title rounded bg-soft-primary">
-                                    <i class="bx bx-user h2 mb-0 text-primary"></i>
+                                    <i class="bx bxs-city h2 mb-0 text-primary"></i>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                             </div>
                             <div class="avatar-md">
                                 <div class="avatar-title rounded bg-soft-primary">
-                                    <i class="bx bx-user h2 mb-0 text-primary"></i>
+                                    <i class="bx bx-user-pin h2 mb-0 text-primary"></i>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                             </div>
                             <div class="avatar-md">
                                 <div class="avatar-title rounded bg-soft-primary">
-                                    <i class="bx bx-user h2 mb-0 text-primary"></i>
+                                    <i class="bx bx-building-house h2 mb-0 text-primary"></i>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                             </div>
                             <div class="avatar-md">
                                 <div class="avatar-title rounded bg-soft-primary">
-                                    <i class="bx bx-user h2 mb-0 text-primary"></i>
+                                    <i class="bx bxs-user-voice h2 mb-0 text-primary"></i>
                                 </div>
                             </div>
                         </div>

@@ -178,7 +178,7 @@
                         <div class="col-lg-12">
                             <div class="text-center p-4">
                                 <p>
-                                    © Copyright 2024 | Semapor   
+                                    Seluruh Hak Cipta © 2024 | <span class="text-primary fw-bold"> Semapor </span>   
                                 </p>
                             </div>
                         </div>

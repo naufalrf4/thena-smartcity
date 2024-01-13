@@ -3,7 +3,7 @@
 
     <!-- LOGO -->
     <div class="navbar-brand-box">
-        <a href="index" class="logo logo-dark">
+        <a href="{{ route('dashboard.index') }}" class="logo logo-dark">
             <span class="logo-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="15.000000pt" height="15.000000pt" viewBox="0 0 75.000000 85.000000" preserveAspectRatio="xMidYMid meet">
                     <g transform="translate(0.000000,85.000000) scale(0.100000,-0.100000)" fill="#1F58C7" stroke="none">
@@ -12,18 +12,11 @@
                 </svg>
             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('build/images/Semarang_SC__1_-removebg-preview.png') }}" alt="" height="50">
+                <img src="{{ URL::asset('build/images/images-landing/semapor-logo-text.png') }}" alt="" height="50">
             </span>
         </a>
 
-        <a href="index" class="logo logo-light">
-            <span class="logo-lg">
-                <img src="{{ URL::asset('build/images/logo-light.png') }}" alt="" height="30">
-            </span>
-            <span class="logo-sm">
-                <img src="{{ URL::asset('build/images/logo-light-sm.png') }}" alt="" height="26">
-            </span>
-        </a>
+        
     </div>
 
     <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect vertical-menu-btn">
@@ -39,7 +32,7 @@
                 <li class="menu-title" data-key="t-menu">Dashboard</li>
 
                 <li>
-                    <a href="/">
+                    <a href="{{ route('dashboard.index') }}">
                         <i class="bx bx-home-alt icon nav-icon"></i>
                         <span class="menu-item" data-key="t-dashboard">Dashboard</span>
                         {{-- <span class="badge rounded-pill bg-primary">2</span> --}}

@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'root']);
+Route::get('/', [App\Http\Controllers\PublicController::class, 'index']);
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'root'])->name('dashboard.index');
 
 // ===== PELAPORAN ===== 
 Route::get('pelaporan/status/belum-ditangani', [App\Http\Controllers\PelaporanController::class, 'index'])->name('pelaporan.belum_ditangani');
@@ -36,4 +37,4 @@ Route::resource('dinas', App\Http\Controllers\DinasController::class);
 Route::resource('profile', App\Http\Controllers\ProfileController::class);
 
 // untuk buka halaman dari template
-// Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');

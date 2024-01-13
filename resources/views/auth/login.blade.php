@@ -19,9 +19,9 @@
 
                             <div class="mb-4 pb-2">
                                 <a href="index" class="d-block auth-logo">
-                                    <img src="{{ URL::asset('build/images/logo-dark.png') }}" alt="" height="30"
+                                    <img src="{{ URL::asset('build/images/images-landing/semapor-logo-text.png') }}" alt="" height="30"
                                         class="auth-logo-dark me-start">
-                                    <img src="{{ URL::asset('build/images/logo-light.png') }}" alt="" height="30"
+                                    <img src="{{ URL::asset('build/images/images-landing/semapor-logo-text.png') }}" alt="" height="30"
                                         class="auth-logo-light me-start">
                                 </a>
                             </div>
@@ -29,8 +29,8 @@
                             <div class="card">
                                 <div class="card-body p-4">
                                     <div class="text-center mt-2">
-                                        <h5>Welcome Back !</h5>
-                                        <p class="text-muted">Sign in to continue to webadmin.</p>
+                                        <h5>Selamat Datang</h5>
+                                        <p class="text-muted">Login untuk melanjutkan ke Dashboard.</p>
                                     </div>
                                     <div class="p-2 mt-4">
                                         <form method="POST" action="{{ route('login') }}" class="auth-input">
@@ -49,10 +49,10 @@
                                             </div>
 
                                             <div class="mb-3">
-                                                <div class="float-end">
+                                                {{-- <div class="float-end">
                                                     <a href="{{ route('password.update') }}"
                                                         class="text-muted text-decoration-underline">Forgot password?</a>
-                                                </div>
+                                                </div> --}}
                                                 <label class="form-label" for="password-input">Password <span class="text-danger">*</span></label>
                                                 <div class="position-relative auth-pass-inputgroup input-custom-icon">
                                                     <span class="bx bx-lock-alt"></span>
@@ -85,7 +85,7 @@
                                                     In</button>
                                             </div>
 
-                                            <div class="mt-4 text-center">
+                                            {{-- <div class="mt-4 text-center">
                                                 <div class="signin-other-title">
                                                     <h5 class="font-size-14 mb-3 mt-2 title"> Sign in with </h5>
                                                 </div>
@@ -110,10 +110,11 @@
                                                         </a>
                                                     </li>
                                                 </ul>
-                                            </div>
+                                            </div> --}}
+
                                             <div class="mt-4 text-center">
-                                                <p class="mb-0">Don't have an account ? <a href="{{ route('register') }}"
-                                                        class="fw-medium text-primary"> Register</a></p>
+                                                <p class="mb-0">Belum memiliki akun? <a href="{{ route('register') }}"
+                                                        class="fw-medium text-primary"> Daftar</a></p>
                                             </div>
                                         </form>
                                     </div>
@@ -127,11 +128,8 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="text-center p-4">
-                                <p>©
-                                    <script>
-                                        document.write(new Date().getFullYear())
-                                    </script> webadmin. Crafted with <i
-                                        class="mdi mdi-heart text-danger"></i> by Themesdesign
+                                <p>
+                                    © Copyright 2024 | Semapor   
                                 </p>
                             </div>
                         </div>

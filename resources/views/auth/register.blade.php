@@ -19,9 +19,9 @@
 
                             <div class="mb-4 pb-2">
                                 <a href="index" class="d-block auth-logo">
-                                    <img src="{{ URL::asset('build/images/logo-dark.png') }}" alt="" height="30"
+                                    <img src="{{ URL::asset('build/images/images-landing/semapor-logo-text.png') }}" alt="" height="30"
                                         class="auth-logo-dark me-start">
-                                    <img src="{{ URL::asset('build/images/logo-light.png') }}" alt="" height="30"
+                                    <img src="{{ URL::asset('build/images/images-landing/semapor-logo-text.png') }}" alt="" height="30"
                                         class="auth-logo-light me-start">
                                 </a>
                             </div>
@@ -29,8 +29,8 @@
                             <div class="card">
                                 <div class="card-body p-4">
                                     <div class="text-center mt-2">
-                                        <h5>Register Account</h5>
-                                        <p class="text-muted">Get your free webadmin account now.</p>
+                                        <h5>Daftar Akun</h5>
+                                        <p class="text-muted">Daftar akun untuk melanjutkan ke Dashboard.</p>
                                     </div>
                                     <div class="p-2 mt-4">
                                         <form method="POST" action="{{ route('register') }}" class="auth-input">
@@ -84,17 +84,17 @@
                                                     placeholder="Enter confirm password">
                                             </div>
 
-                                            <div>
+                                            {{-- <div>
                                                 <p class="mb-0">By registering you agree to the Reactly <a href="#"
                                                         class="text-primary">Terms of Use</a></p>
-                                            </div>
+                                            </div> --}}
 
                                             <div class="mt-4">
-                                                <button class="btn btn-primary w-100" type="submit">Register</button>
+                                                <button class="btn btn-primary w-100" type="submit">Daftar</button>
                                             </div>
 
 
-                                            <div class="mt-4 text-center">
+                                            {{-- <div class="mt-4 text-center">
                                                 <div class="signin-other-title">
                                                     <h5 class="font-size-14 mb-3 mt-2 title"> Sign in with </h5>
                                                 </div>
@@ -119,10 +119,10 @@
                                                         </a>
                                                     </li>
                                                 </ul>
-                                            </div>
+                                            </div> --}}
 
                                             <div class="mt-4 text-center">
-                                                <p class="mb-0">Already have an account ? <a href="{{ route('login') }}"
+                                                <p class="mb-0">Sudah memilik akun? <a href="{{ route('login') }}"
                                                         class="fw-medium text-primary"> Login</a></p>
                                             </div>
                                         </form>
@@ -137,11 +137,8 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="text-center p-4">
-                                <p>©
-                                    <script>
-                                        document.write(new Date().getFullYear())
-                                    </script> webadmin. Crafted with <i
-                                        class="mdi mdi-heart text-danger"></i> by Themesdesign
+                                <p>
+                                    © Copyright 2024 | Semapor   
                                 </p>
                             </div>
                         </div>

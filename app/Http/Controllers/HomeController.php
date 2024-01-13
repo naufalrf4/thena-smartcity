@@ -28,7 +28,7 @@ class HomeController extends Controller
     {
         //grp1
         if(auth()->user()->role_id == '1'){
-            $counts = Pelaporan::select(DB::raw('COUNT(*) as count'))
+        $counts = Pelaporan::select(DB::raw('COUNT(*) as count'))
             ->groupBy(DB::raw('MONTH(created_at)'))
             ->orderBy(DB::raw('MONTH(created_at)'))
             ->pluck('count')

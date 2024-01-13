@@ -33,7 +33,7 @@
                                     <div class="my-2">
                                         <div class="flex flex-col">
                                             <span for="" class="fw-bold">Foto Profil</span><br>
-                                            <img id="data-foto-profil" data-foto-profil="{{ $user->foto_profil }}" src="{{ asset('storage/foto_profil/' . $user->foto_profil ) }}" alt="" style="max-width: 300px; max-height: 300px;">
+                                            <img id="data-foto-profil" data-foto-profil="{{ $user->foto_profil }}" src="{{ $user->foto_profil ? asset('storage/foto_profil/' . $user->foto_profil ) : URL::asset('build/images/empty-profile.png') }}" alt="" style="max-width: 300px; max-height: 300px;">
                                         </div>
                                     </div>
                                     

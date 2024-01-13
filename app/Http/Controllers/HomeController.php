@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function root()
     {
         //grp1
-        if(session('role')->level_role == '1'){
+        if(session('role')->level_role != '4'){
             $counts = Pelaporan::select(DB::raw('COUNT(*) as count'))
             ->groupBy(DB::raw('MONTH(created_at)'))
             ->orderBy(DB::raw('MONTH(created_at)'))
@@ -46,41 +46,71 @@ class HomeController extends Controller
         }
 
         //grp2
-        if(session('role')->level_role == '1'){
+        if(session('role')->level_role == '1' 
+            || session('role')->level_role == '2'
+            || session('role')->level_role == '3'
+            || session('role')->level_role == '4'
+            || session('role')->level_role == '5'
+        ){
             $grp2 = Pelaporan::count();
-        }else{
+        }else if(session('role')->level_role == '6'){
+            $grp2 = Pelaporan::where('status_penanganan_id', [2,3])->whereHas('assignedPetugas', function ($query) {
+                $query->where('user_id', session('user')->id);
+            })->count();
+        } else{
             $grp2 = '';
         }
 
         //grp3
-        if(session('role')->level_role == '1'){
+        if(session('role')->level_role == '1' || session('role')->level_role == '3'){
             $grp3 = User::where('role_id', 4)->count();
-        }else{
+        } else if(session('role')->level_role == '4'){
+            $grp3 = Pelaporan::where('user_id', session('user')->id)->count();
+        } else if(session('role')->level_role == '5'){
+            $grp3 = Pelaporan::where('role_penanganan_id', session('role')->id)->count();
+        } else if(session('role')->level_role == '2'){
+            $grp3 = Pelaporan::where('status_penanganan_id', 1)->count();
+        } else if(session('role')->level_role == '6'){
+            $grp3 = Pelaporan::where('status_penanganan_id', 4)->whereHas('assignedPetugas', function ($query) {
+                $query->where('user_id', session('user')->id);
+            })->count();
+        } 
+        else{
             $grp3 = '';
         }
 
         //grp4
-        if(session('role')->level_role == '1'){
+        if(session('role')->level_role == '1' || session('role')->level_role == '3'){
             $grp4 = User::whereHas('getRole', function ($query) {
                 $query->where('level_role', 5);
             })->count();
-        }else{
+        } else if(session('role')->level_role == '2'){
+            $grp4 = Pelaporan::where('status_penanganan_id', [2,3])->count();
+        } else if(session('role')->level_role == '5'){
+            $grp4 = Pelaporan::where('role_penanganan_id', session('role')->id)->where('status_penanganan_id', [2, 3])->count();
+        } else{
             $grp4 = '';
         }
 
 
         //grp5
-        if(session('role')->level_role == '1'){
+        if(session('role')->level_role == '1' || session('role')->level_role == '3'){
             $grp5 = User::whereHas('getRole', function ($query) {
                 $query->where('level_role', 6);
             })->count();
+        }else if(session('role')->level_role == '2'){
+            $grp5 = Pelaporan::where('status_penanganan_id', 4)->count();
+        }else if(session('role')->level_role == '5'){
+            $grp5 = Pelaporan::where('role_penanganan_id', session('role')->id)->where('status_penanganan_id', 4)->count();
         }else{
             $grp5 = '';
         }
 
         //map1
-        if(session('role')->level_role == '1'){
-            $map1 = Pelaporan::select('lat_coor', 'lng_coor')->whereNotNull(['lat_coor', 'lng_coor'])->get();
+        if(session('role')->level_role == '1' || session('role')->level_role == '3'){
+            $map1 = Pelaporan::select('lat_coor', 'lng_coor', 'alamat_kejadian')->whereNotNull(['lat_coor', 'lng_coor'])->get();
+        }else if(session('role')->level_role == '5'){
+            $map1 = Pelaporan::select('lat_coor', 'lng_coor', 'alamat_kejadian')->where('role_penanganan_id', session('role')->id)->whereNotNull(['lat_coor', 'lng_coor'])->get();
         }else{
             $map1 = [];
         }

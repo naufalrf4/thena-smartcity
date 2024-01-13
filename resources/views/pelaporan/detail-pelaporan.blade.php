@@ -140,10 +140,10 @@
                                         <tr>
                                             <td style="width: 50px;">
                                                 @if($p->user->foto_profil != NULL)
-                                                <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}"
+                                                <img src="{{ URL::asset('build/images/empty-profile.png') }}"
                                                     class="rounded-circle avatar-sm" alt="">
                                                 @else
-                                                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                                                <img src="{{ asset('storage/foto_profil/'. $p->user->foto_profil) }}"
                                                     class="rounded-circle avatar-sm" alt="">
                                                 @endif
 

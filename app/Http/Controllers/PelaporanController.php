@@ -31,33 +31,73 @@ class PelaporanController extends Controller
             $validatedData = $request->validate([
                 'lat' => 'required',
                 'lng' => 'required',
+                'pid' => 'sometimes|nullable'
             ]);
 
             $lat = $validatedData['lat'];
             $lng = $validatedData['lng'];
     
-            $lap = DB::select("
-            SELECT
-                id,
-                nama_laporan,
-                tgl_dibuat, 
-                deskripsi_laporan, 
-                (3959 * ACOS(
-                    GREATEST(LEAST(1, 
-                        COS(RADIANS(?)) * COS(RADIANS(lat_coor)) * COS(RADIANS(lng_coor) - RADIANS(?)) + 
-                        SIN(RADIANS(?)) * SIN(RADIANS(lat_coor))
-                    ), -1)
-                )) AS distance
-            FROM pelaporan
-            WHERE (3959 * ACOS(
-                    GREATEST(LEAST(1, 
-                        COS(RADIANS(?)) * COS(RADIANS(lat_coor)) * COS(RADIANS(lng_coor) - RADIANS(?)) + 
-                        SIN(RADIANS(?)) * SIN(RADIANS(lat_coor))
-                    ), -1)
-                )) IS NOT NULL
-            ORDER BY distance
-            LIMIT 0, 20;
-            ", [$lat, $lng, $lat, $lat, $lng, $lat]);
+            if($validatedData['pid']){
+                $lap = DB::select("
+                    SELECT
+                        pelaporan.*,
+                        status_penanganan.status,
+                        status_penanganan.color,
+                        name,
+                        master_kecamatan.nama as kecamatan,
+                        master_kelurahan.nama as kelurahan,
+                        foto_profil,
+                        (3959 * ACOS(
+                            GREATEST(LEAST(1, 
+                                COS(RADIANS(?)) * COS(RADIANS(lat_coor)) * COS(RADIANS(lng_coor) - RADIANS(?)) + 
+                                SIN(RADIANS(?)) * SIN(RADIANS(lat_coor))
+                            ), -1)
+                        )) AS distance
+                    FROM petugas_diassign
+                    JOIN users ON petugas_diassign.user_id = users.id
+                    JOIN pelaporan ON petugas_diassign.pelaporan_id = pelaporan.id
+                    JOIN status_penanganan ON pelaporan.status_penanganan_id = status_penanganan.id
+                    JOIN master_kecamatan ON pelaporan.kecamatan_id = master_kecamatan.id
+                    JOIN master_kelurahan ON pelaporan.kelurahan_id = master_kelurahan.id
+                    WHERE users.id = ?
+                    AND (3959 * ACOS(
+                        GREATEST(LEAST(1, 
+                            COS(RADIANS(?)) * COS(RADIANS(lat_coor)) * COS(RADIANS(lng_coor) - RADIANS(?)) + 
+                            SIN(RADIANS(?)) * SIN(RADIANS(lat_coor))
+                        ), -1)
+                    )) IS NOT NULL
+                    ORDER BY distance
+                    LIMIT 0, 20;
+                ", [$lat, $lng, $lat, $validatedData['pid'], $lat, $lng, $lat]);
+            
+            }else{
+                $lap = DB::select("
+                    SELECT
+                        pelaporan.*,
+                        status_penanganan.status,
+                        status_penanganan.color,
+                        name,
+                        foto_profil,
+                        (3959 * ACOS(
+                            GREATEST(LEAST(1, 
+                                COS(RADIANS(?)) * COS(RADIANS(lat_coor)) * COS(RADIANS(lng_coor) - RADIANS(?)) + 
+                                SIN(RADIANS(?)) * SIN(RADIANS(lat_coor))
+                            ), -1)
+                        )) AS distance
+                    FROM pelaporan
+                    JOIN users ON pelaporan.user_id = users.id
+                    JOIN status_penanganan ON pelaporan.status_penanganan_id = status_penanganan.id
+                    WHERE (3959 * ACOS(
+                            GREATEST(LEAST(1, 
+                                COS(RADIANS(?)) * COS(RADIANS(lat_coor)) * COS(RADIANS(lng_coor) - RADIANS(?)) + 
+                                SIN(RADIANS(?)) * SIN(RADIANS(lat_coor))
+                            ), -1)
+                        )) IS NOT NULL
+                    ORDER BY distance
+                    LIMIT 0, 20;
+                    ", [$lat, $lng, $lat, $lat, $lng, $lat]);
+            }
+            
         
             return response()->json($lap);
         }catch(\Exception $e){

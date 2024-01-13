@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\PublicController::class, 'index']);
+Route::get('/', [App\Http\Controllers\PublicController::class, 'index'])->name('home');
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'root'])->name('dashboard.index');
 
 // ===== PELAPORAN ===== 

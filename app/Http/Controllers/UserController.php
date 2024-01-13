@@ -89,9 +89,9 @@ class UserController extends Controller
         try{
             $validatedData = $request->validate([
                 'name' => 'required',
-                'username' => 'required',
-                'no_telp' => 'required',
-                'email' => 'required',
+                'username' => 'required|unique:users,username',
+                'no_telp' => 'required|unique:users,no_telp',
+                'email' => 'required|unique:users,email',
                 'role_id' => 'required',
                 'password' => 'required',
                 'kecamatan_id' => 'required',
@@ -99,7 +99,7 @@ class UserController extends Controller
                 'rt' => 'required',
                 'rw' => 'required',
                 'foto_profil' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
+            ]);            
     
             if ($request->hasFile('foto_profil')) {
                 $file = $request->file('foto_profil');

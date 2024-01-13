@@ -1,9 +1,9 @@
 @extends('layouts.master-without-nav')
 @section('title')
-    Login
+    Register
 @endsection
 @section('page-title')
-    Login
+    Register
 @endsection
 @section('body')
 
@@ -29,18 +29,31 @@
                             <div class="card">
                                 <div class="card-body p-4">
                                     <div class="text-center mt-2">
-                                        <h5>Selamat Datang</h5>
-                                        <p class="text-muted">Login untuk melanjutkan ke Dashboard.</p>
+                                        <h5>Daftar Akun</h5>
+                                        <p class="text-muted">Daftar akun untuk melanjutkan ke Dashboard.</p>
                                     </div>
                                     <div class="p-2 mt-4">
-                                        <form method="POST" action="{{ route('login') }}" class="auth-input">
+                                        <form method="POST" action="{{ route('public.register') }}" class="auth-input">
                                             @csrf
+                                            <div class="mb-2">
+                                                <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                                                <input id="name" type="text"
+                                                    class="form-control @error('name') is-invalid @enderror" name="name"
+                                                    value="{{ old('name') }}" required autocomplete="name" autofocus
+                                                    placeholder="Enter name">
+                                                @error('name')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+
                                             <div class="mb-2">
                                                 <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                                                 <input id="email" type="email"
                                                     class="form-control @error('email') is-invalid @enderror" name="email"
-                                                    value="{{ old('email') }}" required autocomplete="email" autofocus
-                                                    value="admin@themesbrand.com">
+                                                    value="{{ old('email') }}" required autocomplete="email"
+                                                    placeholder="Enter email">
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -48,24 +61,13 @@
                                                 @enderror
                                             </div>
 
+
                                             <div class="mb-3">
-                                                {{-- <div class="float-end">
-                                                    <a href="{{ route('password.update') }}"
-                                                        class="text-muted text-decoration-underline">Forgot password?</a>
-                                                </div> --}}
                                                 <label class="form-label" for="password-input">Password <span class="text-danger">*</span></label>
-                                                <div class="position-relative auth-pass-inputgroup input-custom-icon">
-                                                    <span class="bx bx-lock-alt"></span>
-                                                    <input type="password"
-                                                        class="form-control @error('password') is-invalid @enderror"
-                                                        placeholder="Enter password" id="password-input" name="password"
-                                                        required autocomplete="current-password" value="12345678">
-                                                    <button type="button"
-                                                        class="btn btn-link position-absolute h-100 end-0 top-0"
-                                                        id="password-addon">
-                                                        <i class="mdi mdi-eye-outline font-size-18 text-muted"></i>
-                                                    </button>
-                                                </div>
+                                                <input type="password"
+                                                    class="form-control @error('password') is-invalid @enderror"
+                                                    name="password" required id="password-input"
+                                                    placeholder="Enter password">
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -73,17 +75,24 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="remember"
-                                                    id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="remember">Remember
-                                                    me</label>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="password-confirm">Confirm
+                                                    Password <span class="text-danger">*</span></label>
+                                                <input type="password"
+                                                    class="form-control @error('password') is-invalid @enderror"
+                                                    name="password_confirmation" required id="password-confirm"
+                                                    placeholder="Enter confirm password">
                                             </div>
 
+                                            {{-- <div>
+                                                <p class="mb-0">By registering you agree to the Reactly <a href="#"
+                                                        class="text-primary">Terms of Use</a></p>
+                                            </div> --}}
+
                                             <div class="mt-4">
-                                                <button class="btn btn-primary w-100" type="submit">Sign
-                                                    In</button>
+                                                <button class="btn btn-primary w-100" type="submit">Daftar</button>
                                             </div>
+
 
                                             {{-- <div class="mt-4 text-center">
                                                 <div class="signin-other-title">
@@ -92,19 +101,19 @@
 
                                                 <ul class="list-inline mt-2">
                                                     <li class="list-inline-item">
-                                                        <a href="javascript:void(0)"
+                                                        <a href="javascript:void()"
                                                             class="social-list-item bg-primary text-white border-primary">
                                                             <i class="bx bxl-facebook"></i>
                                                         </a>
                                                     </li>
                                                     <li class="list-inline-item">
-                                                        <a href="javascript:void(0)"
+                                                        <a href="javascript:void()"
                                                             class="social-list-item bg-info text-white border-info">
                                                             <i class="bx bxl-linkedin"></i>
                                                         </a>
                                                     </li>
                                                     <li class="list-inline-item">
-                                                        <a href="javascript:void(0)"
+                                                        <a href="javascript:void()"
                                                             class="social-list-item bg-danger text-white border-danger">
                                                             <i class="bx bxl-google"></i>
                                                         </a>
@@ -113,8 +122,8 @@
                                             </div> --}}
 
                                             <div class="mt-4 text-center">
-                                                <p class="mb-0">Belum memiliki akun? <a href="{{ route('register') }}"
-                                                        class="fw-medium text-primary"> Daftar</a></p>
+                                                <p class="mb-0">Sudah memilik akun? <a href="{{ route('login') }}"
+                                                        class="fw-medium text-primary"> Login</a></p>
                                             </div>
                                         </form>
                                     </div>
@@ -139,37 +148,4 @@
             </div><!-- end container -->
         </div>
         <!-- end authentication section -->
-    @endsection
-    @section('scripts')
-        <script src="{{ URL::asset('build/js/pages/pass-addon.init.js') }}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-        @if(session('success'))
-        <script>
-            // SweetAlert2 pop-up for success
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: "{{ session('success') }}",
-            });
-        </script>
-        @elseif(session('error'))
-        <script>
-            // SweetAlert2 pop-up for error
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: "{{ session('error') }}",
-            });
-        </script>
-        @elseif($errors->any())
-        <script>
-            // SweetAlert2 pop-up for validation errors
-            Swal.fire({
-                icon: 'error',
-                title: 'Validation Error!',
-                html: "@foreach ($errors->all() as $error)<p>{{ $error }}</p>@endforeach",
-            });
-        </script>
-        @endif
     @endsection

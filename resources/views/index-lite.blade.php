@@ -79,6 +79,14 @@
                                 <a href="/login" class="btn btn-outline-primary">Login</a>
                             @endif
                         </div>
+
+                        <a class="dropdown-item" href="javascript:void();"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
+                            class="mdi mdi-logout text-muted font-size-16 align-middle me-2"></i> <span
+                            class="align-middle">Logout</span></a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                     </div>
                 </div>
             </div>
@@ -1319,7 +1327,35 @@
     
     <script src="{{ URL::asset('build/js/plugins.js') }}"></script>
     <script src="{{ URL::asset('build/js/main.js') }}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if(session('success'))
+    <script>
+        // SweetAlert2 pop-up for success
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: "{{ session('success') }}",
+        });
+    </script>
+    @elseif(session('error'))
+    <script>
+        // SweetAlert2 pop-up for error
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: "{{ session('error') }}",
+        });
+    </script>
+    @elseif($errors->any())
+    <script>
+        // SweetAlert2 pop-up for validation errors
+        Swal.fire({
+            icon: 'error',
+            title: 'Validation Error!',
+            html: "@foreach ($errors->all() as $error)<p>{{ $error }}</p>@endforeach",
+        });
+    </script>
+    @endif
 </body>
 
 </html>

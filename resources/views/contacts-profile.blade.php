@@ -45,7 +45,7 @@
                                 {{-- <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt=""
                                     class="avatar-xl rounded-circle img-thumbnail"> --}}
 
-                                    <img src="{{ asset('storage/foto_profil/' . $user->foto_profil ) }}" alt="" class="avatar-xl rounded-circle img-thumbnail">
+                                    <img src="{{ $user->foto_profil ? asset('storage/foto_profil/' . $user->foto_profil) : URL::asset('build/images/empty-profile.png') }}" alt="" class="avatar-xl rounded-circle img-thumbnail">
 
                                 <div class="mt-3">
                                     <h5 class="mb-1">{{ $user->name }}</h5>
@@ -55,7 +55,11 @@
                         </div>
 
                         <div class="row">
+                            @if(session('role')->level_role == 4)
                             <div class="col-xl-7">
+                            @else
+                            <div class="col-xl-12">
+                            @endif
                                 <div class="card">
                                     <div class="card-body">
                                         @if(isset($user))
@@ -153,6 +157,7 @@
                                 </div>
                             </div>
 
+                            @if(session('role')->level_role == 4)
                             <div class="col-xl-5">
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between align-items-center">
@@ -236,6 +241,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>

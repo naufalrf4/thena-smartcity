@@ -18,19 +18,20 @@
     @section('content')
         <div class="row">
             <div class="col-xl-6">
+                @if(session('role')->level_role != 6)
                 <div class="card">
                     <div class="card-body pb-0">
                         <div class="d-flex align-items-start">
                             @if(session('role')->level_role != 4)
                             <div class="flex-grow-1">
-                                <h5 class="card-title mb-4">Overview Pelaporan</h5>
+                                <h5 class="card-title mb-4">Jumlah Pelaporan</h5>
                             </div>
                             <div class="flex-shrink-0">
                                 <div class="dropdown">
                                     <a class="dropdown-toggle text-reset" href="#" data-bs-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
                                         <span class="fw-semibold">Sort By:</span>
-                                        <span class="text-muted">Yearly
+                                        <span class="text-muted">Bulan
                                             <!-- <i class="mdi mdi-chevron-down ms-1"></i> -->
                                         </span>
                                     </a>
@@ -43,9 +44,11 @@
                                 </div>
                             </div>
                             @endif
+                            @if(session('role')->level_role == 4)
                             <div class="flex-grow-1">
                                 <h5 class="card-title mb-4">Aksi Cepat</h5>
                             </div>
+                            @endif
                         </div>
 
                         <div>
@@ -58,18 +61,47 @@
                             @endif
                             @if(session('role')->level_role == 4)                 
                             <div class="mb-3">
-                                <div class="col-12 col-md-6 gap-1 justify-content-between">
+                                <div class="col-12 col-md-6 col-lg-8 gap-3 justify-content-between">
                                     <a href="{{ route('pelaporan.index') }}" class="col-4 btn btn-link m-0 p-0 flex-grow-1">
                                         <div class="avatar-xl">
-                                            <div class="product-img avatar-title img-thumbnail bg-soft-primary border-0">
-                                                asd
+                                            <div class="product-img avatar-title d-flex flex-column img-thumbnail bg-soft-primary border-0 text-primary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                                                <path d="M17.561 5.663c.856.411 1.556 1.149 1.893 2.117.339.967.254 1.98-.157 2.836l1.407.678c.585-1.216.708-2.656.227-4.03-.481-1.375-1.474-2.424-2.689-3.009l-.681 1.408zm1.188-2.465c1.486.715 2.698 1.998 3.286 3.678s.438 3.441-.277 4.927l1.443.696c.893-1.857 1.079-4.055.346-6.153-.734-2.098-2.247-3.698-4.102-4.591l-.696 1.443zm-10.932 12.494l-2.342-6.437-3.24 1.179c-1.766.643-2.673 2.605-2.025 4.382.646 1.777 2.603 2.697 4.368 2.055l3.239-1.179zm-6.321-1.343c-.387-1.065.153-2.244 1.207-2.626l1.951-.711 1.406 3.862-1.952.71c-1.052.383-2.224-.171-2.612-1.235zm11.818-11.592l4.686 12.873c-3.82-.802-6.74-.82-8.896-.407l-.471-1.296c2.06-.431 4.495-.453 7.267-.06l-3.06-8.407c-1.876 2.097-3.723 3.613-5.606 4.624l-.472-1.297c1.892-1.052 4.08-2.881 6.552-6.03zm-2.453 17.276c-.436-.151-.815-.429-1.09-.797l-1.637-2.194-3.956 1.441 2.603 3.34c.294.375.794.518 1.239.356l2.872-1.045c.229-.084.383-.304.381-.549-.002-.246-.156-.463-.389-.543l-.023-.009" fill="#1f58c7"/>
+                                            </svg>
+                                            Pelaporan
+
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="{{ route('pelaporan.index') }}" class="col-4 btn btn-link m-0 p-0 flex-grow-1">
+                                    <a href="tel:112" class="col-4 btn btn-link m-0 p-0 flex-grow-1">
                                         <div class="avatar-xl">
-                                            <div class="product-img avatar-title img-thumbnail bg-soft-primary border-0">
-                                                asd
+                                            <div class="product-img avatar-title d-flex flex-column img-thumbnail bg-soft-primary border-0 text-primary">
+                                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                    viewBox="0 0 82.943 82.943" style="enable-background:new 0 0 82.943 82.943;" xml:space="preserve" width="48" height="48">
+                                                    <path d="M52.535,36.133c-7.782,0-14.113-6.331-14.113-14.113S44.753,7.908,52.535,7.908s14.113,6.331,14.113,14.113
+                                                        S60.317,36.133,52.535,36.133z M52.535,11.781c-5.646,0-10.24,4.593-10.24,10.24c0,5.646,4.593,10.24,10.24,10.24
+                                                        c5.646,0,10.24-4.594,10.24-10.24C62.775,16.374,58.182,11.781,52.535,11.781z M59.237,20.084h-4.766v-4.766h-3.873v4.766h-4.766
+                                                        v3.873h4.766v4.766h3.873v-4.766h4.766V20.084z M78.123,43.199l-1.65-1.61h2.624c1.069,0,1.937-0.867,1.937-1.937
+                                                        c0-1.069-0.867-1.937-1.937-1.937h-7.39c-0.003,0-0.006,0.001-0.009,0.001c-0.076,0.001-0.151,0.013-0.226,0.023
+                                                        c-0.957,0.118-1.701,0.924-1.701,1.913v7.39c0,1.07,0.867,1.937,1.936,1.937s1.937-0.867,1.937-1.937V44.24l1.759,1.715
+                                                        c4.028,4.029,5.664,15.221,0.001,20.884c-2.789,2.789-6.496,4.324-10.44,4.324c-3.635,0-7.066-1.307-9.765-3.694
+                                                        c0.122-0.127,0.244-0.255,0.366-0.384c0.809-0.858,1.667-1.715,2.497-2.544l0.425-0.425c0.751-0.751,1.165-1.752,1.165-2.818
+                                                        c0-1.066-0.413-2.067-1.165-2.818l-12.94-12.94c-1.554-1.554-4.082-1.553-5.636,0l-3.673,3.674L22.123,35.099l3.673-3.673
+                                                        c1.554-1.554,1.554-4.083,0-5.637l-12.94-12.94c-1.554-1.554-4.082-1.554-5.637,0l-2.397,2.397
+                                                        c-0.236,0.236-0.484,0.467-0.733,0.701c-0.626,0.586-1.273,1.192-1.852,1.933c-0.94,1.203-1.42,2.6-1.699,3.547
+                                                        c-0.607,2.06-0.702,4.342-0.282,6.783c0.799,4.644,3.375,9.338,7.257,13.219l22.437,22.437c4.841,4.841,10.827,7.522,16.099,7.522
+                                                        c2.13,0,4.145-0.438,5.919-1.348c0.066-0.034,0.127-0.071,0.191-0.106c3.474,3.291,7.999,5.102,12.804,5.102
+                                                        c4.978,0,9.658-1.938,13.178-5.458C85.662,62.057,83.325,48.401,78.123,43.199z M32.689,61.127L10.252,38.69
+                                                        c-3.32-3.32-5.514-7.275-6.178-11.137c-0.319-1.852-0.258-3.545,0.181-5.032c0.305-1.035,0.624-1.731,1.035-2.256
+                                                        c0.394-0.504,0.906-0.983,1.448-1.491c0.281-0.263,0.559-0.524,0.825-0.789l2.397-2.397c0.021-0.021,0.05-0.031,0.079-0.031
+                                                        c0.03,0,0.059,0.01,0.08,0.031l12.94,12.94c0.041,0.041,0.041,0.118,0,0.159l-4.968,4.969c-0.016,0.015-0.032,0.029-0.047,0.043
+                                                        c-0.376,0.36-0.591,0.857-0.596,1.378c-0.005,0.521,0.199,1.022,0.567,1.39L34.87,53.323c0.373,0.373,0.884,0.575,1.411,0.566
+                                                        c0.528-0.011,1.028-0.238,1.385-0.627c0.004-0.004,0.007-0.009,0.012-0.013l4.971-4.971c0.041-0.041,0.118-0.041,0.159,0
+                                                        l12.94,12.94v0c0.037,0.038,0.037,0.121,0,0.159L55.325,61.8c-0.85,0.849-1.73,1.727-2.579,2.628
+                                                        c-0.86,0.912-1.644,1.704-2.544,2.166C45.589,68.959,38.222,66.661,32.689,61.127z" fill="#1f58c7"/>
+                                                </svg>
+                                                Emergency
+
                                             </div>
                                         </div>
                                     </a>
@@ -87,7 +119,146 @@
                         </div>
                     </div>
                 </div>
+                @endif
+
+                @if(session('role')->level_role == 4 || session('role')->level_role == 6)
                 <div class="row">
+                    
+                    <div class="col-xl-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar">
+                                            <div class="avatar-title rounded bg-soft-primary">
+                                                <i class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex-grow-1 ms-3">
+                                            @if(session('role')->level_role == 6)
+                                            <h6 class="mb-0 font-size-15">Tugas Pelaporan Belum Selesai</h6>
+                                            @elseif(session('role')->level_role == 4)
+                                            <h6 class="mb-0 font-size-15">Total Seluruh Pelaporan</h6>
+                                            @else
+                                            <h6 class="mb-0 font-size-15">Total Pelaporan</h6>
+                                            @endif
+
+                                            
+                                            
+                                        </div>
+
+                                        <!-- <div class="flex-shrink-0">
+                                            <div class="dropdown">
+                                                <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="false">
+                                                    <i class="bx bx-dots-horizontal text-muted font-size-22"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" href="#">Yearly</a>
+                                                    <a class="dropdown-item" href="#">Monthly</a>
+                                                    <a class="dropdown-item" href="#">Weekly</a>
+                                                    <a class="dropdown-item" href="#">Today</a>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+
+                                    <div>
+                                        <h4 class="mt-4 pt-1 mb-0 font-size-22">{{ $grp2 }}
+                                             <!-- <span class="text-success fw-medium font-size-13 align-middle"> <i
+                                                    class="mdi mdi-arrow-up"></i> 8.34% </span>  -->
+                                        </h4>
+                                        <div class="d-flex mt-1 align-items-end overflow-hidden">
+                                            <div class="flex-grow-1">
+                                                @if(session('role')->level_role == 6)
+                                                <p class="text-muted mb-0 text-truncate">Total Pelaporan yang sedang dikerjakan</p>
+                                                @elseif(session('role')->level_role == 4)
+                                                <p class="text-muted mb-0 text-truncate">Total Seluruh Pelaporan di Semarang</p>
+                                                @endif
+                                            </div>
+                                            <!-- <div class="flex-shrink-0">
+                                                <div id="mini-1" data-colors='["#1f58c7"]' class="apex-charts"></div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar">
+                                            <div class="avatar-title rounded bg-soft-primary">
+                                                <i class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex-grow-1 ms-3">
+                                            @if(session('role')->level_role == 6)
+                                            <h6 class="mb-0 font-size-15">Tugas Pelaporan Selesai</h6>
+                                            @endif
+
+                                            @if(session('role')->level_role == 4)
+                                            <h6 class="mb-0 font-size-15">Total Pelaporan Saya</h6>
+                                            @endif
+
+                                        </div>
+
+                                        <!-- <div class="flex-shrink-0">
+                                            <div class="dropdown">
+                                                <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="false">
+                                                    <i class="bx bx-dots-horizontal text-muted font-size-22"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" href="#">Yearly</a>
+                                                    <a class="dropdown-item" href="#">Monthly</a>
+                                                    <a class="dropdown-item" href="#">Weekly</a>
+                                                    <a class="dropdown-item" href="#">Today</a>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+
+                                    <div>
+                                        <h4 class="mt-4 pt-1 mb-0 font-size-22">{{ $grp3 }}
+                                             <!-- <span class="text-danger fw-medium font-size-13 align-middle"> <i
+                                                    class="mdi mdi-arrow-down"></i> 3.68% </span> -->
+                                        </h4>
+                                        <div class="d-flex mt-1 align-items-end overflow-hidden">
+                                            <div class="flex-grow-1">
+                                                @if(session('role')->level_role == 6)
+                                                <p class="text-muted mb-0 text-truncate">Total Pelaporan yang sudah selesai</p>
+                                                @endif
+
+                                                @if(session('role')->level_role == 4)
+                                                <p class="text-muted mb-0 text-truncate">Total Pelaporan Saya</p>
+                                                @endif
+                                                
+                                            </div>
+                                            <!-- <div class="flex-shrink-0">
+                                                <div id="mini-2" data-colors='["#1f58c7"]' class="apex-charts"></div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+            </div>
+
+            @if(session('role')->level_role != 6)
+            <div class="col-xl-6">
+                @if(session('role')->level_role != 4)
+                <div class="row">
+                    
                     <div class="col-xl-6">
                         <div class="card">
                             <div class="card-body">
@@ -152,17 +323,25 @@
                                     <div class="d-flex align-items-center">
                                         <div class="avatar">
                                             <div class="avatar-title rounded bg-soft-primary">
-                                                <i class="bx bx-cart-alt font-size-24 mb-0 text-primary"></i>
+                                                <i class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
                                             </div>
                                         </div>
 
                                         <div class="flex-grow-1 ms-3">
-                                            @if(session('role')->level_role != 4)
+                                            @if(session('role')->level_role == '1' || session('role')->level_role == '3')
                                             <h6 class="mb-0 font-size-15">Total Warga</h6>
+                                            @endif
+
+                                            @if(session('role')->level_role == 5)
+                                            <h6 class="mb-0 font-size-15">Total Pelaporan untuk Dinas</h6>
                                             @endif
 
                                             @if(session('role')->level_role == 4)
                                             <h6 class="mb-0 font-size-15">Total Pelaporan Saya</h6>
+                                            @endif
+
+                                            @if(session('role')->level_role == 2)
+                                            <h6 class="mb-0 font-size-15">Total Pelaporan Belum Ditangani</h6>
                                             @endif
 
                                         </div>
@@ -190,12 +369,20 @@
                                         </h4>
                                         <div class="d-flex mt-1 align-items-end overflow-hidden">
                                             <div class="flex-grow-1">
-                                                @if(session('role')->level_role != 4)
+                                                @if(session('role')->level_role == '1' || session('role')->level_role == '3')
                                                 <p class="text-muted mb-0 text-truncate">Total Akun Warga</p>
+                                                @endif
+
+                                                @if(session('role')->level_role == 5)
+                                                <p class="text-muted mb-0 text-truncate">Total Pelaporan untuk Dinas Saya</p>
                                                 @endif
 
                                                 @if(session('role')->level_role == 4)
                                                 <p class="text-muted mb-0 text-truncate">Total Pelaporan Saya</p>
+                                                @endif
+
+                                                @if(session('role')->level_role == 2)
+                                                <p class="text-muted mb-0 text-truncate">Total Pelaporan Yang belum ditangani</p>
                                                 @endif
                                                 
                                             </div>
@@ -209,9 +396,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-xl-6">
+                @endif
 
                 @if(session('role')->level_role == 4)
                 <div class="row">
@@ -277,55 +462,13 @@
                                 <div class="mx-n4 px-4" id="nearestlaporan" data-simplebar style="max-height: auto;">
 
 
-                                    <div class="popular-product-box rounded my-2">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0">
-                                                <div class="avatar-md">
-                                                    <div
-                                                        class="product-img avatar-title img-thumbnail bg-soft-success border-0">
-                                                        <img src="{{ URL::asset('build/images/product/img-8.png') }}" class="img-fluid"
-                                                            alt="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1 ms-3 overflow-hidden">
-                                                <h5 class="mb-1 text-truncate"><a href=""
-                                                        class="font-size-15 text-dark">Home & Office Chair Crime</a></h5>
-                                                <p class="text-muted fw-semibold mb-0 text-truncate">$190.00</p>
-                                            </div>
-                                            <div class="flex-shrink-0 text-end ms-3">
-                                                <h5 class="mb-1"><a href=""
-                                                        class="font-size-15 text-dark">$25698.00</a></h5>
-                                                <p class="text-muted fw-semibold mb-0">856 Sales</p>
-                                            </div>
-                                        </div>
+                                    <div class="popular-product-box skeleton skeleton-text rounded my-2 py-4">          
                                     </div>
 
-                                    <div class="popular-product-box rounded my-2">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0">
-                                                <div class="avatar-md">
-                                                    <div
-                                                        class="product-img avatar-title img-thumbnail bg-soft-danger border-0">
-                                                        <img src="{{ URL::asset('build/images/product/img-3.png') }}" class="img-fluid"
-                                                            alt="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1 ms-3 overflow-hidden">
-                                                <h5 class="mb-1 text-truncate"><a href=""
-                                                        class="font-size-15 text-dark">Office Chair Blue</a></h5>
-                                                <p class="text-muted fw-semibold mb-0 text-truncate">$420.00</p>
-                                            </div>
-                                            <div class="flex-shrink-0 text-end ms-3">
-                                                <h5 class="mb-1"><a href=""
-                                                        class="font-size-15 text-dark">$64351.00</a></h5>
-                                                <p class="text-muted fw-semibold mb-0">524 Sales</p>
-                                            </div>
-                                        </div>
+                                    <div class="popular-product-box skeleton skeleton-text rounded my-2 py-4">
                                     </div>
 
-                                    <div class="popular-product-box rounded my-2">
+                                    <!-- <div class="popular-product-box rounded my-2">
                                         <div class="d-flex align-items-center">
                                             <div class="flex-shrink-0">
                                                 <div class="avatar-md">
@@ -371,14 +514,13 @@
                                                 <p class="text-muted fw-semibold mb-0">964 Sales</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                    
                 @endif
 
                 @if(session('role')->level_role != 4)
@@ -390,12 +532,21 @@
                                     <div class="d-flex align-items-center">
                                         <div class="avatar">
                                             <div class="avatar-title rounded bg-soft-primary">
-                                                <i class="bx bx-package font-size-24 mb-0 text-primary"></i>
+                                                <i class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
                                             </div>
                                         </div>
 
                                         <div class="flex-grow-1 ms-3">
+                                            @if(session('role')->level_role == 1 || session('role')->level_role == 3)
                                             <h6 class="mb-0 font-size-15">Today Dinas</h6>
+                                            @endif
+                                            @if(session('role')->level_role == 5)
+                                            <h6 class="mb-0 font-size-15">Total Pelaporan Belum Ditangani</h6>
+                                            @endif
+
+                                            @if(session('role')->level_role == 2)
+                                            <h6 class="mb-0 font-size-15">Total Pelaporan Sedang Ditangani</h6>
+                                            @endif
                                         </div>
 
                                         <!-- <div class="flex-shrink-0">
@@ -421,7 +572,15 @@
                                         </h4>
                                         <div class="d-flex mt-1 align-items-end overflow-hidden">
                                             <div class="flex-grow-1">
+                                                @if(session('role')->level_role == 1 || session('role')->level_role == 3)
                                                 <p class="text-muted mb-0 text-truncate">Total Akun Dinas</p>
+                                                @endif
+                                                @if(session('role')->level_role == 5)
+                                                <p class="text-muted mb-0 text-truncate">Total Pelaporan Yang Belum Ditangani</p>
+                                                @endif
+                                                @if(session('role')->level_role == 2)
+                                                <p class="text-muted mb-0 text-truncate">Total Pelaporan Yang Sedang Ditangani</p>
+                                                @endif
                                             </div>
                                             <!-- <div class="flex-shrink-0">
                                                 <div id="mini-3" data-colors='["#1f58c7"]' class="apex-charts"></div>
@@ -440,12 +599,20 @@
                                     <div class="d-flex align-items-center">
                                         <div class="avatar">
                                             <div class="avatar-title rounded bg-soft-primary">
-                                                <i class="bx bx-rocket font-size-24 mb-0 text-primary"></i>
+                                                <i class="bx bx-check-shield font-size-24 mb-0 text-primary"></i>
                                             </div>
                                         </div>
 
                                         <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-0 font-size-15">Total Petugas</h6>
+                                            @if(session('role')->level_role == 1 || session('role')->level_role == 3)
+                                            <h6 class="mb-0 font-size-15">Today Petugas</h6>
+                                            @endif
+                                            @if(session('role')->level_role == 5)
+                                            <h6 class="mb-0 font-size-15">Total Pelaporan Belum Ditangani</h6>
+                                            @endif
+                                            @if(session('role')->level_role == 2)
+                                            <h6 class="mb-0 font-size-15">Total Pelaporan Sudah Ditangani</h6>
+                                            @endif
                                         </div>
 
                                         <!-- <div class="flex-shrink-0">
@@ -472,7 +639,15 @@
                                             </h4>
                                         <div class="d-flex mt-1 align-items-end overflow-hidden">
                                             <div class="flex-grow-1">
+                                                @if(session('role')->level_role == 1 || session('role')->level_role == 3)
                                                 <p class="text-muted mb-0 text-truncate">Total Akun Petugas</p>
+                                                @endif
+                                                @if(session('role')->level_role == 5)
+                                                <p class="text-muted mb-0 text-truncate">Total Pelaporan Yang Belum Ditangani</p>
+                                                @endif
+                                                @if(session('role')->level_role == 2)
+                                                <p class="text-muted mb-0 text-truncate">Total Pelaporan Yang Sudah Ditangani</p>
+                                                @endif
                                             </div>
                                             <!-- <div class="flex-shrink-0">
                                                 <div id="mini-4" data-colors='["#1f58c7"]' class="apex-charts"></div>
@@ -485,13 +660,140 @@
                     </div>
                 </div>
                 @endif
-
             </div>
+            @endif
+
+            @if(session('role')->level_role == 6)
+            <div class="col-xl-6">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-2">
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title">Laporan ditugaskan ke saya</h5>
+                                    </div>
+                                    <!-- <div class="flex-shrink-0">
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle text-muted" href="#"
+                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Today<i class="mdi mdi-chevron-down ms-1"></i>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="#">Yearly</a>
+                                                <a class="dropdown-item" href="#">Monthly</a>
+                                                <a class="dropdown-item" href="#">Weekly</a>
+                                                <a class="dropdown-item" href="#">Today</a>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+
+                                <!-- <div class="row align-items-center">
+                                    <div class="col-md-5">
+                                        <div class="popular-product-img p-2">
+                                            <img src="{{ URL::asset('build/images/product/img.png') }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <span class="badge badge-soft-primary font-size-10 text-uppercase ls-05"> Popular
+                                            Item</span>
+                                        <h5 class="mt-2 font-size-16"><a href="" class="text-dark">Home & Office
+                                                Chair Blue</a></h5>
+                                        <p class="text-muted">But who has any right to find chooses enjoy.</p>
+
+                                        <div class="row g-0 mt-3 pt-1 align-items-end">
+                                            <div class="col-4">
+                                                <div class="mt-1">
+                                                    <h4 class="font-size-16">800</h4>
+                                                    <p class="text-muted mb-1">Total Selling</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="mt-1">
+                                                    <h4 class="font-size-16">250</h4>
+                                                    <p class="text-muted mb-1">Total Stock</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="mt-1">
+                                                    <a href="" class="btn btn-primary btn-sm mb-1">Buy
+                                                        Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="mx-n4 px-4" id="nearestlaporan" data-simplebar style="max-height: auto;">
+
+
+                                    <div class="popular-product-box skeleton skeleton-text rounded my-2 py-4">          
+                                    </div>
+
+                                    <div class="popular-product-box skeleton skeleton-text rounded my-2 py-4">
+                                    </div>
+
+                                    <!-- <div class="popular-product-box rounded my-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0">
+                                                <div class="avatar-md">
+                                                    <div
+                                                        class="product-img avatar-title img-thumbnail bg-soft-success border-0">
+                                                        <img src="{{ URL::asset('build/images/product/img-4.png') }}" class="img-fluid"
+                                                            alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3 overflow-hidden">
+                                                <h5 class="mb-1 text-truncate"><a href=""
+                                                        class="font-size-15 text-dark">Home & Office Chair Green</a></h5>
+                                                <p class="text-muted fw-semibold mb-0 text-truncate">$230.00</p>
+                                            </div>
+                                            <div class="flex-shrink-0 text-end ms-3">
+                                                <h5 class="mb-1"><a href=""
+                                                        class="font-size-15 text-dark">$96485.00</a></h5>
+                                                <p class="text-muted fw-semibold mb-0">634 Sales</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="popular-product-box rounded my-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0">
+                                                <div class="avatar-md">
+                                                    <div
+                                                        class="product-img avatar-title img-thumbnail bg-soft-danger border-0">
+                                                        <img src="{{ URL::asset('build/images/product/img-5.png') }}" class="img-fluid"
+                                                            alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3 overflow-hidden">
+                                                <h5 class="mb-1 text-truncate"><a href=""
+                                                        class="font-size-15 text-dark">Wood Chair dark Brown</a></h5>
+                                                <p class="text-muted fw-semibold mb-0 text-truncate">$230.00</p>
+                                            </div>
+                                            <div class="flex-shrink-0 text-end ms-3">
+                                                <h5 class="mb-1"><a href=""
+                                                        class="font-size-15 text-dark">$56230.00</a></h5>
+                                                <p class="text-muted fw-semibold mb-0">964 Sales</p>
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
         <!-- end row -->
 
         <!-- Harusnya buat walikota dan dinas dan dispatcher bisa juga  -->
-        @if(session('role')->level_role == 1)
+        @if(session('role')->level_role == 1 || session('role')->level_role == 3 || session('role')->level_role == 5)
         <div class="row">
             <div class="col-xxl-8">
                 <div class="row">
@@ -1392,9 +1694,19 @@
     @section('scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        @if(session('role')->level_role == 1)
+        <!-- apexcharts -->
+        <script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>
+
+        <!-- Vector map-->
+        <script src="{{ URL::asset('build/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
+        <script src="{{ URL::asset('build/libs/jsvectormap/maps/world-merc.js') }}"></script>
+
+        <script src="{{ URL::asset('build/js/pages/dashboard.init.js') }}"></script>
+        <!-- App js -->
+        <script src="{{ URL::asset('build/js/app.js') }}"></script>
+        @if(session('role')->level_role == 1 || session('role')->level_role == 3 || session('role')->level_role == 5)
         <script>
-            var map = L.map('map').setView([-6.410436, 106.845174], 13);
+            var map = L.map('map').setView([-6.984134513957315, 110.40942042962124], 13);
 
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -1408,22 +1720,12 @@
                 
                 L.marker([lat, lng])
                     .addTo(map)
-                    .bindPopup('Lokasi Pelaporan')
-                    .openPopup();
+                    .bindPopup(coordinate.alamat_kejadian)
             });
+            
 
         </script>
         @endif
-        <!-- apexcharts -->
-        <script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>
-
-        <!-- Vector map-->
-        <script src="{{ URL::asset('build/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
-        <script src="{{ URL::asset('build/libs/jsvectormap/maps/world-merc.js') }}"></script>
-
-        <script src="{{ URL::asset('build/js/pages/dashboard.init.js') }}"></script>
-        <!-- App js -->
-        <script src="{{ URL::asset('build/js/app.js') }}"></script>
         <script>
             function getcoor(){
                 navigator.geolocation.getCurrentPosition(
@@ -1443,6 +1745,7 @@
                 );
             }
         </script>
+        @if(session('role')->level_role == 4)
         <script>
             function getNearestPelaporan(lat, lng) {
 
@@ -1454,35 +1757,93 @@
                         Authorization: 'Bearer {{ session("ses_token") }}',
                         'Content-Type': 'application/json'
                     },
-                    data: JSON.stringify({ lat: lat, lng: lng }), // Use the "data" property instead of "body"
+                    data: JSON.stringify({ lat: lat, lng: lng, pid: null }), // Use the "data" property instead of "body"
                     success: function (data) {
                         // Populate the Kelurahan select with the retrieved data
 
                         $('#nearestlaporan').empty()
-
+                        let pp = ''
+                        let fp = ''
                         data.map((dt) => {
+                            if(dt.foto){
+                                pp = ` <img class="rounded-md col-12" height="400" style="object-fit: cover;"
+                                                src="{{ asset('storage/foto_kejadian/' ) }}/${dt.foto}" alt="Foto Kejadian" load="lazy">`
+                            }else{
+                                pp = 'Tidak ada Foto dilampirkan'
+                            }
+                            if(dt.foto_profil){
+                                fp = `<img class="rounded-circle header-profile-user"
+                                                            src="{{ asset('storage/foto_profil/' ) }}/${dt.foto_profil}" alt="Profile Picture">`
+                            }else{
+                                fp = `<img class="rounded-circle header-profile-user"
+                                                            src="{{ URL::asset('build/images/empty-profile.png') }}" alt="Profile Picture">`
+                            }
                             $('#nearestlaporan').append(`
-                            
-                             <div class="popular-product-box rounded my-2">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0">
-                                            <div class="avatar-md">
-                                                <div
-                                                    class="product-img avatar-title img-thumbnail bg-soft-success border-0">
-                                                    <img src="{{ URL::asset('build/images/product/img-8.png') }}" class="img-fluid"
-                                                        alt="">
+                                <div class="accordion my-2" id="accordionExample">
+                                    <div class="accordion-item">
+                                        <div class="popular-product-box rounded" data-bs-toggle="collapse" data-bs-target="#lap${dt.id}" aria-expanded="false" aria-controls="lap${dt.id}">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-shrink-0">
+                                                    <div class="avatar-md">
+                                                        
+                                                        <div
+                                                            class="product-img avatar-title img-thumbnail rounded-circle bg-soft-primary border-0">
+                                                            ${fp}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-grow-1 ms-3 overflow-hidden">
+                                                    <h5 class="mb-1 text-truncate"><a href=""
+                                                            class="font-size-15 text-dark">${dt.nama_laporan}</a></h5>
+                                                    <p class="text-muted d-none d-md-block fw-semibold mb-0 text-truncate">oleh ${dt.name}</p>
+                                                    <span class="text-primary d-block d-md-none">
+                                                        Klik Untuk Lihat Selengkapnya
+                                                    </span>
+                                                </div>
+                                                <div class="flex-shrink-0 d-none d-md-block text-end ms-3">
+                                                    <h5 class="mb-1"><a href=""
+                                                            class="font-size-15 text-dark">Jarak ${(dt.distance * 1.60934).toFixed(2)} Km dari saya</a></h5>
+                                                    <span class="text-primary">
+                                                        Klik Untuk Lihat Selengkapnya
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="flex-grow-1 ms-3 overflow-hidden">
-                                            <h5 class="mb-1 text-truncate"><a href=""
-                                                    class="font-size-15 text-dark">${dt.nama_laporan}</a></h5>
-                                            <p class="text-muted fw-semibold mb-0 text-truncate">${dt.deskripsi_laporan}</p>
-                                        </div>
-                                        <div class="flex-shrink-0 text-end ms-3">
-                                            <h5 class="mb-1"><a href=""
-                                                    class="font-size-15 text-dark">Jarak ${(dt.distance * 1.60934).toFixed(2)} Km dari saya</a></h5>
-                                            <p class="text-muted fw-semibold mb-0">readme more</p>
+                                        <div id="lap${dt.id}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                
+                                                <h6 class="fw-bold mt-3">Status Penanganan:</h6>
+                                                <span class="badge bg-${dt.color} font-size-12">${dt.status}</span>
+                                                
+                                                <h6 class="fw-bold mt-3">Foto Laporan:</h6>
+                                                ${pp}
+
+                                                <div class="d-flex gap-3  mt-3">
+                                                    <div>
+                                                        <h6 class="fw-bold">Tanggal di Laporkan:</h6>
+                                                        ${dt.tgl_dibuat}
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="fw-bold">Estimasi Selesai:</h6>
+                                                        ${dt.estimasi_selesai ?? '-'}
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-3">Deksripsi Laporan:</h6>
+                                                ${dt.deskripsi_laporan}
+
+                                                <div class="d-flex gap-3 d-block d-md-none  mt-3">
+                                                    <div>
+                                                        <h6 class="fw-bold">Jarak dari saya:</h6>
+                                                        ${(dt.distance * 1.60934).toFixed(2)} Km 
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="fw-bold">Oleh:</h6>
+                                                        ${dt.name ?? '-'}
+                                                    </div>
+                                                </div>
+
+  
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1497,8 +1858,129 @@
             }
 
         </script>
+        @endif
 
-        @if(session('role')->level_role == 4)
+        @if(session('role')->level_role == 6)
+        <script>
+            function getNearestPelaporan(lat, lng) {
+
+                $.ajax({
+                    url: '{{ route("pelaporan.api_nearestpelaporan") }}',
+                    type: 'POST',
+                    dataType: 'json',
+                    headers: {
+                        Authorization: 'Bearer {{ session("ses_token") }}',
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify({ lat: lat, lng: lng, pid: "{{ session('user')->id }}" }), // Use the "data" property instead of "body"
+                    success: function (data) {
+                        // Populate the Kelurahan select with the retrieved data
+
+                        $('#nearestlaporan').empty()
+                        let pp = ''
+                        let zero = 0;
+                        data.map((dt) => {                        
+                            if(dt.foto){
+                                pp = ` <img class="rounded-md col-12" height="400" style="object-fit: cover;"
+                                                src="{{ asset('storage/foto_kejadian/' ) }}/${dt.foto}" alt="Foto Kejadian" load="lazy">`
+                            }else{
+                                pp = 'Tidak ada Foto dilampirkan'
+                            }
+                            $('#nearestlaporan').append(`
+                                <div class="accordion my-2" id="accordionExample">
+                                    <div class="accordion-item">
+                                        <div class="popular-product-box rounded" data-bs-toggle="collapse" data-bs-target="#lap${dt.id}" aria-expanded="false" aria-controls="lap${dt.id}">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-shrink-0">
+                                                    <div class="avatar-md">
+                                                        
+                                                        <div
+                                                            class="product-img avatar-title img-thumbnail rounded-circle bg-soft-primary border-0">
+                                                            <img class="rounded-circle header-profile-user"
+                                                            src="{{ asset('storage/foto_profil/' ) }}/${dt.foto_profil}" alt="Header Avatar">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-grow-1 ms-3 overflow-hidden">
+                                                    <h5 class="mb-1 text-truncate"><a href=""
+                                                            class="font-size-15 text-dark">${dt.nama_laporan}</a></h5>
+                                                    <p class="text-muted d-none d-md-block fw-semibold mb-0 text-truncate">oleh ${dt.name}</p>
+                                                    <span class="text-primary d-block d-md-none">
+                                                        Klik Untuk Lihat Selengkapnya
+                                                    </span>
+                                                </div>
+                                                <div class="flex-shrink-0 d-none d-md-block text-end ms-3">
+                                                    <h5 class="mb-1"><a href=""
+                                                            class="font-size-15 text-dark">Jarak ${(dt.distance * 1.60934).toFixed(2)} Km dari saya</a></h5>
+                                                    <span class="text-primary">
+                                                        Klik Untuk Lihat Selengkapnya
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="lap${dt.id}" class="accordion-collapse collapse ${(zero == 0) ? 'show' : ''}" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <a href="{{ route('pelaporan.edit', ':lprid') }}">Buka Detail Laporan</a></br>
+                                                <a href="https://www.google.com/maps/search/?api=1&query=${dt.lat_coor},${dt.lng_coor}">Arahkan Peta ke Lokasi</a>
+                                                
+                                                <h6 class="fw-bold mt-3">Status Penanganan:</h6>
+                                                <span class="badge bg-${dt.color} font-size-12">${dt.status}</span>
+                                                
+                                                <h6 class="fw-bold mt-3">Foto Laporan:</h6>
+                                                ${pp}
+
+                                                <div class="d-flex gap-3  mt-3">
+                                                    <div>
+                                                        <h6 class="fw-bold">Tanggal di Laporkan:</h6>
+                                                        ${dt.tgl_dibuat}
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="fw-bold">Estimasi Selesai:</h6>
+                                                        ${dt.estimasi_selesai ?? '-'}
+                                                    </div>
+                                                </div>
+                                                <h6 class="fw-bold mt-3">Deksripsi Laporan:</h6>
+                                                ${dt.deskripsi_laporan}
+
+                                                <h6 class="fw-bold mt-3">Lokasi Laporan:</h6>
+                                                <span class="mt-3"><strong>Alamat Detail:</strong></span>
+                                                <p>${dt.alamat_kejadian}</p>
+                                                <span class="mt-1"><strong>Kecamatan:</strong> ${dt.kecamatan}</span></br>
+                                                <span class="mt-1"><strong>Kelurahan:</strong> ${dt.kelurahan}</span></br>
+                                                
+
+                                                <div class="d-flex gap-3 d-block d-md-none  mt-3">
+                                                    <div>
+                                                        <h6 class="fw-bold">Jarak dari saya:</h6>
+                                                        ${(dt.distance * 1.60934).toFixed(2)} Km 
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="fw-bold">Oleh:</h6>
+                                                        ${dt.name ?? '-'}
+                                                    </div>
+                                                </div>
+  
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `.replace(':lprid', dt.id))
+
+                            if(zero == 0){
+                                zero++
+                            }
+                        })
+                    },
+                    error: function (error) {
+                        console.error('Error:', error);
+                    }
+                });
+            }
+
+        </script>
+        @endif
+
+        @if(session('role')->level_role == 4 || session('role')->level_role == 6)
         <script>
             getcoor()
         </script>

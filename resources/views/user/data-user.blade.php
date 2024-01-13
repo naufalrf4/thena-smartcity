@@ -334,8 +334,14 @@
                     {
                         name: "Foto Profil",
                         formatter: (function (cell) {
-                            var assetUrl = @json(asset('storage/foto_profil'));
-                            return gridjs.html(`<img src="${assetUrl}/${cell}" alt="${cell}" style="max-width:  50px; max-height: 50px;">`);
+                            if(cell){
+                                var assetUrl = @json(asset('storage/foto_profil'));
+                                return gridjs.html(`<img src="${assetUrl}/${cell}" alt="${cell}" class="rounded-circle avatar-sm" style="max-width:  50px; max-height: 50px;">`);
+                            }else{ 
+                                var assetUrl = @json(URL::asset('build/images/empty-profile.png'));
+                                return gridjs.html(`<img src="${assetUrl}" alt="Profile Picture" class="rounded-circle avatar-sm" style="max-width:  50px; max-height: 50px;">`);
+                            }
+                            
                         })
                     },
                     {

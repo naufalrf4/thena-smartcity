@@ -42,6 +42,11 @@ class Pelaporan extends Model
         return $this->belongsToMany(User::class, 'petugas_diassign', 'pelaporan_id', 'user_id');
     }
 
+    public function petugas_diassign()
+    {
+        return $this->hasMany(Petugas_Diassign::class, 'user_id');
+    }
+
     public function log_pelaporans()
     {
         return $this->hasMany(Log_Pelaporan::class, 'pelaporan_id');

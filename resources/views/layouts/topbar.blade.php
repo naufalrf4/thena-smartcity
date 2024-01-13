@@ -200,7 +200,7 @@
                     id="page-header-user-dropdown-v" data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <img class="rounded-circle header-profile-user"
-                        src="{{ asset('storage/foto_profil/' . session('user')->foto_profil ) }}" alt="Header Avatar">
+                        src="{{ session('user')->foto_profil ? asset('storage/foto_profil/' . session('user')->foto_profil ) :  URL::asset('build/images/empty-profile.png') }}" alt="Header Avatar">
                     <span class="d-none d-xl-inline-block ms-2 fw-medium font-size-15">
                         {{ session('user')->name ?? '-' }} 
                         ({{ session('role')->name?? '-'}})

@@ -25,6 +25,7 @@ Route::group([
 ], function () {
     Route::post('/pelaporan', [App\Http\Controllers\PelaporanController::class, 'api_getpelaporan'])->name('pelaporan.api_getpelaporan');
     Route::get('/status-pelaporan', [App\Http\Controllers\PelaporanController::class, 'api_getstatuspelaporan'])->name('pelaporan.api_getstatuspelaporan');
+    Route::post('/pelaporan-nearest', [App\Http\Controllers\PelaporanController::class, 'api_nearestpelaporan'])->name('pelaporan.api_nearestpelaporan');;
     Route::post('user/api-getuser', [App\Http\Controllers\UserController::class, 'api_getuser'])->name('user.api_getuser');
     Route::post('dinas/api-getdinas', [App\Http\Controllers\DinasController::class, 'api_getdinas'])->name('dinas.api_getdinas');
     // Route::get('/{id}', [App\Http\Controllers\PelaporanController::class, 'api_getpelaporan']);

@@ -21,6 +21,7 @@
                 <div class="card">
                     <div class="card-body pb-0">
                         <div class="d-flex align-items-start">
+                            @if(session('role')->level_role != 4)
                             <div class="flex-grow-1">
                                 <h5 class="card-title mb-4">Overview Pelaporan</h5>
                             </div>
@@ -41,20 +42,51 @@
                                     </div> -->
                                 </div>
                             </div>
+                            @endif
+                            <div class="flex-grow-1">
+                                <h5 class="card-title mb-4">Aksi Cepat</h5>
+                            </div>
                         </div>
 
                         <div>
+                            @if(session('role')->level_role != 4)
                             <div id="overview"
                                 data-item="{{ json_encode($grp1) }}"
                                 data-label="Pelaporan"
                                 data-colors='["#1f58c7", "#1f58c7", "#1f58c7","#1f58c7", "#1f58c7", "#1f58c7","#1f58c7","#1f58c7","#1f58c7","#1f58c7","#1f58c7", "#1f58c7"]'
                                 class="apex-chart"></div>
+                            @endif
+                            @if(session('role')->level_role == 4)                 
+                            <div class="mb-3">
+                                <div class="col-12 col-md-6 gap-1 justify-content-between">
+                                    <a href="{{ route('pelaporan.index') }}" class="col-4 btn btn-link m-0 p-0 flex-grow-1">
+                                        <div class="avatar-xl">
+                                            <div class="product-img avatar-title img-thumbnail bg-soft-primary border-0">
+                                                asd
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="{{ route('pelaporan.index') }}" class="col-4 btn btn-link m-0 p-0 flex-grow-1">
+                                        <div class="avatar-xl">
+                                            <div class="product-img avatar-title img-thumbnail bg-soft-primary border-0">
+                                                asd
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="{{ route('pelaporan.index') }}" class="col-3 btn btn-link m-0 p-0 flex-grow-1">
+                                        <div class="avatar-xl">
+                                            <div class="product-img avatar-title img-thumbnail bg-soft-primary border-0">
+                                                asd
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            @endif
+
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-xl-6">
                 <div class="row">
                     <div class="col-xl-6">
                         <div class="card">
@@ -68,7 +100,14 @@
                                         </div>
 
                                         <div class="flex-grow-1 ms-3">
+                                            @if(session('role')->level_role != 4)
                                             <h6 class="mb-0 font-size-15">Total Pelaporan</h6>
+                                            @endif
+
+                                            @if(session('role')->level_role == 4)
+                                            <h6 class="mb-0 font-size-15">Total Seluruh Pelaporan</h6>
+                                            @endif
+                                            
                                         </div>
 
                                         <!-- <div class="flex-shrink-0">
@@ -94,7 +133,7 @@
                                         </h4>
                                         <div class="d-flex mt-1 align-items-end overflow-hidden">
                                             <div class="flex-grow-1">
-                                                <p class="text-muted mb-0 text-truncate">Total Seluruh Pelaporan</p>
+                                                <p class="text-muted mb-0 text-truncate">Total Seluruh Pelaporan di Semarang</p>
                                             </div>
                                             <!-- <div class="flex-shrink-0">
                                                 <div id="mini-1" data-colors='["#1f58c7"]' class="apex-charts"></div>
@@ -118,7 +157,14 @@
                                         </div>
 
                                         <div class="flex-grow-1 ms-3">
+                                            @if(session('role')->level_role != 4)
                                             <h6 class="mb-0 font-size-15">Total Warga</h6>
+                                            @endif
+
+                                            @if(session('role')->level_role == 4)
+                                            <h6 class="mb-0 font-size-15">Total Pelaporan Saya</h6>
+                                            @endif
+
                                         </div>
 
                                         <!-- <div class="flex-shrink-0">
@@ -144,7 +190,14 @@
                                         </h4>
                                         <div class="d-flex mt-1 align-items-end overflow-hidden">
                                             <div class="flex-grow-1">
+                                                @if(session('role')->level_role != 4)
                                                 <p class="text-muted mb-0 text-truncate">Total Akun Warga</p>
+                                                @endif
+
+                                                @if(session('role')->level_role == 4)
+                                                <p class="text-muted mb-0 text-truncate">Total Pelaporan Saya</p>
+                                                @endif
+                                                
                                             </div>
                                             <!-- <div class="flex-shrink-0">
                                                 <div id="mini-2" data-colors='["#1f58c7"]' class="apex-charts"></div>
@@ -156,6 +209,179 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="col-xl-6">
+
+                @if(session('role')->level_role == 4)
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-2">
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title">Laporan lain di dekat saya</h5>
+                                    </div>
+                                    <!-- <div class="flex-shrink-0">
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle text-muted" href="#"
+                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Today<i class="mdi mdi-chevron-down ms-1"></i>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="#">Yearly</a>
+                                                <a class="dropdown-item" href="#">Monthly</a>
+                                                <a class="dropdown-item" href="#">Weekly</a>
+                                                <a class="dropdown-item" href="#">Today</a>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+
+                                <!-- <div class="row align-items-center">
+                                    <div class="col-md-5">
+                                        <div class="popular-product-img p-2">
+                                            <img src="{{ URL::asset('build/images/product/img.png') }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <span class="badge badge-soft-primary font-size-10 text-uppercase ls-05"> Popular
+                                            Item</span>
+                                        <h5 class="mt-2 font-size-16"><a href="" class="text-dark">Home & Office
+                                                Chair Blue</a></h5>
+                                        <p class="text-muted">But who has any right to find chooses enjoy.</p>
+
+                                        <div class="row g-0 mt-3 pt-1 align-items-end">
+                                            <div class="col-4">
+                                                <div class="mt-1">
+                                                    <h4 class="font-size-16">800</h4>
+                                                    <p class="text-muted mb-1">Total Selling</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="mt-1">
+                                                    <h4 class="font-size-16">250</h4>
+                                                    <p class="text-muted mb-1">Total Stock</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="mt-1">
+                                                    <a href="" class="btn btn-primary btn-sm mb-1">Buy
+                                                        Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="mx-n4 px-4" id="nearestlaporan" data-simplebar style="max-height: auto;">
+
+
+                                    <div class="popular-product-box rounded my-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0">
+                                                <div class="avatar-md">
+                                                    <div
+                                                        class="product-img avatar-title img-thumbnail bg-soft-success border-0">
+                                                        <img src="{{ URL::asset('build/images/product/img-8.png') }}" class="img-fluid"
+                                                            alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3 overflow-hidden">
+                                                <h5 class="mb-1 text-truncate"><a href=""
+                                                        class="font-size-15 text-dark">Home & Office Chair Crime</a></h5>
+                                                <p class="text-muted fw-semibold mb-0 text-truncate">$190.00</p>
+                                            </div>
+                                            <div class="flex-shrink-0 text-end ms-3">
+                                                <h5 class="mb-1"><a href=""
+                                                        class="font-size-15 text-dark">$25698.00</a></h5>
+                                                <p class="text-muted fw-semibold mb-0">856 Sales</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="popular-product-box rounded my-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0">
+                                                <div class="avatar-md">
+                                                    <div
+                                                        class="product-img avatar-title img-thumbnail bg-soft-danger border-0">
+                                                        <img src="{{ URL::asset('build/images/product/img-3.png') }}" class="img-fluid"
+                                                            alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3 overflow-hidden">
+                                                <h5 class="mb-1 text-truncate"><a href=""
+                                                        class="font-size-15 text-dark">Office Chair Blue</a></h5>
+                                                <p class="text-muted fw-semibold mb-0 text-truncate">$420.00</p>
+                                            </div>
+                                            <div class="flex-shrink-0 text-end ms-3">
+                                                <h5 class="mb-1"><a href=""
+                                                        class="font-size-15 text-dark">$64351.00</a></h5>
+                                                <p class="text-muted fw-semibold mb-0">524 Sales</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="popular-product-box rounded my-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0">
+                                                <div class="avatar-md">
+                                                    <div
+                                                        class="product-img avatar-title img-thumbnail bg-soft-success border-0">
+                                                        <img src="{{ URL::asset('build/images/product/img-4.png') }}" class="img-fluid"
+                                                            alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3 overflow-hidden">
+                                                <h5 class="mb-1 text-truncate"><a href=""
+                                                        class="font-size-15 text-dark">Home & Office Chair Green</a></h5>
+                                                <p class="text-muted fw-semibold mb-0 text-truncate">$230.00</p>
+                                            </div>
+                                            <div class="flex-shrink-0 text-end ms-3">
+                                                <h5 class="mb-1"><a href=""
+                                                        class="font-size-15 text-dark">$96485.00</a></h5>
+                                                <p class="text-muted fw-semibold mb-0">634 Sales</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="popular-product-box rounded my-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0">
+                                                <div class="avatar-md">
+                                                    <div
+                                                        class="product-img avatar-title img-thumbnail bg-soft-danger border-0">
+                                                        <img src="{{ URL::asset('build/images/product/img-5.png') }}" class="img-fluid"
+                                                            alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3 overflow-hidden">
+                                                <h5 class="mb-1 text-truncate"><a href=""
+                                                        class="font-size-15 text-dark">Wood Chair dark Brown</a></h5>
+                                                <p class="text-muted fw-semibold mb-0 text-truncate">$230.00</p>
+                                            </div>
+                                            <div class="flex-shrink-0 text-end ms-3">
+                                                <h5 class="mb-1"><a href=""
+                                                        class="font-size-15 text-dark">$56230.00</a></h5>
+                                                <p class="text-muted fw-semibold mb-0">964 Sales</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                @endif
+
+                @if(session('role')->level_role != 4)
                 <div class="row">
                     <div class="col-xl-6">
                         <div class="card">
@@ -258,6 +484,8 @@
                         </div>
                     </div>
                 </div>
+                @endif
+
             </div>
         </div>
         <!-- end row -->
@@ -365,7 +593,7 @@
         <!-- end row -->
         @endif
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-xxl-8">
                 <div class="row">
                     <div class="col-xl-7">
@@ -759,10 +987,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- end row -->
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-xl-7">
                 <div class="card">
                     <div class="card-body">
@@ -1158,7 +1386,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- end row -->
     @endsection
     @section('scripts')
@@ -1196,4 +1424,83 @@
         <script src="{{ URL::asset('build/js/pages/dashboard.init.js') }}"></script>
         <!-- App js -->
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
+        <script>
+            function getcoor(){
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        $('#lat_coor').val(latitude)
+                        $('#lng_coor').val(longitude)
+                        $('#NewPelaporan-Address').attr("placeholder", "Mendapatkan lokasi dari gps...");
+
+                        getNearestPelaporan(latitude, longitude);
+                    },
+                    function (error) {
+                        console.error("Error getting location:", error);
+                    }
+                );
+            }
+        </script>
+        <script>
+            function getNearestPelaporan(lat, lng) {
+
+                $.ajax({
+                    url: '{{ route("pelaporan.api_nearestpelaporan") }}',
+                    type: 'POST',
+                    dataType: 'json',
+                    headers: {
+                        Authorization: 'Bearer {{ session("ses_token") }}',
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify({ lat: lat, lng: lng }), // Use the "data" property instead of "body"
+                    success: function (data) {
+                        // Populate the Kelurahan select with the retrieved data
+
+                        $('#nearestlaporan').empty()
+
+                        data.map((dt) => {
+                            $('#nearestlaporan').append(`
+                            
+                             <div class="popular-product-box rounded my-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <div class="avatar-md">
+                                                <div
+                                                    class="product-img avatar-title img-thumbnail bg-soft-success border-0">
+                                                    <img src="{{ URL::asset('build/images/product/img-8.png') }}" class="img-fluid"
+                                                        alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3 overflow-hidden">
+                                            <h5 class="mb-1 text-truncate"><a href=""
+                                                    class="font-size-15 text-dark">${dt.nama_laporan}</a></h5>
+                                            <p class="text-muted fw-semibold mb-0 text-truncate">${dt.deskripsi_laporan}</p>
+                                        </div>
+                                        <div class="flex-shrink-0 text-end ms-3">
+                                            <h5 class="mb-1"><a href=""
+                                                    class="font-size-15 text-dark">Jarak ${(dt.distance * 1.60934).toFixed(2)} Km dari saya</a></h5>
+                                            <p class="text-muted fw-semibold mb-0">readme more</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `)
+
+                        })
+                    },
+                    error: function (error) {
+                        console.error('Error:', error);
+                    }
+                });
+            }
+
+        </script>
+
+        @if(session('role')->level_role == 4)
+        <script>
+            getcoor()
+        </script>
+        @endif
     @endsection

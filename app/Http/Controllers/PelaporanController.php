@@ -24,6 +24,49 @@ class PelaporanController extends Controller
         $this->middleware('auth');
     }
 
+    public function api_nearestpelaporan(Request $request){
+
+        try{
+
+            $validatedData = $request->validate([
+                'lat' => 'required',
+                'lng' => 'required',
+            ]);
+
+            $lat = $validatedData['lat'];
+            $lng = $validatedData['lng'];
+    
+            $lap = DB::select("
+            SELECT
+                id,
+                nama_laporan,
+                tgl_dibuat, 
+                deskripsi_laporan, 
+                (3959 * ACOS(
+                    GREATEST(LEAST(1, 
+                        COS(RADIANS(?)) * COS(RADIANS(lat_coor)) * COS(RADIANS(lng_coor) - RADIANS(?)) + 
+                        SIN(RADIANS(?)) * SIN(RADIANS(lat_coor))
+                    ), -1)
+                )) AS distance
+            FROM pelaporan
+            WHERE (3959 * ACOS(
+                    GREATEST(LEAST(1, 
+                        COS(RADIANS(?)) * COS(RADIANS(lat_coor)) * COS(RADIANS(lng_coor) - RADIANS(?)) + 
+                        SIN(RADIANS(?)) * SIN(RADIANS(lat_coor))
+                    ), -1)
+                )) IS NOT NULL
+            ORDER BY distance
+            LIMIT 0, 20;
+            ", [$lat, $lng, $lat, $lat, $lng, $lat]);
+        
+            return response()->json($lap);
+        }catch(\Exception $e){
+
+            dd($e);
+            return response()->json(['message' => 'Tidak ada parameter yang diberikan'], 404);
+        }
+    }
+
     public function api_getpelaporan(Request $request){
 
         if($request->has('rid')){
@@ -104,6 +147,7 @@ class PelaporanController extends Controller
             $semua_laporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->count();
             $belum_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('role_penanganan_id', NULL)->count();
             $sedang_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])
+                                ->where('user_id', $uid)
                                 ->whereIn('status_penanganan_id', [2, 3])
                                 ->count();
             $selesai = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('status_penanganan_id', 4)->count();

@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function root()
     {
         //grp1
-        if(auth()->user()->role_id == '1'){
+        if(session('role')->level_role == '1'){
             $counts = Pelaporan::select(DB::raw('COUNT(*) as count'))
             ->groupBy(DB::raw('MONTH(created_at)'))
             ->orderBy(DB::raw('MONTH(created_at)'))
@@ -46,21 +46,21 @@ class HomeController extends Controller
         }
 
         //grp2
-        if(auth()->user()->role_id == '1'){
+        if(session('role')->level_role == '1'){
             $grp2 = Pelaporan::count();
         }else{
             $grp2 = '';
         }
 
         //grp3
-        if(auth()->user()->role_id == '1'){
+        if(session('role')->level_role == '1'){
             $grp3 = User::where('role_id', 4)->count();
         }else{
             $grp3 = '';
         }
 
         //grp4
-        if(auth()->user()->role_id == '1'){
+        if(session('role')->level_role == '1'){
             $grp4 = User::whereHas('getRole', function ($query) {
                 $query->where('level_role', 5);
             })->count();
@@ -70,7 +70,7 @@ class HomeController extends Controller
 
 
         //grp5
-        if(auth()->user()->role_id == '1'){
+        if(session('role')->level_role == '1'){
             $grp5 = User::whereHas('getRole', function ($query) {
                 $query->where('level_role', 6);
             })->count();
@@ -79,7 +79,7 @@ class HomeController extends Controller
         }
 
         //map1
-        if(auth()->user()->role_id == '1'){
+        if(session('role')->level_role == '1'){
             $map1 = Pelaporan::select('lat_coor', 'lng_coor')->whereNotNull(['lat_coor', 'lng_coor'])->get();
         }else{
             $map1 = [];

@@ -28,7 +28,7 @@
         <nav class="navbar navbar-expand-lg fixed-top bg-hover-scroll on-over">
             <div class="container">
                 <!-- Logo -->
-                <a class="navbar-brand" href="/index-lite">
+                <a class="navbar-brand" href="/">
                     <img src="{{ URL::asset('build/images/images-landing/semapor-logo-text.png') }}" alt="" width="165" />
 
                 </a>

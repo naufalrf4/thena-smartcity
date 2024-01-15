@@ -28,6 +28,7 @@ Route::group([
     Route::post('/pelaporan-nearest', [App\Http\Controllers\PelaporanController::class, 'api_nearestpelaporan'])->name('pelaporan.api_nearestpelaporan');;
     Route::post('user/api-getuser', [App\Http\Controllers\UserController::class, 'api_getuser'])->name('user.api_getuser');
     Route::post('dinas/api-getdinas', [App\Http\Controllers\DinasController::class, 'api_getdinas'])->name('dinas.api_getdinas');
+    Route::post('chat/api-getchat', [App\Http\Controllers\ChatController::class, 'api_getchat'])->name('chat.api_getchat');
     // Route::get('/{id}', [App\Http\Controllers\PelaporanController::class, 'api_getpelaporan']);
     // Route::post('/', [App\Http\Controllers\PelaporanController::class, 'api_postpelaporan']);
     // Route::put('/{id}', [App\Http\Controllers\PelaporanController::class, 'api_putpelaporan']);

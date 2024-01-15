@@ -45,7 +45,7 @@
                                 {{-- <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt=""
                                     class="avatar-xl rounded-circle img-thumbnail"> --}}
 
-                                    <img src="{{ $user->foto_profil ? asset('storage/foto_profil/' . $user->foto_profil) : URL::asset('build/images/empty-profile.png') }}" alt="" class="avatar-xl rounded-circle img-thumbnail">
+                                    <img src="{{ $user->foto_profil ? asset('storage/foto_profil/' . $user->foto_profil) : URL::asset('build/images/empty-profile.png') }}" alt="" class="avatar-xl rounded-circle img-thumbnail" style="object-fit: cover">
 
                                 <div class="mt-3">
                                     <h5 class="mb-1">{{ $user->name }}</h5>

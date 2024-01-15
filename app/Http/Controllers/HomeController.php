@@ -87,7 +87,7 @@ class HomeController extends Controller
         } else if(session('role')->level_role == '2'){
             $grp4 = Pelaporan::where('status_penanganan_id', [2,3])->count();
         } else if(session('role')->level_role == '5'){
-            $grp4 = Pelaporan::where('role_penanganan_id', session('role')->id)->where('status_penanganan_id', [2, 3])->count();
+            $grp4 = Pelaporan::where('role_penanganan_id', session('role')->id)->where('status_penanganan_id', 2)->orWhere('status_penanganan_id', 3)->count();
         } else{
             $grp4 = '';
         }

@@ -80,13 +80,14 @@
                             @endif
                         </div>
 
-                        <a class="dropdown-item" href="javascript:void();"
+                        {{-- <a class="dropdown-item" href="javascript:void();"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
                             class="mdi mdi-logout text-muted font-size-16 align-middle me-2"></i> <span
                             class="align-middle">Logout</span></a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form> --}}
                     </div>
                 </div>
             </div>
@@ -127,7 +128,7 @@
                                         <img src="{{ URL::asset('build/images/images-landing/shapes/blurry-shape-1.svg') }}" alt="" class="shape animate-scale" />
                                         
                                         <div class="mt-12 rounded-5 border border-primary shadow-lg overflow-hidden position-relative z-1">
-                                            <img class="img-fluid d-inline-block" src="{{ URL::asset('build/images/images-landing/ss-hero-image-2.png') }}" alt="" />
+                                            <img class="img-fluid d-inline-block" src="{{ URL::asset('build/images/images-landing/ss-hero-image-3.png') }}" alt="" />
                                         </div>
 
                                     </div>
@@ -294,7 +295,7 @@
                                 <p class="" style="text-align: justify;">
                                     Pelaporan permasalahan pada Semapor memungkinkan warga Kota Semarang untuk dengan <span class="text-gradient-1 fw-bold"> mudah menyampaikan informasi terkait permasalahan </span> seperti kerusakan infrastruktur, kebersihan, keamanan, dan berbagai permasalahan lain yang membutuhkan perhatian pemerintah kota.
                                 </p>
-                                <!-- <ul class="list-unstyled list-check mb-8">
+                                <ul class="list-unstyled list-check mb-8">
                                     <li>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18" class="icon">
                                             <g>
@@ -309,10 +310,17 @@
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m3.75 9 3.75 3.75 7.5-7.5" />
                                             </g>
                                         </svg>
-                                        <span
-								>Gambar atau video sebagai bukti tambahan.</span>
+                                        <span>Gambar atau video sebagai bukti tambahan.</span>
                                     </li>
-                                </ul> -->
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18" class="icon">
+                                            <g>
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m3.75 9 3.75 3.75 7.5-7.5" />
+                                            </g>
+                                        </svg>
+                                        <span>Transparansi Status Pelaporan</span>
+                                    </li>
+                                </ul> 
                                 <!-- <a href="login.html" class="arrow-link arrow-link-primary text-primary-2 gap-3">
                                     <span>Get Started Free</span>
                                     <svg class="icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -333,10 +341,33 @@
                             <div class="content">
                                 <h4 class="text-gradient-1">Fitur 2</h4>
                                 <h1 class="">
-                                    Pemetaan Interaktif
+                                    Penyajian Data Interaktif
                                 </h1>
                                 <p class="" style="text-align: justify;">
-                                    Memberikan <span class="text-gradient-1 fw-bold"> gambaran visual lokasi permasalahan </span> untuk mengidentifikasi area di mana tempat-tempat tersebut memerlukan perhatian lebih hingga dapat <span class="text-gradient-1 fw-bold"> melihat laporan pengguna lain yang terjadi di sekitar lokasi pengguna.</span> Hal ini tidak hanya memudahkan pengguna untuk memantau perkembangan laporan mereka sendiri, tetapi juga <span class="text-gradient-1 fw-bold"> memberikan pemahaman yang lebih baik kepada pemerintah kota </span> mengenai distribusi dan tingkat urgensi permasalahan di berbagai wilayah.
+                                    {{-- Memberikan <span class="text-gradient-1 fw-bold"> gambaran visual lokasi permasalahan </span> untuk mengidentifikasi area di mana tempat-tempat tersebut memerlukan perhatian lebih hingga dapat <span class="text-gradient-1 fw-bold"> melihat laporan pengguna lain yang terjadi di sekitar lokasi pengguna.</span>  --}}
+
+                                    Memberikan kemampuan kepada warga Kota Semarang untuk <span class="text-gradient-1 fw-bold"> melihat dan memahami permasalahan secara lebih mendalam melalui representasi visual.</span> Dengan fokus pada kerusakan infrastruktur, kebersihan, keamanan, dan berbagai masalah lainnya, fitur ini membawa kemudahan dan kejelasan dalam pelaporan permasalahan.
+                                    
+                                    {{-- Hal ini tidak hanya memudahkan pengguna untuk memantau perkembangan laporan mereka sendiri, tetapi juga <span class="text-gradient-1 fw-bold"> memberikan pemahaman yang lebih baik kepada pemerintah kota </span> mengenai distribusi dan tingkat urgensi permasalahan di berbagai wilayah. --}}
+
+                                    <ul class="list-unstyled list-check mb-8">
+                                        <li>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18" class="icon">
+                                                <g>
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m3.75 9 3.75 3.75 7.5-7.5" />
+                                                </g>
+                                            </svg>
+                                            <span>Visualisasi Pelaporan</span>
+                                        </li>
+                                        <li>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18" class="icon">
+                                                <g>
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m3.75 9 3.75 3.75 7.5-7.5" />
+                                                </g>
+                                            </svg>
+                                            <span>Peta Interaktif Pelaporan</span>
+                                        </li>
+                                    </ul> 
                                 </p>
                                 
                             </div>
@@ -353,11 +384,32 @@
                             <div class="content">
                                 <h4 class="text-gradient-1">Fitur 3</h4>
                                 <h1 class="">
-                                    Status Pelaporan
+                                    Notifikasi & Forum Pelaporan
                                     <!-- <span class="text-primary-2">GenAI</span>. -->
                                 </h1>
                                 <p class="" style="text-align: justify;">
-                                    Memberikan <span class="text-gradient-1 fw-bold"> pelacakan status pelaporan,</span> mulai dari pengajuan hingga penyelesaian. Informasi yang terkandung dalam status pelaporan mencakup tahapan-tahapan seperti proses penugasan kepada pihak terkait, perkembangan pekerjaan, hingga status penyelesaian sebagai <span class="text-gradient-1 fw-bold"> bentuk transparansi atas pelaporan yang ada.</span>
+                                    {{-- Memberikan <span class="text-gradient-1 fw-bold"> pelacakan status pelaporan,</span> mulai dari pengajuan hingga penyelesaian. Informasi yang terkandung dalam status pelaporan mencakup tahapan-tahapan seperti proses penugasan kepada pihak terkait, perkembangan pekerjaan, hingga status penyelesaian sebagai <span class="text-gradient-1 fw-bold"> bentuk transparansi atas pelaporan yang ada.</span> --}}
+
+                                    Memberikan pengguna <span class="text-gradient-1 fw-bold"> kemudahan dalam menerima informasi langsung terkait perkembangan laporan </span> mereka, mulai dari konfirmasi penerimaan hingga pemberitahuan penyelesaian dan <span class="text-gradient-1 fw-bold"> forum pelaporan menjadi wadah interaktif </span> dimana warga dan petugas dapat saling berbagi pengalaman dan solusi terkait permasalahan yang dilaporkan kepada pihak yang menangani permasalahan tersebut.
+
+                                    <ul class="list-unstyled list-check mb-8">
+                                        <li>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18" class="icon">
+                                                <g>
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m3.75 9 3.75 3.75 7.5-7.5" />
+                                                </g>
+                                            </svg>
+                                            <span>Forum Interaktif Pelaporan</span>
+                                        </li>
+                                        <li>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18" class="icon">
+                                                <g>
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m3.75 9 3.75 3.75 7.5-7.5" />
+                                                </g>
+                                            </svg>
+                                            <span>Notifikasi Status Pelaporan Terintegrasi WhatsApp</span>
+                                        </li>
+                                    </ul> 
                                 </p>
                             </div>
                         </div>
@@ -1261,10 +1313,10 @@
                             <div class="col-md-4 col-lg-5">
                                 <div class="footer-widget text-center text-md-start">
                                     <h6 class=" mb-4">Berita & Pembaruan</h6>
-                                    <form action="#">
+                                    <form action="mailto:semapor@thena.my.id" method="post">
                                         <div class="input-group">
                                             <input type="email" class="form-control" placeholder="Masukkan Email" />
-                                            <button class="btn btn-outline-primary px-4" type="button">
+                                            <button class="btn btn-outline-primary px-4" type="submit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24">
                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m4.031 8.917 15.477-4.334a.5.5 0 0 1 .616.617l-4.333 15.476a.5.5 0 0 1-.94.067l-3.248-7.382a.5.5 0 0 0-.256-.257L3.965 9.856a.5.5 0 0 1 .066-.94v0Z" />
                                                 </svg>

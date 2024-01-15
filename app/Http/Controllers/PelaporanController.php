@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Log_Pelaporan;
+use App\Models\Chat;
 use App\Models\Pelaporan;
 use App\Models\Petugas_Diassign;
 use App\Models\Roles;
@@ -120,7 +121,9 @@ class PelaporanController extends Controller
                 $semua_laporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan']);
                 $belum_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('role_penanganan_id', NULL);
                 $sedang_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])
-                                        ->whereIn('status_penanganan_id', [2, 3]);
+                                        ->where(function ($query) {
+                                            $query->whereIn('status_penanganan_id', [2, 3]);
+                                        });;
                 $selesai = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', 3);
                 
                 if ($role->level_role == 1 || $role->level_role == 2 || $role->level_role == 3) {
@@ -137,7 +140,9 @@ class PelaporanController extends Controller
                     $petugas_diassign = Petugas_Diassign::where('user_id', $request->uid)->with('pelaporan')->get();
                     $semua_laporan_count = $petugas_diassign->pluck('pelaporan')->count();
                     $belum_ditangani_count = $petugas_diassign->pluck('pelaporan')->where('status_penanganan_id', 1)->count();
-                    $sedang_ditangani_count = $petugas_diassign->pluck('pelaporan')->whereIn('status_penanganan_id', [2, 3])->count();
+                    $sedang_ditangani_count = $petugas_diassign->pluck('pelaporan')->where(function ($query) {
+                        $query->whereIn('status_penanganan_id', [2, 3]);
+                    })->count();
                     $selesai_count = $petugas_diassign->pluck('pelaporan')->where('status_penanganan_id', 3)->count();
                 }
 
@@ -146,8 +151,15 @@ class PelaporanController extends Controller
                         $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan']);
                     }else if($request->status == 'belum-ditangani'){
                         $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('role_penanganan_id', NULL);
-                    }else if($request->status == 'sedang-ditangani'){
-                        $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', [2, 3]);
+                    }else if ($request->status == 'sedang-ditangani') {
+                        $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])
+                            ->where(function ($query) {
+                                $query->whereIn('status_penanganan_id', [2, 3]);
+                            });
+                    }else if($request->status == 'perlu-direview'){
+                        $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', 3)->whereHas('log_pelaporans', function ($query) {
+                            $query->where('status_log_pelaporan', 3);
+                        });
                     }else if($request->status == 'selesai'){
                         $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('status_penanganan_id', 4);
                     }
@@ -166,7 +178,6 @@ class PelaporanController extends Controller
                     $pelaporan = $pelaporan;
                 }
 
-               
 
                 $data = (object) [
                     'semua_laporan' => $semua_laporan_count,
@@ -188,7 +199,9 @@ class PelaporanController extends Controller
             $belum_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('role_penanganan_id', NULL)->count();
             $sedang_ditangani = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])
                                 ->where('user_id', $uid)
-                                ->whereIn('status_penanganan_id', [2, 3])
+                                ->where(function ($query) {
+                                    $query->whereIn('status_penanganan_id', [2, 3]);
+                                })
                                 ->count();
             $selesai = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('status_penanganan_id', 4)->count();
     
@@ -205,7 +218,13 @@ class PelaporanController extends Controller
                 }else if($request->status == 'belum-ditangani'){
                     $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('role_penanganan_id', NULL)->get();
                 }else if($request->status == 'sedang-ditangani'){
-                    $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('status_penanganan_id', [2, 3])->get();
+                    $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where(function ($query) {
+                        $query->whereIn('status_penanganan_id', [2, 3]);
+                    })->get();
+                }else if($request->status == 'perlu-direview'){
+                    $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->whereHas('log_pelaporans', function ($query) {
+                        $query->where('status_log_pelaporan', 3);
+                    });
                 }else if($request->status == 'selesai'){
                     $data->pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan'])->where('user_id', $uid)->where('status_penanganan_id', 4)->get();
                 }
@@ -226,7 +245,7 @@ class PelaporanController extends Controller
         $explodedRouteName = explode('.', $routeName);
 
         // Check the second segment of the route name
-        if ($explodedRouteName[1] === 'belum_ditangani' || $explodedRouteName[1] === 'sedang_ditangani') {
+        if ($explodedRouteName[1] === 'belum_ditangani' || $explodedRouteName[1] === 'sedang_ditangani' || $explodedRouteName[1] === 'perlu_direview') {
             $status = ucwords(str_replace('_', ' ', $explodedRouteName[1]));
         } else if ($explodedRouteName[1] === 'selesai') {
             $status = ucwords($explodedRouteName[1]);
@@ -307,7 +326,8 @@ class PelaporanController extends Controller
     public function edit(string $id)
     {
         try{
-            $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan', 'rolePenanganan'])->find($id);
+            // $chats = Chat::with(['sender'])->where('pelaporan_id', $id)->get();
+            $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan', 'rolePenanganan', 'chat'])->find($id);
             $petugas_diassign = Petugas_Diassign::where('pelaporan_id', $id)->with('user')->get();
             $log_pelaporan = Log_Pelaporan::where('pelaporan_id', $id)->with('statusLog', 'user')->get();
 
@@ -336,13 +356,13 @@ class PelaporanController extends Controller
 
                 $status_log = StatusLogPelaporan::all();
                 
-                return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign,  'log_pelaporan' => $log_pelaporan, 'status_penanganan' => $status_penanganan, 'dinas' => $dinas, 'petugas' => $petugas, 'status_log' => $status_log]);
+                return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign,  'log_pelaporan' => $log_pelaporan, 'status_penanganan' => $status_penanganan, 'dinas' => $dinas, 'petugas' => $petugas, 'status_log' => $status_log, 'chats' => $pelaporan->chat]);
             }
 
             if(session('role')->level_role == 2){
                 $status_penanganan = StatusPenanganan::all();
                 $dinas = Roles::where('level_role', 5)->get();
-                return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign,  'log_pelaporan' => $log_pelaporan, 'status_penanganan' => $status_penanganan, 'dinas' => $dinas]);
+                return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign,  'log_pelaporan' => $log_pelaporan, 'status_penanganan' => $status_penanganan, 'dinas' => $dinas, 'chats' => $pelaporan->chat]);
             }
 
             if(session('role')->level_role == 5){
@@ -360,16 +380,16 @@ class PelaporanController extends Controller
 
                 $status_log = StatusLogPelaporan::all();
 
-                return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign, 'log_pelaporan' => $log_pelaporan, 'status_penanganan' => $status_penanganan, 'petugas' => $petugas, 'status_log' => $status_log]);
+                return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign, 'log_pelaporan' => $log_pelaporan, 'status_penanganan' => $status_penanganan, 'petugas' => $petugas, 'status_log' => $status_log, 'chats' => $pelaporan->chat]);
             }
 
             if(session('role')->level_role == 6){
                 $status_log = StatusLogPelaporan::all();
-                return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign, 'log_pelaporan' => $log_pelaporan, 'status_log' => $status_log]);
+                return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign, 'log_pelaporan' => $log_pelaporan, 'status_log' => $status_log, 'chats' => $pelaporan->chat]);
                 
             }
 
-            return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign, 'log_pelaporan' => $log_pelaporan]);
+            return view('pelaporan.detail-pelaporan', ['pelaporan' => $pelaporan, 'petugas_diassign' => $petugas_diassign, 'log_pelaporan' => $log_pelaporan, 'chats' => $pelaporan->chat]);
         } catch (\Exception $e) {
             return redirect()->route('pelaporan.index')->with('error', $e->getMessage());
         }

@@ -66,4 +66,9 @@ class Pelaporan extends Model
     {
         return $this->belongsTo(Roles::class, 'role_penanganan_id');
     }
+
+    public function chat(){
+        return $this->hasMany(Chat::class, 'pelaporan_id');
+    }
 }
+

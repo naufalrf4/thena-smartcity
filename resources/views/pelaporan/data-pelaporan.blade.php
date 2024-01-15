@@ -112,13 +112,20 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Tabel Data Pelaporan</h4>
+                    </div><!-- end card header -->
                     <div class="card-body">
                         <div class="position-relative">
-                            <div class="modal-button mt-2">
+
+                            @if (session('role')->level_role !== 6)
                                 <button type="button"
-                                    class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
-                                    data-bs-toggle="modal" data-bs-target=".new-customer" onclick="getcoor()">
-                                    <i class="mdi mdi-plus"></i> Tambah User </button>
+                                class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2"
+                                data-bs-toggle="modal" data-bs-target=".new-customer" onclick="getcoor()">
+                                <i class="mdi mdi-plus"></i> Tambah Laporan </button>
+                            @endif
+
+                            <div class="modal-button mt-2">
                             </div>
                         </div>
                         <div id="table-ecommerce-customers"></div>

@@ -27,7 +27,14 @@
                                 @csrf
                                 @method('PUT')
                     @endif
-                    
+                        
+                        <div class="mb-2">
+                            <div class="flex flex-col">
+                                <span for="" class="fw-bold bg-primary text-light px-3 py-2 rounded-5">#LPR{{ $pelaporan->id }}</span>
+                            </div>
+                        </div>
+
+                        <hr>
 
                         <div class="my-2 d-flex align-items-center justify-content-between">
                             <div class="my-2">
@@ -36,30 +43,60 @@
                                     <span class="badge bg-{{$pelaporan->statusPenanganan->color}} font-size-12" id="status-laporan" data-status-laporan="{{ $pelaporan->status_penanganan_id }}">{{ $pelaporan->statusPenanganan->status }}</span>
                                 </div>
                             </div>
-                            @if (session('role')->level_role == 1 || session('role')->level_role == 2 || session('role')->level_role == 4 || session('role')->level_role == 5 )
-                            <div class="col-xl-3 col-lg-4 col-sm-6 d-flex justify-content-end" id="btn-area">
-                                <button type="button" 
-                                    class="btn btn-primary btn-sm waves-effect text-white waves-light mt-2 me-2" onclick="turnEdit()">
-                                <i class="mdi mdi-pencil-box-multiple-outline me-1"></i> Edit Laporan
-                                </button>
-                                
-                            </div>
+
+                            @if (session('role')->level_role == 1)
+                                    <div class="col-xl-3 col-lg-4 col-sm-6 d-flex justify-content-end" id="btn-area">
+                                        <button type="button" 
+                                            class="btn btn-primary btn-sm waves-effect text-white waves-light mt-2 me-2" onclick="turnEdit()">
+                                            <i class="mdi mdi-pencil-box-multiple-outline me-1"></i> Edit Laporan
+                                        </button>
+                                    </div>
+                            @elseif (session('role')->level_role == 2 || session('role')->level_role == 4 || session('role')->level_role == 5)
+
+                                @if (session('role')->level_role == 4)
+                                    @if ($pelaporan->status_penanganan_id == 1)
+                                        <div class="col-xl-3 col-lg-4 col-sm-6 d-flex justify-content-end" id="btn-area">
+                                            <button type="button" 
+                                                class="btn btn-primary btn-sm waves-effect text-white waves-light mt-2 me-2" onclick="turnEdit()">
+                                                <i class="mdi mdi-pencil-box-multiple-outline me-1"></i> Edit Laporan
+                                            </button>
+                                        </div>
+                                    @endif
+                                @else
+                                    @if (in_array($pelaporan->status_penanganan_id, [1, 2, 3, 4]))
+                                        <div class="col-xl-3 col-lg-4 col-sm-6 d-flex justify-content-end" id="btn-area">
+                                            <button type="button" 
+                                                class="btn btn-primary btn-sm waves-effect text-white waves-light mt-2 me-2" onclick="turnEdit()">
+                                                <i class="mdi mdi-pencil-box-multiple-outline me-1"></i> Edit Laporan
+                                            </button>
+                                        </div>
+                                    @endif
+                                @endif
                             @endif
+                                    
+
                         </div>
 
-                        
+                        <div class="my-2 mt-4">
+                            <div class="flex flex-col">
+                                <span for="" class="fw-bold">Sedang ditangani oleh</span><br>
+                                <span id="role-penanganan" data-role-penanganan="{{ $pelaporan->role_penanganan_id ?? '' }}">{{ $pelaporan->rolePenanganan->name ?? 'Laporan sedang menunggu dalam antrian penanganan' }}</span>
+                            </div>
+                        </div>
 
                         <div class="my-2 mt-4">
                             <div class="flex flex-col">
                                 <span for="" class="fw-bold">Tanggal Dilaporkan</span><br>
-                                <span id="tgl-dibuat" data-tgl-dibuat="{{ $pelaporan->tgl_dibuat }}">{{ $pelaporan->tgl_dibuat }}</span>
+                                <span id="tgl-dibuat" data-tgl-dibuat="{{ explode(' ', $pelaporan->tgl_dibuat ) [0] ?? '' }}">{{ explode(' ', $pelaporan->tgl_dibuat ) [0] ?? '-' }}</span>
                             </div>
                         </div>
 
                         <div class="my-2 mt-4">
                             <div class="flex flex-col">
                                 <span for="" class="fw-bold">Estimasi Selesai</span><br>
-                                <span id="estimasi-selesai" data-estimasi-selesai="{{ $pelaporan->estimasi_selesai ?? '' }}">{{ $pelaporan->estimasi_selesai ?? '-' }}</span>
+                                <span id="estimasi-selesai" data-estimasi-selesai="{{ explode(' ', $pelaporan->estimasi_selesai ) [0] ?? '' }}">
+                                    {{ explode(' ', $pelaporan->estimasi_selesai ) [0] ?? '-' }}
+                                </span>
                             </div>
                         </div>
 
@@ -101,15 +138,6 @@
                             </div>
                         </div>
 
-                        <hr>
-
-                        <div class="my-2 mt-4">
-                            <div class="flex flex-col">
-                                <span for="" class="fw-bold">Sedang ditangani oleh</span><br>
-                                <span id="role-penanganan" data-role-penanganan="{{ $pelaporan->role_penanganan_id ?? '' }}">{{ $pelaporan->rolePenanganan->name ?? 'Laporan sedang menunggu dalam antrian penanganan' }}</span>
-                            </div>
-                        </div>
-
                         @if(session('role')->level_role == 1 || session('role')->level_role == 2 || session('role')->level_role == 4 || session('role')->level_role == 5 || session('role')->level_role == 6)
                         </form>
                         @endif
@@ -121,6 +149,7 @@
             </div>
 
             <div class="col-xl-5">
+                {{-- Petugas --}}
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">Petugas</h5>
@@ -152,7 +181,19 @@
                                                 <h5 class="font-size-14 m-0"><a href="javascript: void(0);"
                                                         class="text-dark">{{ ucwords($p->user->name) }}</a></h5>
                                             </td>
-                                            @if(session('role')->level_role == 1 || session('role')->level_role == 5 || session('role')->level_role == 1)
+                                            @if (
+                                                session('role')->level_role == 1 ||
+                                                (
+                                                    session('role')->level_role == 5 &&
+                                                    (
+                                                        (!$log_pelaporan->first() && in_array(session('role')->level_role, [1, 2])) || // Show for level_role 1 or 2 if log_pelaporan is empty
+                                                        ($log_pelaporan->first() && (
+                                                            $log_pelaporan->last() === null || // Check if last entry is null
+                                                            in_array($log_pelaporan->last()->status_log_pelaporan, [1, 2]) // Show if the last entry's status_log_pelaporan is 1 or 2
+                                                        ))
+                                                    )
+                                                )
+                                            )
                                            <td class="d-flex justify-content-end">
                                                 <form class="delete-form" data-id="{{ $p->id }}" action="{{ route('petugas-diassign.destroy', $p->id) }}" method="post">
                                                     @csrf
@@ -172,7 +213,10 @@
                                         @endforeach
                                     @endif
 
-                                    @if(session('role')->level_role == 1 || session('role')->level_role == 5 || session('role')->level_role == 1)
+                                    @if (
+                                        session('role')->level_role == 1 ||
+                                        (session('role')->level_role == 5 && optional($log_pelaporan->last())->status_log_pelaporan != 3)
+                                    )
                                     <tr>
                                         <td colspan="4">
                                             <div class="row">
@@ -195,14 +239,23 @@
                     </div>
                 </div>
 
+                {{-- Log Petugas --}}
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">Log Petugas</h5>
-                        @if(session('role')->level_role == 1 || session('role')->level_role == 5 || session('role')->level_role == 1 || session('role')->level_role == 6)
-                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light me-1" data-bs-toggle="modal" data-bs-target=".create-task">
-                            Tambah Log
-                        </button>
+                        {{-- @if(session('role')->level_role == 1 || session('role')->level_role == 5 || session('role')->level_role == 6) --}}
+                        {{-- @php dd($log_pelaporan->first()) @endphp --}}
+
+                        @if (
+                            session('role')->level_role == 1 ||
+                            session('role')->level_role == 6 ||
+                            (session('role')->level_role == 5 && optional($log_pelaporan->last())->status_log_pelaporan != 3)
+                        )
+                            <button type="button" class="btn btn-primary btn-sm waves-effect waves-light me-1" data-bs-toggle="modal" data-bs-target=".create-task">
+                                Tambah Log
+                            </button>
                         @endif
+                        {{-- @endif --}}
                     </div>
 
                     <div class="card-body pt-0 pb-3">
@@ -253,7 +306,19 @@
                                                 <!-- <i class="mdi mdi-plus me-1"></i>  -->
                                                 Detail</button>
                                             </td>
-                                            @if(session('role')->level_role == 1 || session('role')->level_role == 5 || session('role')->level_role == 1 || session('role')->level_role == 6)
+                                            @if (
+                                                session('role')->level_role == 1 ||
+                                                (
+                                                    session('role')->level_role == 5 &&
+                                                    (
+                                                        (!$log_pelaporan->first() && in_array(session('role')->level_role, [1, 2])) || // Show for level_role 1 or 2 if log_pelaporan is empty
+                                                        ($log_pelaporan->first() && (
+                                                            $log_pelaporan->last() === null || // Check if last entry is null
+                                                            in_array($log_pelaporan->last()->status_log_pelaporan, [1, 2]) // Show if the last entry's status_log_pelaporan is 1 or 2
+                                                        ))
+                                                    )
+                                                )
+                                            )
                                             <td class="">
                                                 <form class="delete-form" data-id="{{ $l->id }}" action="{{ route('log-pelaporan.destroy', $l->id) }}" method="post">
                                                     @csrf
@@ -287,7 +352,150 @@
                     </div>
                 </div>
 
+                {{-- Chat Petugas --}}
+                <div class="card">
+                                <div class="p-3 px-lg-4 border-bottom">
+                                    <div class="row">
+                                        <div class="col-xl-5 col-12">
+                                            <div class="d-flex align-items-center">
+                                                {{-- <div class="flex-shrink-0 avatar me-3 d-sm-block d-none">
+                                                    <img src="{{ URL::asset('build/images/users/avatar-6.jpg') }}" alt=""
+                                                        class="img-fluid d-block rounded-circle">
+                                                </div> --}}
+                                                <div class="d-flex">
 
+                                                    <h5 class="font-size-16 mb-1 text-truncate">
+                                                        <a href="#"
+                                                            class="text-dark">Forum Pelaporan 
+                                                        </a>
+                                                    </h5>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="col-xl-8 col-5">
+                                            <ul class="list-inline user-chat-nav text-end mb-0">
+                                                <li class="list-inline-item">
+                                                    <div class="dropdown">
+                                                        <button class="btn nav-btn dropdown-toggle" type="button"
+                                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="bx bx-search"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-md p-2">
+                                                            <form class="px-2">
+                                                                <div>
+                                                                    <input type="text" class="form-control border bg-soft-light"
+                                                                        placeholder="Search...">
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </li>
+            
+                                                <li class="list-inline-item">
+                                                    <div class="dropdown">
+                                                        <button class="btn nav-btn dropdown-toggle" type="button"
+                                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="bx bx-dots-horizontal-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item" href="#">Profile</a>
+                                                            <a class="dropdown-item" href="#">Archive</a>
+                                                            <a class="dropdown-item" href="#">Muted</a>
+                                                            <a class="dropdown-item" href="#">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div> --}}
+                                    </div>
+                                </div>
+            
+                                <div class="chat-conversation p-3" data-simplebar>
+                                    <ul class="list-unstyled mb-0">
+                                        {{-- <li class="chat-day-title">
+                                            <span class="title">Hari Ini</span>
+                                        </li> --}}
+
+                                        {{-- <li>
+                                            <div class="conversation-list">
+                                                <div class="d-flex">
+                                                    <img src="{{ URL::asset('build/images/users/avatar-6.jpg') }}" class="rounded-circle avatar"
+                                                        alt="">
+                                                    <div class="flex-1">
+                                                        <div class="ctext-wrap">
+                                                            <div class="ctext-wrap-content">
+
+                                                                <div class="conversation-name">
+                                                                    <span class="time">10:00</span>
+                                                                </div>
+
+                                                                <p class="mb-0">Halo satu</p>
+            
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li> --}}
+            
+                                        @foreach($chats as $chat)
+                                            <li class="{{ $chat->sender_id == auth()->user()->id ? 'right' : '' }}">
+                                                <div class="conversation-list">
+
+                                                    <p class="fw-bold mb-2">{{ $chat->sender->name }}</p>
+
+                                                    <div class="d-flex">
+                                                        
+                                                        @if( $chat->sender_id != auth()->user()->id )
+                                                            <img src="{{ $chat->sender->foto_profil ? asset('storage/foto_profil/' . $chat->sender->foto_profil ) :  URL::asset('build/images/empty-profile.png') }}" class="rounded-circle avatar" alt="" style="object-fit: cover">
+                                                        @endif
+
+                                                        <div class="flex-1">
+                                                            <div class="ctext-wrap">
+                                                                <div class="ctext-wrap-content p-2">
+                                                                    <div class="conversation-name p-0">
+                                                                        <span class="time">{{ $chat->created_at->format('H:i') }}</span>
+                                                                    </div>
+                                                                    <p class="mb-0 text-start">{{ $chat->chat }}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        @if ( $chat->sender_id == auth()->user()->id )
+                                                            <img src="{{ $chat->sender->foto_profil ? asset('storage/foto_profil/' . $chat->sender->foto_profil ) :  URL::asset('build/images/empty-profile.png') }}" class="rounded-circle avatar" alt="" style="object-fit: cover">
+                                                        @endif
+
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                        
+                                    </ul>
+                                </div>
+                                
+                                <form class="" method="POST" action="{{ route('chat.store') }}" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="p-3 border-top">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="position-relative">
+                                                    <input type="hidden" name="pelaporan_id" value="{{ $pelaporan->id }}">
+                                                    <input type="text" name="chat" class="form-control border bg-soft-light"
+                                                        placeholder="Ketik pesan...">
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <button type="submit"
+                                                    class="btn btn-primary chat-send w-md waves-effect waves-light"><span
+                                                        class="d-none d-sm-inline-block me-2">Kirim</span> <i
+                                                        class="mdi mdi-send float-end"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                </div>
+                
             </div>
         </div>
 
@@ -308,41 +516,41 @@
                         <div class="row">
                             <div class="col-md-6 d-flex justify-content-center">
                                 <div class="mb-3">
-                                    <label class="form-label" for="CreateTask-Team-Member">Foto</label> <br>
-                                    <img src="" id="logpm-foto" alt="" srcset="">
+                                    <label class="form-label fw-bold text-dark" for="CreateTask-Team-Member">Foto</label> <br>
+                                    <img src="" id="logpm-foto" alt="" srcset="" class="img-fluid rounded-3">
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-4">
 
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label" for="CreateTask-Task-Name">Waktu</label>
+                                        <label class="form-label fw-bold text-dark" for="CreateTask-Task-Name">Waktu</label>
                                         <br>
-                                        <span id="logpm-waktu" class="fw-bold"></span>
+                                        <span id="logpm-waktu" class=""></span>
                                     </div>
                                 </div>
                             
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label" for="CreateTask-Task-Name">Status Log Pelaporan</label>
+                                        <label class="form-label fw-bold text-dark" for="CreateTask-Task-Name">Status Log Pelaporan</label>
                                         <br>
-                                        <span id="logpm-status" class="fw-bold"></span>
+                                        <span id="logpm-status" class=""></span>
                                     </div>
                                 </div>
                             
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Keterangan log</label> <br>
-                                        <p id="logpm-ket" class="fw-bold"></p>
+                                        <label class="form-label fw-bold text-dark">Keterangan log</label> <br>
+                                        <p id="logpm-ket" class=""></p>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label" for="CreateTask-Task-Name">Petugas</label>
+                                        <label class="form-label fw-bold text-dark" for="CreateTask-Task-Name">Petugas</label>
                                         <br>
-                                        <span id="logpm-petugas" class="fw-bold"></span>
+                                        <span id="logpm-petugas" class=""></span>
                                     </div>
                                 </div>
                             

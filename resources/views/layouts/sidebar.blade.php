@@ -45,15 +45,20 @@
 
                 <li class="menu-title" data-key="">Manajemen</li>
 
-                <li>
+                <li class="mm-active">
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="bx bx-file icon nav-icon"></i>
                         <span class="menu-item" data-key="">Pelaporan</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('pelaporan.index') }}" data-key="">Semua Laporan</a></li>
-                        <li><a href="{{ route('pelaporan.belum_ditangani') }}" data-key="">Belum ditangani</a></li>
-                        <li><a href="{{ route('pelaporan.sedang_ditangani') }}" data-key="">Sedang dikerjakan</a></li>
+                        <li><a href="{{ route('pelaporan.belum_ditangani') }}" data-key="">Belum Ditangani</a></li>
+                        <li><a href="{{ route('pelaporan.sedang_ditangani') }}" data-key="">Sedang Ditangani</a></li>
+
+                        @if (session('role')->level_role != 4)
+                            <li><a href="{{ route('pelaporan.perlu_direview') }}" data-key="">Perlu Direview</a></li>
+                        @endif
+
                         <li><a href="{{ route('pelaporan.selesai') }}" data-key="">Laporan Selesai</a></li>
                     </ul>
                 </li>

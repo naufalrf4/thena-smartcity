@@ -21,6 +21,7 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'root'])->
 // ===== PELAPORAN ===== 
 Route::get('pelaporan/status/belum-ditangani', [App\Http\Controllers\PelaporanController::class, 'index'])->name('pelaporan.belum_ditangani');
 Route::get('pelaporan/status/sedang-ditangani', [App\Http\Controllers\PelaporanController::class, 'index'])->name('pelaporan.sedang_ditangani');
+Route::get('pelaporan/status/perlu-direview', [App\Http\Controllers\PelaporanController::class, 'index'])->name('pelaporan.perlu_direview');
 Route::get('pelaporan/status/selesai', [App\Http\Controllers\PelaporanController::class, 'index'])->name('pelaporan.selesai');
 Route::resource('pelaporan', App\Http\Controllers\PelaporanController::class);
 
@@ -35,6 +36,9 @@ Route::resource('dinas', App\Http\Controllers\DinasController::class);
 
 // ===== PROFILE ===== 
 Route::resource('profile', App\Http\Controllers\ProfileController::class);
+
+// ===== CHAT ===== 
+Route::resource('chat', App\Http\Controllers\ChatController::class);
 
 // untuk buka halaman dari template
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');

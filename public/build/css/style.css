@@ -3906,7 +3906,7 @@ progress {
 .form-control:focus {
   color: var(--gen-emphasis-color);
   background-color: var(--gen-body-bg);
-  border-color: #6a4dff;
+  border-color: rgb(30,88,201);
   outline: 0;
   box-shadow: none;
 }

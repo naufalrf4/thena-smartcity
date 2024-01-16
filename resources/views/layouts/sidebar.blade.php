@@ -55,7 +55,7 @@
                         <li><a href="{{ route('pelaporan.belum_ditangani') }}" data-key="">Belum Ditangani</a></li>
                         <li><a href="{{ route('pelaporan.sedang_ditangani') }}" data-key="">Sedang Ditangani</a></li>
 
-                        @if (session('role')->level_role != 4)
+                        @if (session('role')->level_role == 5)
                             <li><a href="{{ route('pelaporan.perlu_direview') }}" data-key="">Perlu Direview</a></li>
                         @endif
 

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Log_Pelaporan;
 use App\Models\Pelaporan;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class LogPelaporanController extends Controller
 {
@@ -79,6 +81,27 @@ class LogPelaporanController extends Controller
             }
     
             $logpelaporan->save();
+
+            try{
+                $user = User::find(auth()->user()->id);
+    
+                $data = (object) [
+                    'no_wa' => '62' . substr($user->no_telp, 1),
+                    'message' => 'Laporan dengan judul ' . $pelaporan->judul_laporan . ' telah mendapat log petugas',
+                ];
+                
+                $response = Http::post('http://127.0.0.1:3000?no_wa='. $data->no_wa.'&message=' . str_replace(' ', '%20', $data->message));
+        
+                if ($response->failed()) {
+                    // // Handle error
+                    // $errorMessage = $response->body();
+                    // return $errorMessage; // Gantilah 'error' dengan nama view yang sesuai
+                } else {
+                   return redirect()->back()->with(['success' => 'Berhasil menambahkan log pelaporan']);
+                }
+            }catch(\Exception $e){
+               return redirect()->back()->with(['success' => 'Berhasil menambahkan log pelaporan']);
+            }
     
     
             return redirect()->back()->with(['success' => 'Berhasil menambahkan log pelaporan']);

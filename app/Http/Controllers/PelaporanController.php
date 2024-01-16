@@ -12,6 +12,7 @@ use App\Models\StatusPenanganan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
 
 class PelaporanController extends Controller
@@ -69,7 +70,7 @@ class PelaporanController extends Controller
                     )) IS NOT NULL
                     ORDER BY distance
                     LIMIT 0, 20;
-                ", [$lat, $lng, $lat, $validatedData['pid'], $lat, $lng, $lat]);
+                ", [$lat, $lng, $lat, $validatedData['pid'], $lat, $lng, $lat, $lat, $lng, $lat]);
             
             }else{
                 $lap = DB::select("
@@ -94,9 +95,15 @@ class PelaporanController extends Controller
                                 SIN(RADIANS(?)) * SIN(RADIANS(lat_coor))
                             ), -1)
                         )) IS NOT NULL
+                    AND (3959 * ACOS(
+                        GREATEST(LEAST(1, 
+                            COS(RADIANS(?)) * COS(RADIANS(lat_coor)) * COS(RADIANS(lng_coor) - RADIANS(?)) + 
+                            SIN(RADIANS(?)) * SIN(RADIANS(lat_coor))
+                        ), -1)
+                    )) < 7
                     ORDER BY distance
                     LIMIT 0, 20;
-                    ", [$lat, $lng, $lat, $lat, $lng, $lat]);
+                    ", [$lat, $lng, $lat, $lat, $lng, $lat, $lat, $lng, $lat]);
             }
             
         
@@ -301,7 +308,29 @@ class PelaporanController extends Controller
             'foto' => $validatedData['foto_kejadian'],
         ]);
 
-        return redirect()->route('pelaporan.index')->with('success', 'Laporan berhasil dibuat');
+        try{
+            $user = User::find(auth()->user()->id);
+
+            $data = (object) [
+                'no_wa' => '62' . substr($user->no_telp, 1),
+                'message' => 'Laporan baru telah dibuat dengan judul ' . $validatedData['judul_laporan'] . ' oleh ' . auth()->user()->name . '. Silahkan cek di aplikasi untuk detailnya.',
+            ];
+
+            
+            $response = Http::post('http://127.0.0.1:3000?no_wa='. $data->no_wa.'&message=' . str_replace(' ', '%20', $data->message));
+    
+            if ($response->failed()) {
+                dd($response);
+                // // Handle error
+                // $errorMessage = $response->body();
+                // return $errorMessage; // Gantilah 'error' dengan nama view yang sesuai
+            } else {
+                return redirect()->route('pelaporan.index')->with('success', 'Laporan berhasil dibuat');
+            }
+        }catch(\Exception $e){
+            return redirect()->route('pelaporan.index')->with('success', 'Laporan berhasil dibuat');
+        }
+        
        } catch (ValidationException $e) {
             dd($e->getMessage());
             $errors = $e->validator->errors()->all();
@@ -497,12 +526,53 @@ class PelaporanController extends Controller
                 $pelaporan->status_penanganan_id = $request->status_penanganan_id;
                 $pelaporan->role_penanganan_id = $request->role_penanganan_id;
                 $pelaporan->save();
+
+                try{
+                    $user = User::find(auth()->user()->id);
+        
+                    $data = (object) [
+                        'no_wa' => '62' . substr($user->no_telp, 1),
+                        'message' => 'Laporan dengan judul ' . $pelaporan->nama_laporan . ' telah diupdate oleh Dispatcher, Silahkan cek di aplikasi untuk detailnya.',
+                    ];
+                    
+                    $response = Http::post('http://127.0.0.1:3000?no_wa='. $data->no_wa.'&message=' . str_replace(' ', '%20', $data->message));
+                    if ($response->failed()) {
+                        // // Handle error
+                        // $errorMessage = $response->body();
+                        // return $errorMessage; // Gantilah 'error' dengan nama view yang sesuai
+                    } else {
+                       return redirect()->back()->with('success', 'Laporan berhasil diupdate');
+                    }
+                }catch(\Exception $e){
+                   return redirect()->back()->with('success', 'Laporan berhasil diupdate');
+                }
             }
 
             if(session('role')->level_role == 5){
                 $pelaporan->status_penanganan_id = $request->status_penanganan_id;
                 $pelaporan->estimasi_selesai = $request->estimasi_selesai;
                 $pelaporan->save();
+
+                try{
+                    $user = User::find(auth()->user()->id);
+        
+                    $data = (object) [
+                        'no_wa' => '62' . substr($user->no_telp, 1),
+                        'message' => 'Laporan dengan judul ' . $pelaporan->nama_laporan . ' telah diupdate oleh Dinas, Silahkan cek di aplikasi untuk detailnya.',
+                    ];
+                    
+                    $response = Http::post('http://127.0.0.1:3000?no_wa='. $data->no_wa.'&message=' . str_replace(' ', '%20', $data->message));
+            
+                    if ($response->failed()) {
+                        // // Handle error
+                        // $errorMessage = $response->body();
+                        // return $errorMessage; // Gantilah 'error' dengan nama view yang sesuai
+                    } else {
+                       return redirect()->back()->with('success', 'Laporan berhasil diupdate');
+                    }
+                }catch(\Exception $e){
+                   return redirect()->back()->with('success', 'Laporan berhasil diupdate');
+                }
             }
 
             return redirect()->back()->with('success', 'Laporan berhasil diupdate');

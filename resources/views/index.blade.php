@@ -477,7 +477,7 @@
                                     </div>
                                 </div> -->
 
-                                <div class="mx-n4 px-4" id="nearestlaporan" data-simplebar style="max-height: 300px;  overflow-y: scroll;">
+                                <div class="mx-n4 px-4" id="nearestlaporan" data-simplebar style="max-height: 600px;  overflow-y: scroll;">
 
 
                                     <div class="popular-product-box skeleton skeleton-text rounded my-2 py-4">          

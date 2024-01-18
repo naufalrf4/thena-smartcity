@@ -67,7 +67,16 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        $role = Roles::all();
+        if (session('role')->level_role == 1 ){
+            
+            $role = Roles::all();
+
+        } else if (session('role')->level_role == 5) {
+            
+            $role = Roles::where('id', session('role')->id)->orWhere('dep_role', session('role')->id)->get();
+
+        }
+
 
         return view('user.data-user', ['users' => $users, 'role' => $role]);
         

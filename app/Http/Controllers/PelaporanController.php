@@ -70,7 +70,7 @@ class PelaporanController extends Controller
                     )) IS NOT NULL
                     ORDER BY distance
                     LIMIT 0, 20;
-                ", [$lat, $lng, $lat, $validatedData['pid'], $lat, $lng, $lat, $lat, $lng, $lat]);
+                ", [$lat, $lng, $lat, $validatedData['pid'], $lat, $lng, $lat]);
             
             }else{
                 $lap = DB::select("

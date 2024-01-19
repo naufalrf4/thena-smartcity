@@ -183,16 +183,7 @@
                                             </td>
                                             @if (
                                                 session('role')->level_role == 1 ||
-                                                (
-                                                    session('role')->level_role == 5 &&
-                                                    (
-                                                        (!$log_pelaporan->first() && in_array(session('role')->level_role, [1, 2])) || // Show for level_role 1 or 2 if log_pelaporan is empty
-                                                        ($log_pelaporan->first() && (
-                                                            $log_pelaporan->last() === null || // Check if last entry is null
-                                                            in_array($log_pelaporan->last()->status_log_pelaporan, [1, 2]) // Show if the last entry's status_log_pelaporan is 1 or 2
-                                                        ))
-                                                    )
-                                                )
+                                                (session('role')->level_role == 5 && optional($log_pelaporan->last())->status_log_pelaporan != 3)
                                             )
                                            <td class="d-flex justify-content-end">
                                                 <form class="delete-form" data-id="{{ $p->id }}" action="{{ route('petugas-diassign.destroy', $p->id) }}" method="post">

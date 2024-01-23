@@ -45,12 +45,12 @@
 
                 <li class="menu-title" data-key="">Manajemen</li>
 
-                <li class="mm-active">
+                {{-- <li class="">
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="bx bx-file icon nav-icon"></i>
                         <span class="menu-item" data-key="">Pelaporan</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
+                    <ul class="sub-menu">
                         <li><a href="{{ route('pelaporan.index') }}" data-key="">Semua Laporan</a></li>
                         <li><a href="{{ route('pelaporan.belum_ditangani') }}" data-key="">Belum Ditangani</a></li>
                         <li><a href="{{ route('pelaporan.sedang_ditangani') }}" data-key="">Sedang Ditangani</a></li>
@@ -61,7 +61,59 @@
 
                         <li><a href="{{ route('pelaporan.selesai') }}" data-key="">Laporan Selesai</a></li>
                     </ul>
+                </li> --}}
+
+                <li>
+                    <a href="{{ route('pelaporan.index') }}">
+                        <i class="bx bx-file icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-dashboard">Semua Laporan</span>
+                        {{-- <span class="badge rounded-pill bg-primary">2</span> --}}
+                    </a>
+                    {{-- <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="index" data-key="t-ecommerce">Ecommerce</a></li>
+                        <li><a href="dashboard-sales" data-key="t-sales">Sales</a></li>
+                    </ul> --}}
                 </li>
+
+                <li>
+                    <a href="{{ route('pelaporan.belum_ditangani') }}">
+                        <i class="bx bx-screenshot icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-dashboard">Belum Ditangani</span>
+                        {{-- <span class="badge rounded-pill bg-primary">2</span> --}}
+                    </a>
+                    {{-- <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="index" data-key="t-ecommerce">Ecommerce</a></li>
+                        <li><a href="dashboard-sales" data-key="t-sales">Sales</a></li>
+                    </ul> --}}
+                </li>
+
+                <li>
+                    <a href="{{ route('pelaporan.sedang_ditangani') }}">
+                        <i class="bx bx-file-find icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-dashboard">Sedang Ditangani</span>
+                        {{-- <span class="badge rounded-pill bg-primary">2</span> --}}
+                    </a>
+                    {{-- <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="index" data-key="t-ecommerce">Ecommerce</a></li>
+                        <li><a href="dashboard-sales" data-key="t-sales">Sales</a></li>
+                    </ul> --}}
+                </li>
+
+                <li>
+                    <a href="{{ route('pelaporan.selesai') }}">
+                        <i class="bx bx-list-check icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-dashboard">Selesai</span>
+                        {{-- <span class="badge rounded-pill bg-primary">2</span> --}}
+                    </a>
+                    {{-- <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="index" data-key="t-ecommerce">Ecommerce</a></li>
+                        <li><a href="dashboard-sales" data-key="t-sales">Sales</a></li>
+                    </ul> --}}
+                </li>
+
+                @if (session('role')->level_role == 5)
+                    <li><a href="{{ route('pelaporan.perlu_direview') }}" data-key="">Perlu Direview</a></li>
+                @endif
 
                 @if(session('role')->level_role == 1 || session('role')->level_role == 5 )
                 <li>

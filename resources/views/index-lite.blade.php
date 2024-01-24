@@ -36,9 +36,9 @@
                 <!-- Navbar toggler button -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="navbar-toggler-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                        <span style="background-color: #1E58C6"></span>
+                        <span style="background-color: #1E58C6"></span>
+                        <span style="background-color: #1E58C6"></span>
                     </div>
                 </button>
 
@@ -111,11 +111,10 @@
                                         <span
 								class="fw-bold text-gradient-1 typed-animation"
 								data-strings='[
-                                "Kemacetan Lalu Lintas",
                                 "Pelecehan Seksual",
-                                "Limbah dan Pencemaran Lingkungan",
+                                "Polusi Udara",
                                 "Kriminalitas",
-                                "Kurangnya Ruang Hijau",
+                                "Bencana Alam",
                                 "Jalanan Rusak"
                                 ]'
 								>Jalanan Rusak</span>

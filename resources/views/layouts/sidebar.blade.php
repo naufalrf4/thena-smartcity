@@ -43,7 +43,7 @@
                     </ul> --}}
                 </li>
 
-                <li class="menu-title" data-key="">Manajemen</li>
+                <li class="menu-title" data-key="">Pelaporan</li>
 
                 {{-- <li class="">
                     <a href="javascript: void(0);" class="has-arrow">
@@ -113,6 +113,10 @@
 
                 @if (session('role')->level_role == 5)
                     <li><a href="{{ route('pelaporan.perlu_direview') }}" data-key="">Perlu Direview</a></li>
+                @endif
+
+                @if(session('role')->level_role == 1 || session('role')->level_role == 5 || session('role')->level_role == 3 )
+                    <li class="menu-title" data-key="">Data Pengguna</li>
                 @endif
 
                 @if(session('role')->level_role == 1 || session('role')->level_role == 5 )

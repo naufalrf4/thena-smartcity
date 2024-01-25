@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,17 @@ Route::group([
     // Route::delete('/{id}', [App\Http\Controllers\PelaporanController::class, 'api_deletepelaporan']);
 });
 
+Route::get('/create-storage-link', function () {
+    try {
+        Artisan::call('storage:link');
+
+        Artisan::call('cache:clear');
+        Artisan::call('config:clear');
+
+        return response()->json(['message' => 'Storage link created and cache cleared successfully'], 200);
+    } catch (\Exception $e) {
+        \Log::error('Error creating storage link: ' . $e->getMessage());
+
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});

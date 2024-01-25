@@ -1817,7 +1817,7 @@
                                                 <div class="flex-grow-1 ms-3 overflow-hidden">
                                                     <h5 class="mb-1 text-truncate"><a href=""
                                                             class="font-size-15 text-dark">${dt.nama_laporan}</a></h5>
-                                                    <p class="text-muted d-none d-md-block fw-semibold mb-0 text-truncate">oleh ${dt.name}</p>
+                                                    <p class="text-muted d-none d-md-block fw-semibold mb-0 text-truncate">oleh ${dt.name.charAt(0) + '*'.repeat(dt.name.length - 2) + dt.name.charAt(dt.name.length - 1)}</p>
                                                     <span class="text-primary d-block d-md-none" style="cursor: pointer;">
                                                         Klik Untuk Lihat Selengkapnya
                                                     </span>
@@ -1860,7 +1860,7 @@
                                                     </div>
                                                     <div>
                                                         <h6 class="fw-bold">Oleh:</h6>
-                                                        ${dt.name ?? '-'}
+                                                        ${dt.name.charAt(0) + '*'.repeat(dt.name.length - 2) + dt.name.charAt(dt.name.length - 1) ?? '-'}
                                                     </div>
                                                 </div>
 
@@ -1928,7 +1928,7 @@
                                                     <div class="flex-grow-1 ms-3 overflow-hidden">
                                                         <h5 class="mb-1 text-truncate"><a href=""
                                                                 class="font-size-15 text-dark">${dt.nama_laporan}</a></h5>
-                                                        <p class="text-muted d-none d-md-block fw-semibold mb-0 text-truncate">Untuk ${dt.name}</p>
+                                                        <p class="text-muted d-none d-md-block fw-semibold mb-0 text-truncate">Untuk ${dt.name.charAt(0) + '*'.repeat(dt.name.length - 2) + dt.name.charAt(dt.name.length - 1)}</p>
                                                         <span class="text-primary d-block d-md-none" style="cursor: pointer;">
                                                             Klik Untuk Lihat Selengkapnya
                                                         </span>
@@ -1980,7 +1980,7 @@
                                                         </div>
                                                         <div>
                                                             <h6 class="fw-bold">Oleh:</h6>
-                                                            ${dt.name ?? '-'}
+                                                            ${dt.name.charAt(0) + '*'.repeat(dt.name.length - 2) + dt.name.charAt(dt.name.length - 1) ?? '-'}
                                                         </div>
                                                     </div>
                                                 </div>

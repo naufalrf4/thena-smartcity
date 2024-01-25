@@ -112,7 +112,12 @@
                 </li>
 
                 @if (session('role')->level_role == 5)
-                    <li><a href="{{ route('pelaporan.perlu_direview') }}" data-key="">Perlu Direview</a></li>
+                    <li>
+                        <a href="{{ route('pelaporan.perlu_direview') }}" data-key="">
+                            <i class="bx bx-calendar-check icon nav-icon"></i>
+                            <span class="menu-item" data-key="t-dashboard">Perlu Direview</span>
+                        </a>
+                    </li>
                 @endif
 
                 @if(session('role')->level_role == 1 || session('role')->level_role == 5 || session('role')->level_role == 3 )

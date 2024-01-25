@@ -19,11 +19,10 @@
                     <div class="text-center py-5 mt-5">
                        <div class="position-relative">
                           <h1 class="error-title error-text mb-0">404</h1>
-                          <h4 class="error-subtitle text-uppercase mb-0">Opps, page not found</h4>
-                          <p class="font-size-16 mx-auto text-muted w-50 mt-4">It will be as simple as Occidental in fact, it will Occidental to an English person</p>
+                          <h4 class="error-subtitle text-uppercase mb-0">Oops, page not found</h4>
                        </div>
                         <div class="mt-4 text-center">
-                            <a class="btn btn-primary" href="index">Back to Dashboard</a>
+                            <a class="btn btn-primary" href="/">Back to Home</a>
                         </div>
                     </div>
                 </div>

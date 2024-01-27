@@ -458,7 +458,7 @@
         },
         series: [{
             name: 'Total Laporan',
-            data: {{ json_encode($grp1) }}
+            data: array_map(fn($value) => is_numeric($value) ? (int)$value : $value, json_decode('{{ json_encode($grp1) }}', true));
         }],
         colors: barchartColors,
         xaxis: {

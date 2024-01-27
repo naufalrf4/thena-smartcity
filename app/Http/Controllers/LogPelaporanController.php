@@ -86,11 +86,11 @@ class LogPelaporanController extends Controller
                 $user = User::find(auth()->user()->id);
     
                 $data = (object) [
-                    'no_wa' => '62' . substr($user->no_telp, 1),
+                    'no_wa' => '62' . substr($user->submitter->no_telp, 1),
                     'message' => 'Laporan dengan judul ' . $pelaporan->judul_laporan . ' telah mendapat log petugas',
                 ];
-                
-                $response = Http::post('http://127.0.0.1:3000?no_wa='. $data->no_wa.'&message=' . str_replace(' ', '%20', $data->message));
+                dd($data);
+                $response = Http::post('https://api-chatwa.azurewebsites.net?no_wa='. $data->no_wa.'&message=' . str_replace(' ', '%20', $data->message));
         
                 if ($response->failed()) {
                     // // Handle error

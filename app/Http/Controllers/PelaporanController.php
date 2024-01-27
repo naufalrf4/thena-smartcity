@@ -308,29 +308,10 @@ class PelaporanController extends Controller
             'foto' => $validatedData['foto_kejadian'],
         ]);
 
-        try{
-            $user = User::find(auth()->user()->id);
+        $this->sendNotification($Pelaporan);
 
-            $data = (object) [
-                'no_wa' => '62' . substr($user->no_telp, 1),
-                'message' => 'Laporan baru telah dibuat dengan judul ' . $validatedData['judul_laporan'] . ' oleh ' . auth()->user()->name . '. Silahkan cek di aplikasi untuk detailnya.',
-            ];
+        return redirect()->route('pelaporan.index')->with('success', 'Laporan berhasil dibuat');
 
-            
-            $response = Http::post('http://127.0.0.1:3000?no_wa='. $data->no_wa.'&message=' . str_replace(' ', '%20', $data->message));
-    
-            if ($response->failed()) {
-                dd($response);
-                // // Handle error
-                // $errorMessage = $response->body();
-                // return $errorMessage; // Gantilah 'error' dengan nama view yang sesuai
-            } else {
-                return redirect()->route('pelaporan.index')->with('success', 'Laporan berhasil dibuat');
-            }
-        }catch(\Exception $e){
-            return redirect()->route('pelaporan.index')->with('success', 'Laporan berhasil dibuat');
-        }
-        
        } catch (ValidationException $e) {
             dd($e->getMessage());
             $errors = $e->validator->errors()->all();
@@ -526,61 +507,44 @@ class PelaporanController extends Controller
                 $pelaporan->status_penanganan_id = $request->status_penanganan_id;
                 $pelaporan->role_penanganan_id = $request->role_penanganan_id;
                 $pelaporan->save();
-
-                try{
-                    $user = User::find(auth()->user()->id);
-        
-                    $data = (object) [
-                        'no_wa' => '62' . substr($user->no_telp, 1),
-                        'message' => 'Laporan dengan judul ' . $pelaporan->nama_laporan . ' telah diupdate oleh Dispatcher, Silahkan cek di aplikasi untuk detailnya.',
-                    ];
-                    
-                    $response = Http::post('http://127.0.0.1:3000?no_wa='. $data->no_wa.'&message=' . str_replace(' ', '%20', $data->message));
-                    if ($response->failed()) {
-                        // // Handle error
-                        // $errorMessage = $response->body();
-                        // return $errorMessage; // Gantilah 'error' dengan nama view yang sesuai
-                    } else {
-                       return redirect()->back()->with('success', 'Laporan berhasil diupdate');
-                    }
-                }catch(\Exception $e){
-                   return redirect()->back()->with('success', 'Laporan berhasil diupdate');
-                }
             }
 
             if(session('role')->level_role == 5){
                 $pelaporan->status_penanganan_id = $request->status_penanganan_id;
                 $pelaporan->estimasi_selesai = $request->estimasi_selesai;
                 $pelaporan->save();
-
-                try{
-                    $user = User::find(auth()->user()->id);
-        
-                    $data = (object) [
-                        'no_wa' => '62' . substr($user->no_telp, 1),
-                        'message' => 'Laporan dengan judul ' . $pelaporan->nama_laporan . ' telah diupdate oleh Dinas, Silahkan cek di aplikasi untuk detailnya.',
-                    ];
-                    
-                    $response = Http::post('http://127.0.0.1:3000?no_wa='. $data->no_wa.'&message=' . str_replace(' ', '%20', $data->message));
-            
-                    if ($response->failed()) {
-                        // // Handle error
-                        // $errorMessage = $response->body();
-                        // return $errorMessage; // Gantilah 'error' dengan nama view yang sesuai
-                    } else {
-                       return redirect()->back()->with('success', 'Laporan berhasil diupdate');
-                    }
-                }catch(\Exception $e){
-                   return redirect()->back()->with('success', 'Laporan berhasil diupdate');
-                }
             }
 
+            $this->sendNotification($pelaporan);
+            
             return redirect()->back()->with('success', 'Laporan berhasil diupdate');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
+    public function sendNotification($pelaporan)
+    {
+        try {
+            $user = Pelaporan::with('submitter','statusPenanganan')->find($pelaporan->id);
+    
+            $data = (object) [
+                'no_wa' => '62' . substr($user->submitter->no_telp, 1),
+                'message' => 'Laporan dengan judul ' . $pelaporan->nama_laporan . ' telah diupdate menjadi ' . $pelaporan->statusPenanganan->status . ', Silahkan cek di aplikasi untuk detailnya.',
+            ];
+    
+            $response = Http::post('https://api-chatwa.azurewebsites.net?no_wa=' . $data->no_wa . '&message=' . str_replace(' ', '%20', $data->message));
+    
+            if ($response->failed()) {
+                \Log::error('Notification failed: ' . $response->body());
+            } else {
+                \Log::info('Notification sent successfully: ' . $response->body());
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error sending notification: ' . $e->getMessage());
+        }
+    }
+    
     /**
      * Remove the specified resource from storage.
      */

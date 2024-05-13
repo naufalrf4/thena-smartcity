@@ -36,7 +36,6 @@ class Roles extends Model
         parent::boot();
 
         static::deleting(function ($roles) {
-            // Delete related Petugas
             $roles->petugas()->delete();
         });
     }

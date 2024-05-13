@@ -51,7 +51,7 @@ class ChatController extends Controller
             $chat = Chat::create([
                 'user_id' => auth()->user()->id,
                 'pelaporan_id' => $validatedData['pelaporan_id'],
-                'sender_id' => auth()->user()->id, // Assuming the sender is the currently authenticated user
+                'sender_id' => auth()->user()->id,
                 'chat' => $validatedData['chat'],
             ]);
     
@@ -60,7 +60,6 @@ class ChatController extends Controller
             dd($e->getMessage());
             $errors = $e->validator->errors()->all();
     
-            // You can return these errors to the view or handle them as needed
             return back()->withErrors($errors)->withInput();
         }
     }

@@ -45,24 +45,6 @@
 
                 <li class="menu-title" data-key="">Pelaporan</li>
 
-                {{-- <li class="">
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="bx bx-file icon nav-icon"></i>
-                        <span class="menu-item" data-key="">Pelaporan</span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li><a href="{{ route('pelaporan.index') }}" data-key="">Semua Laporan</a></li>
-                        <li><a href="{{ route('pelaporan.belum_ditangani') }}" data-key="">Belum Ditangani</a></li>
-                        <li><a href="{{ route('pelaporan.sedang_ditangani') }}" data-key="">Sedang Ditangani</a></li>
-
-                        @if (session('role')->level_role == 5)
-                            <li><a href="{{ route('pelaporan.perlu_direview') }}" data-key="">Perlu Direview</a></li>
-                        @endif
-
-                        <li><a href="{{ route('pelaporan.selesai') }}" data-key="">Laporan Selesai</a></li>
-                    </ul>
-                </li> --}}
-
                 <li>
                     <a href="{{ route('pelaporan.index') }}">
                         <i class="bx bx-file icon nav-icon"></i>

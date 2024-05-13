@@ -16,6 +16,7 @@
     <body>
     @endsection
     @section('content')
+    @include('components.chatbot')
         <div class="row">
             <div class="col-xl-6">
                 @if(session('role')->level_role != 6)

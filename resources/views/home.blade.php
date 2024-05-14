@@ -39,7 +39,7 @@
                 </div>
             </div>
         </section>
-        @include('landing.footer')
     </main>
+    @include('landing.footer')
     @include('components.chatbot')
 @endsection

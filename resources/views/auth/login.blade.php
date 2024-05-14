@@ -19,10 +19,10 @@
 
                             <div class="mb-4 pb-2">
                                 <a href="/" class="d-block auth-logo">
-                                    <img src="{{ URL::asset('build/images/images-landing/semapor-logo-text.png') }}" alt="" height="30"
-                                        class="auth-logo-dark me-start">
-                                    <img src="{{ URL::asset('build/images/images-landing/semapor-logo-text.png') }}" alt="" height="30"
-                                        class="auth-logo-light me-start">
+                                    <img src="{{ URL::asset('build/images/images-landing/semapor-logo-text.png') }}"
+                                        alt="" height="30" class="auth-logo-dark me-start">
+                                    <img src="{{ URL::asset('build/images/images-landing/semapor-logo-text.png') }}"
+                                        alt="" height="30" class="auth-logo-light me-start">
                                 </a>
                             </div>
 
@@ -30,17 +30,18 @@
                                 <div class="card-body p-4">
                                     <div class="text-center mt-2">
                                         <h5>Selamat Datang</h5>
-                                        <p class="text-muted">Login untuk melanjutkan ke Dashboard.</p>
+                                        <p class="text-muted">Login untuk melanjutkan ke Semapor.</p>
                                     </div>
                                     <div class="p-2 mt-4">
                                         <form method="POST" action="{{ route('login') }}" class="auth-input">
                                             @csrf
                                             <div class="mb-2">
-                                                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                                <label for="email" class="form-label">Email <span
+                                                        class="text-danger">*</span></label>
                                                 <input id="email" type="email"
                                                     class="form-control @error('email') is-invalid @enderror" name="email"
                                                     value="{{ old('email') }}" required autocomplete="email" autofocus
-                                                    value="admin@themesbrand.com">
+                                                    value="admin@thena.com">
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -49,11 +50,9 @@
                                             </div>
 
                                             <div class="mb-3">
-                                                {{-- <div class="float-end">
-                                                    <a href="{{ route('password.update') }}"
-                                                        class="text-muted text-decoration-underline">Forgot password?</a>
-                                                </div> --}}
-                                                <label class="form-label" for="password-input">Password <span class="text-danger">*</span></label>
+
+                                                <label class="form-label" for="password-input">Password <span
+                                                        class="text-danger">*</span></label>
                                                 <div class="position-relative auth-pass-inputgroup input-custom-icon">
                                                     <span class="bx bx-lock-alt"></span>
                                                     <input type="password"
@@ -65,6 +64,7 @@
                                                         id="password-addon">
                                                         <i class="mdi mdi-eye-outline font-size-18 text-muted"></i>
                                                     </button>
+
                                                 </div>
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
@@ -76,41 +76,17 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="remember"
                                                     id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="remember">Remember
-                                                    me</label>
+                                                <label class="form-check-label" for="remember">Ingat Saya</label>
+                                                <div class="float-end">
+                                                    <a href="{{ route('password.email') }}"
+                                                        class="text-muted text-decoration-underline">Lupa kata sandi?</a>
+                                                </div>
                                             </div>
 
                                             <div class="mt-4">
                                                 <button class="btn btn-primary w-100" type="submit">Sign
                                                     In</button>
                                             </div>
-
-                                            {{-- <div class="mt-4 text-center">
-                                                <div class="signin-other-title">
-                                                    <h5 class="font-size-14 mb-3 mt-2 title"> Sign in with </h5>
-                                                </div>
-
-                                                <ul class="list-inline mt-2">
-                                                    <li class="list-inline-item">
-                                                        <a href="javascript:void(0)"
-                                                            class="social-list-item bg-primary text-white border-primary">
-                                                            <i class="bx bxl-facebook"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                        <a href="javascript:void(0)"
-                                                            class="social-list-item bg-info text-white border-info">
-                                                            <i class="bx bxl-linkedin"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                        <a href="javascript:void(0)"
-                                                            class="social-list-item bg-danger text-white border-danger">
-                                                            <i class="bx bxl-google"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div> --}}
 
                                             <div class="mt-4 text-center">
                                                 <p class="mb-0">Belum memiliki akun? <a href="{{ route('register') }}"
@@ -144,32 +120,31 @@
         <script src="{{ URL::asset('build/js/pages/pass-addon.init.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        @if(session('success'))
-        <script>
-            // SweetAlert2 pop-up for success
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: "{{ session('success') }}",
-            });
-        </script>
+        @if (session('success'))
+            <script>
+                // SweetAlert2 pop-up for success
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: "{{ session('success') }}",
+                });
+            </script>
         @elseif(session('error'))
-        <script>
-            // SweetAlert2 pop-up for error
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: "{{ session('error') }}",
-            });
-        </script>
+            <script>
+                // SweetAlert2 pop-up for error
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: "{{ session('error') }}",
+                });
+            </script>
         @elseif($errors->any())
-        <script>
-            // SweetAlert2 pop-up for validation errors
-            Swal.fire({
-                icon: 'error',
-                title: 'Validation Error!',
-                html: "@foreach ($errors->all() as $error)<p>{{ $error }}</p>@endforeach",
-            });
-        </script>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error!',
+                    html: "@foreach ($errors->all() as $error)<p>{{ $error }}</p>@endforeach",
+                });
+            </script>
         @endif
     @endsection

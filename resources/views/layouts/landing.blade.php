@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Title -->
-    <title>@yield('title', 'Semapor')</title>
+    <title>@yield('title', 'Semapor') | Semapor</title>
 
     <!-- SEO meta tags -->
     <meta name="description"

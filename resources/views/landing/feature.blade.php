@@ -127,11 +127,9 @@
                     <h4 class="text-gradient-1">Fitur 3</h4>
                     <h1 class="">
                         Notifikasi & Forum Pelaporan
-                        <!-- <span class="text-primary-2">GenAI</span>. -->
                     </h1>
                     <p class="" style="text-align: justify;">
-                        {{-- Memberikan <span class="text-gradient-1 fw-bold"> pelacakan status pelaporan,</span> mulai dari pengajuan hingga penyelesaian. Informasi yang terkandung dalam status pelaporan mencakup tahapan-tahapan seperti proses penugasan kepada pihak terkait, perkembangan pekerjaan, hingga status penyelesaian sebagai <span class="text-gradient-1 fw-bold"> bentuk transparansi atas pelaporan yang ada.</span> --}}
-
+                        
                         Memberikan pengguna <span class="text-gradient-1 fw-bold"> kemudahan dalam menerima
                             informasi langsung terkait perkembangan laporan </span> mereka, mulai dari
                         konfirmasi penerimaan hingga pemberitahuan penyelesaian dan <span

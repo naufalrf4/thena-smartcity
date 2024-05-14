@@ -8,19 +8,13 @@
                             <h6 class=" mb-2">Tautan Cepat</h6>
                             <ul class="link-list list-unstyled mb-0">
                                 <li>
-                                    <a href="#beranda">Beranda</a>
+                                    <a href="{{ route('home') }}">Beranda</a>
                                 </li>
                                 <li>
-                                    <a href="#tentang">Tentang</a>
+                                    <a href="{{ route('news') }}">Berita</a>
                                 </li>
                                 <li>
-                                    <a href="#fitur">Fitur</a>
-                                </li>
-                                <li>
-                                    <a href="#pendiri">Pendiri</a>
-                                </li>
-                                <li>
-                                    <a href="#testimoni">Testimoni</a>
+                                    <a href="{{ route('contact') }}">Kontak</a>
                                 </li>
                             </ul>
                         </div>

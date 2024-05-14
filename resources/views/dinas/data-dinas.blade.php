@@ -3,7 +3,6 @@
     Data Dinas
 @endsection
 @section('css')
-    <!-- gridjs css -->
     <link rel="stylesheet" href="{{ URL::asset('build/libs/gridjs/theme/mermaid.min.css') }}">
 @endsection
 @section('page-title')

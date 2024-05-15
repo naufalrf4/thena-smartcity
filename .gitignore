@@ -3,6 +3,9 @@
 # /public/hot
 # /public/storage
 # /storage/*.key
+
+.env
+
 /vendor/*
 !/vendor/laravel
 /vendor/laravel/*

@@ -35,7 +35,7 @@
 
                 <div>
                     @if (session('user'))
-                        <a href={{ route('dashboard ') }} class="btn btn-outline-primary">Dashboard</a>
+                        <a href={{ route('dashboard.index') }} class="btn btn-outline-primary">Dashboard</a>
                     @else
                         <a href={{ route('login') }} class="btn btn-outline-primary">Masuk</a>
                     @endif

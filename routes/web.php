@@ -1,5 +1,15 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\ConfirmablePasswordController;
+use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PelaporanController;
@@ -12,17 +22,6 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\PublicController;
 
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\ConfirmablePasswordController;
-use App\Http\Controllers\Auth\EmailVerificationNotificationController;
-use App\Http\Controllers\Auth\EmailVerificationPromptController;
-use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\Auth\PasswordController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\LoginController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
@@ -50,7 +49,6 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
 
-// Public Routes
 Route::get('/', [PublicController::class, 'index'])->name('home');
 Route::get('/news', [BeritaController::class, 'index'])->name('news');
 Route::get('/about', function () {
@@ -60,23 +58,21 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-// Authorized Routes
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'root'])->name('dashboard.index');
-    Route::resource('pelaporan', PelaporanController::class);
-    Route::get('pelaporan/status/belum-ditangani', [PelaporanController::class, 'belum_ditangani'])->name('pelaporan.belum_ditangani');
-    Route::get('pelaporan/status/sedang-ditangani', [PelaporanController::class, 'sedang_ditangani'])->name('pelaporan.sedang_ditangani');
-    Route::get('pelaporan/status/perlu-direview', [PelaporanController::class, 'perlu_direview'])->name('pelaporan.perlu_direview');
-    Route::get('pelaporan/status/selesai', [PelaporanController::class, 'selesai'])->name('pelaporan.selesai');
-    Route::resource('petugas-diassign', PetugasDiassignController::class);
-    Route::resource('log-pelaporan', LogPelaporanController::class);
-    Route::resource('user', UserController::class);
-    Route::resource('dinas', DinasController::class);
-    Route::resource('profile', ProfileController::class);
-    Route::resource('chat', ChatController::class);
-});
+Route::get('/dashboard', [HomeController::class, 'root'])->name('dashboard.index');
+Route::get('pelaporan/status/belum-ditangani', [PelaporanController::class, 'index'])->name('pelaporan.belum_ditangani');
+Route::get('pelaporan/status/sedang-ditangani', [PelaporanController::class, 'index'])->name('pelaporan.sedang_ditangani');
+Route::get('pelaporan/status/perlu-direview', [PelaporanController::class, 'index'])->name('pelaporan.perlu_direview');
+Route::get('pelaporan/status/selesai', [PelaporanController::class, 'index'])->name('pelaporan.selesai');
+Route::resource('pelaporan', PelaporanController::class);
 
-// Catch-all route
+Route::resource('petugas-diassign', PetugasDiassignController::class);
+Route::resource('log-pelaporan', LogPelaporanController::class);
+
+Route::resource('user', UserController::class);
+Route::resource('dinas', DinasController::class);
+Route::resource('profile', ProfileController::class);
+Route::resource('chat', ChatController::class);
+
 Route::get('/{name}', function ($name) {
     return view("$name");
 })->where('name', '.*');

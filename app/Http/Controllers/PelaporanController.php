@@ -284,7 +284,7 @@ class PelaporanController extends Controller
             'kecamatan_id' => 'required',
             'kelurahan_id' => 'required',
             'tanggal_kejadian' => 'required',
-            'foto_kejadian' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_kejadian' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ]);
 
         if ($request->hasFile('foto_kejadian')) {
@@ -417,7 +417,7 @@ class PelaporanController extends Controller
                 'alamat_kejadian' => 'nullable',
                 'kecamatan_id' => 'nullable',
                 'kelurahan_id' => 'nullable',  
-                'foto' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'foto' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
                 'status_penanganan_id' => 'nullable',
                 'estimasi_selesai' => 'nullable',
                 'role_penanganan_id' => 'nullable',
@@ -430,7 +430,7 @@ class PelaporanController extends Controller
                 'alamat_kejadian' => 'required',
                 'kecamatan_id' => 'required',
                 'kelurahan_id' => 'required',  
-                'foto' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'foto' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
             ]);
         }
 

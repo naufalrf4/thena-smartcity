@@ -44,7 +44,7 @@ class ChatController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'pelaporan_id' => 'required', // Assuming you want to associate the chat with a pelaporan
+                'pelaporan_id' => 'required',
                 'chat' => 'required',
             ]);
     

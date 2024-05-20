@@ -28,7 +28,6 @@ class UserController extends Controller
                 $query->where('dep_role', $role->id);
             })->with(['getRole', 'getKecamatan', 'getKelurahan'])->get();
         } else {
-            // Other roles, retrieve all users with their related data
             if ($request->has('role')) {
                 $users = User::where('role_id', $request->role)->get();
             } else {

@@ -27,26 +27,40 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validateLogin($request);
-
+    
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
-
+    
             $user = Auth::user();
-            $request->session()->put('user', $user);
-
             $role = Roles::find($user->role_id);
-            $request->session()->put('role', $role);
-
             $token = $user->createToken('token-name')->plainTextToken;
-            $request->session()->put('ses_token', $token);
+    
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'user' => $user,
+                    'role' => $role,
+                    'token' => $token,
+                ]);
+            }
 
+            $request->session()->put('user', $user);
+            $request->session()->put('role', $role);
+            $request->session()->put('ses_token', $token);
+    
             return redirect()->intended($this->redirectPath());
         }
-
+    
+        if ($request->wantsJson()) {
+            return response()->json([
+                'message' => 'User tidak ditemukan atau password salah.',
+            ], 401);
+        }
+    
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'User tidak ditemukan atau password salah.',
         ]);
     }
+    
 
     protected function validateLogin(Request $request)
     {

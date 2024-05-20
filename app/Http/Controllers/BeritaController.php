@@ -12,7 +12,6 @@ class BeritaController extends Controller
         
         if ($response->successful()) {
             $articles = $response->json()['data']['posts'];
-            // Slice the array to limit to 9 articles
             $articles = array_slice($articles, 0, 9);
         } else {
             $articles = [];

@@ -168,11 +168,11 @@
                                             Tambah Petugas</button> -->
                                     </div>
                                     <div class="card-body pt-2">
-                                        <div>
+                                        {{-- <div>
                                             <h5 class="">Grafik Laporan Harian</h5>
                                         
                                                 <div id="grafik_laporan_harian" data-label="Pelaporan" data-colors='["#1f58c7", "#1f58c7", "#1f58c7","#1f58c7", "#1f58c7", "#1f58c7","#1f58c7","#1f58c7","#1f58c7","#1f58c7","#1f58c7", "#1f58c7"]' class="apex-chart"></div>
-                                        </div>
+                                        </div> --}}
                                         
                                         <div style="margin-top: -50px">
                                             <h5 class="">Tabel Laporan Harian</h5>

@@ -50,7 +50,7 @@
     }
 
     .chatbot-overlay {
-        display: none;
+        display: hidden;
         position: fixed;
         top: 0;
         left: 0;
@@ -62,7 +62,7 @@
     }
 
     .chatbot-window {
-        display: none;
+        display: hidden;
         position: fixed;
         bottom: 85px;
         right: 20px;
@@ -159,29 +159,24 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        // Generate a unique chatId
         function generateChatId() {
             return 'chat-' + Math.random().toString(36).substr(2, 9);
         }
 
-        // Store or retrieve chatId from local storage
         var chatId = localStorage.getItem('chatId');
         if (!chatId) {
             chatId = generateChatId();
             localStorage.setItem('chatId', chatId);
         }
 
-        // Ensure chat window is hidden on load
         $('.chatbot-window').hide();
         $('.chatbot-overlay').hide();
 
-        // Toggle chat window
         $('.chatbot-toggle-btn').click(function() {
             $('.chatbot-window').toggle();
             $('.chatbot-overlay').toggle();
         });
-
-        // Close chat window on clicking outside of it
+        
         $(document).click(function(event) {
             if (!$(event.target).closest('.chatbot-window, .chatbot-toggle-btn').length) {
                 $('.chatbot-window').hide();
@@ -189,18 +184,15 @@
             }
         });
 
-        // Prevent closing chat window when clicking inside it
         $('.chatbot-window').click(function(event) {
             event.stopPropagation();
         });
 
-        // Close chat window
         $('.close-chatbot-btn').click(function() {
             $('.chatbot-window').hide();
             $('.chatbot-overlay').hide();
         });
 
-        // Send message with button click or Enter key
         $('.send-message-btn').click(sendMessage);
         $('.chatbot-input').keypress(function(e) {
             if (e.which == 13) {
@@ -213,12 +205,10 @@
             if (message.trim() !== '') {
                 $('.chatbot-messages').append('<div class="message user">' + message + '</div>');
                 $('.chatbot-input').val('');
-                // Scroll to bottom
                 $('.chatbot-messages').scrollTop($('.chatbot-messages')[0].scrollHeight);
 
-                // Make API call
                 $.ajax({
-                    url: 'http://localhost:5555/',
+                    url: 'https://api-chat.nrfdev.site/',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({
@@ -227,12 +217,11 @@
                     }),
                     success: function(response) {
                         $('.chatbot-messages').append('<div class="message">' + response.response + '</div>');
-                        // Scroll to bottom
+                
                         $('.chatbot-messages').scrollTop($('.chatbot-messages')[0].scrollHeight);
                     },
                     error: function() {
                         $('.chatbot-messages').append('<div class="message">Error: Unable to get a response from the AI.</div>');
-                        // Scroll to bottom
                         $('.chatbot-messages').scrollTop($('.chatbot-messages')[0].scrollHeight);
                     }
                 });

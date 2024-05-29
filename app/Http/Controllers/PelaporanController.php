@@ -10,10 +10,12 @@ use App\Models\Roles;
 use App\Models\StatusLogPelaporan;
 use App\Models\StatusPenanganan;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Log;
 
 class PelaporanController extends Controller
 {
@@ -113,6 +115,30 @@ class PelaporanController extends Controller
             dd($e);
             return response()->json(['message' => 'Tidak ada parameter yang diberikan'], 404);
         }
+    }
+
+    public function exportPdf(Request $request) {
+        $role = Roles::find(session('role')->id);
+        if (!$role) {
+            return response()->json(['message' => 'Role tidak ditemukan'], 404);
+        }
+    
+        // Mengambil data pelaporan sesuai role
+        $pelaporan = Pelaporan::with(['submitter', 'kecamatan', 'kelurahan', 'statusPenanganan']);
+    
+        if ($role->level_role == 5) {
+            $pelaporan = $pelaporan->where('role_penanganan_id', $role->id);
+        } else if ($role->level_role == 6) {
+            $petugas_diassign = Petugas_Diassign::where('user_id', session('user')->id)->with('pelaporan')->get();
+            $pelaporanIds = $petugas_diassign->pluck('pelaporan.id');
+            $pelaporan = $pelaporan->whereIn('id', $pelaporanIds);
+        }
+    
+        $pelaporan = $pelaporan->get();
+    
+        $pdf = Pdf::loadView('pelaporan.export', compact('pelaporan'));
+    
+        return $pdf->download('laporan_pelaporan.pdf');
     }
 
     public function api_getpelaporan(Request $request){
@@ -308,7 +334,7 @@ class PelaporanController extends Controller
             'foto' => $validatedData['foto_kejadian'],
         ]);
 
-        $this->sendNotification($Pelaporan);
+        // $this->sendNotification($Pelaporan);
 
         return redirect()->route('pelaporan.index')->with('success', 'Laporan berhasil dibuat');
 
@@ -515,7 +541,7 @@ class PelaporanController extends Controller
                 $pelaporan->save();
             }
 
-            $this->sendNotification($pelaporan);
+            // $this->sendNotification($pelaporan);
             
             return redirect()->back()->with('success', 'Laporan berhasil diupdate');
         } catch (\Exception $e) {
@@ -536,12 +562,12 @@ class PelaporanController extends Controller
             $response = Http::post('https://api-chatwa.azurewebsites.net?no_wa=' . $data->no_wa . '&message=' . str_replace(' ', '%20', $data->message));
     
             if ($response->failed()) {
-                \Log::error('Notification failed: ' . $response->body());
+                Log::error('Notification failed: ' . $response->body());
             } else {
-                \Log::info('Notification sent successfully: ' . $response->body());
+                Log::info('Notification sent successfully: ' . $response->body());
             }
         } catch (\Exception $e) {
-            \Log::error('Error sending notification: ' . $e->getMessage());
+            Log::error('Error sending notification: ' . $e->getMessage());
         }
     }
     

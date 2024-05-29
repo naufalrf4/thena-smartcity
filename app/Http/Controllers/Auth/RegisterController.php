@@ -70,8 +70,25 @@ class RegisterController extends Controller
             $token = $user->createToken('token-name')->plainTextToken;
             $request->session()->put('ses_token', $token);
 
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Akun anda telah terbuat, silahkan login',
+                    'user' => $user,
+                    'role' => $role,
+                    'token' => $token,
+                ], 201);
+            }
+
             return redirect()->route('login')->with('success', 'Akun anda telah terbuat, silahkan login');
         } else {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Gagal membuat akun.',
+                ], 500);
+            }
+
             return redirect()->back()->with('error', 'Gagal membuat akun.')->withInput();
         }
     }

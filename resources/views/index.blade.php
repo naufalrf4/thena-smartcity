@@ -36,12 +36,7 @@
                                             <!-- <i class="mdi mdi-chevron-down ms-1"></i> -->
                                         </span>
                                     </a>
-                                    <!-- <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">Yearly</a>
-                                        <a class="dropdown-item" href="#">Monthly</a>
-                                        <a class="dropdown-item" href="#">Weekly</a>
-                                        <a class="dropdown-item" href="#">Today</a>
-                                    </div> -->
+                                    
                                 </div>
                             </div>
                             @endif

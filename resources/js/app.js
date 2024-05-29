@@ -1,12 +1,3 @@
-/*
-Template Name: webadmin - Admin & Dashboard Template
-Author: Themesdesign
-Version: 1.0.0
-Website: https://Themesdesign.com/
-Contact: Themesdesign@gmail.com
-File: Main Js File
-*/
-
 
 (function () {
 

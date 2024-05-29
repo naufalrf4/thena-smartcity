@@ -57,6 +57,7 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
+Route::get('/pelaporan/export-pdf', [PelaporanController::class, 'exportPdf'])->name('pelaporan.exportPdf');
 
 Route::get('/dashboard', [HomeController::class, 'root'])->name('dashboard.index');
 Route::get('pelaporan/status/belum-ditangani', [PelaporanController::class, 'index'])->name('pelaporan.belum_ditangani');

@@ -13,12 +13,7 @@
 </head>
 
 <body>
-    
     @yield('content')
-
-    <!-- vendor-scripts -->
     @include('layouts.vendor-scripts')
-
 </body>
-
 </html>
